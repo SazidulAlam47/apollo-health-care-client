@@ -1,12 +1,15 @@
 import Footer from '@/components/shared/Footer/Footer';
 import Navbar from '@/components/shared/Navbar/Navbar';
+import { Box } from '@mui/material';
 import { ReactNode } from 'react';
 
 const CommonLayout = ({ children }: { children: ReactNode }) => {
     return (
         <>
             <Navbar />
-            <div className="min-h-[100dvh]">{children}</div>
+            <Box component="main" minHeight="100dvh">
+                {children}
+            </Box>
             <Footer />
         </>
     );

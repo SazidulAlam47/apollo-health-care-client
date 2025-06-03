@@ -1,26 +1,18 @@
-import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
+import logo from '@/assets/logo/logo-black.png';
 
 const Navbar = () => {
     return (
-        <Container>
+        <Container component="header">
             <Stack
                 py={2}
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Typography
-                    component={Link}
-                    href="/"
-                    variant="h5"
-                    fontWeight={600}
-                >
-                    <Box component="span" color="primary.main">
-                        A
-                    </Box>
-                    pollo Health Care
-                </Typography>
+                <Image src={logo} alt="logo" height={60} />
                 <Stack direction="row" gap={4} justifyContent="space-between">
                     <Typography component={Link} href="/consultation">
                         Consultation
