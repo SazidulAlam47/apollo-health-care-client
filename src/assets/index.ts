@@ -31,6 +31,7 @@ import award from './svgs/award-icon.svg';
 import care from './svgs/care-icon.svg';
 import equipment from './svgs/medical-equipment-icon.svg';
 import call from './svgs/call-icon.svg';
+import hero from './landing_page/hero-image.png';
 
 const assets = {
     images: {
@@ -45,6 +46,7 @@ const assets = {
         doctor3,
         stethoscope,
         familyOnBeach,
+        hero,
     },
     svgs: {
         search,

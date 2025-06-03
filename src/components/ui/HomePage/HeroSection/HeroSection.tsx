@@ -42,38 +42,9 @@ const HeroSection = () => {
                     <Image src={assets.svgs.grid} alt="grid" />
                 </Box>
             </Box>
-            <Stack justifyContent="center" position="relative">
-                <Box position="absolute" left={200} top={-30}>
-                    <Image
-                        src={assets.svgs.arrow}
-                        alt="arrow"
-                        height={100}
-                        width={100}
-                    />
-                </Box>
-                <Stack direction="row" gap={1}>
-                    <Box mt={4}>
-                        <Image src={assets.images.doctor1} alt="doctor1" />
-                    </Box>
-                    <Box>
-                        <Image src={assets.images.doctor2} alt="doctor2" />
-                    </Box>
-                </Stack>
-                <Box position="absolute" top={250} left={150}>
-                    <Image
-                        src={assets.images.doctor3}
-                        alt="doctor3"
-                        height={300}
-                    />
-                </Box>
-                <Box position="absolute" bottom={-70} right={-80} zIndex={-1}>
-                    <Image
-                        src={assets.images.stethoscope}
-                        alt="doctor3"
-                        height={240}
-                    />
-                </Box>
-            </Stack>
+            <Box>
+                <Image src={assets.images.hero} alt="hero" />
+            </Box>
         </Container>
     );
 };
