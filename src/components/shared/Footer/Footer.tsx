@@ -11,7 +11,12 @@ const Footer = () => {
     return (
         <Box component="footer" bgcolor="#111a22" color="lightgray" py={5}>
             <Container>
-                <Stack direction="row" gap={4} justifyContent="center">
+                <Stack
+                    direction={{ sx: 'column', md: 'row' }}
+                    gap={4}
+                    justifyContent="center"
+                    alignItems="center"
+                >
                     <Typography component={Link} href="/consultation">
                         Consultation
                     </Typography>
@@ -64,7 +69,7 @@ const Footer = () => {
                 </Stack>
                 <div className="border-b-[1px] border-dashed" />
                 <Stack
-                    direction="row"
+                    direction={{ sx: 'column', md: 'row' }}
                     gap={4}
                     justifyContent="space-between"
                     alignItems="center"
@@ -74,7 +79,11 @@ const Footer = () => {
                         &copy;{new Date().getFullYear()} Apollo Health Care. All
                         Rights Reserved.
                     </Typography>
-                    <Image src={logo} alt="Apollo Health Care" height={60} />
+                    <Image
+                        src={logo}
+                        alt="Apollo Health Care"
+                        className="w-full max-w-[280px]"
+                    />
                     <Stack direction="row" gap={1}>
                         <Link href="/privacy">Privacy Policy</Link>
                         <Typography>|</Typography>

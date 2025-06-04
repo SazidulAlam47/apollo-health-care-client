@@ -15,8 +15,21 @@ const HeroSection = () => {
                 alignItems: 'center',
             }}
         >
-            <Box position="relative" className="space-y-5">
-                <Typography component="h2" variant="h2" fontWeight={600}>
+            <Box
+                position="relative"
+                className="space-y-5"
+                sx={{
+                    backgroundImage: `url('/svg/grid.svg')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}
+            >
+                <Typography
+                    component="h3"
+                    variant="h2"
+                    fontSize={{ xs: 40, md: 60 }}
+                    fontWeight={600}
+                >
                     Healthier Hearts Come From{' '}
                     <Box component="span" color="primary.main">
                         Preventive Care
@@ -32,18 +45,9 @@ const HeroSection = () => {
                     <Button>Make Appointment</Button>
                     <Button variant="outlined">Contact Us</Button>
                 </Stack>
-                <Box
-                    position="absolute"
-                    width={700}
-                    top={-150}
-                    left={-120}
-                    zIndex={-1}
-                >
-                    <Image src={assets.svgs.grid} alt="grid" />
-                </Box>
             </Box>
             <Box>
-                <Image src={assets.images.hero} alt="hero" />
+                <Image src={assets.images.hero} alt="hero" className="w-full" />
             </Box>
         </Container>
     );

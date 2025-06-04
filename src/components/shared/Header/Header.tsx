@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/logo/logo-black.png';
 
-const Navbar = () => {
+const Header = () => {
     return (
         <Container component="header">
             <Stack
@@ -12,8 +12,19 @@ const Navbar = () => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Image src={logo} alt="logo" height={60} />
-                <Stack direction="row" gap={4} justifyContent="space-between">
+                <Link href="/">
+                    <Image
+                        src={logo}
+                        alt="logo"
+                        className="w-full max-w-[280px]"
+                    />
+                </Link>
+                <Stack
+                    direction="row"
+                    gap={4}
+                    justifyContent="space-between"
+                    display={{ xs: 'none', md: 'flex' }}
+                >
                     <Typography component={Link} href="/consultation">
                         Consultation
                     </Typography>
@@ -38,4 +49,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Header;
