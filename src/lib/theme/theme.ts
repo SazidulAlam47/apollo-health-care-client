@@ -15,9 +15,12 @@ const theme = createTheme({
                 variant: 'contained',
             },
             styleOverrides: {
-                root: {
+                root: ({ theme }) => ({
                     padding: '8px 24px',
-                },
+                    [theme.breakpoints.down('sm')]: {
+                        padding: '6px 16px',
+                    },
+                }),
             },
         },
         MuiContainer: {
