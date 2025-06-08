@@ -1,11 +1,6 @@
+import { TSpecialty } from '@/types/specialties.type';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
-
-type TSpecialty = {
-    id: string;
-    title: string;
-    icon: string;
-};
 
 const Specialties = async () => {
     const res = await fetch(
