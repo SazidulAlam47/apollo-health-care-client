@@ -6,7 +6,7 @@ import servicesData from './servicesData';
 const WhyUs = () => {
     return (
         <Container className="space-y-5 my-20">
-            <Box sx={{ textAlign: 'center' }}>
+            <Box textAlign="center">
                 <Typography
                     color="primary"
                     variant="h6"
