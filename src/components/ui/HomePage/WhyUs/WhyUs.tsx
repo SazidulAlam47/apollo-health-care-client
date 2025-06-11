@@ -20,7 +20,11 @@ const WhyUs = () => {
                 </Typography>
             </Box>
             <Grid container spacing={2} alignItems="center">
-                <Grid size={{ xs: 12, md: 6 }} className="space-y-4">
+                <Grid
+                    size={{ xs: 12, md: 6 }}
+                    className="space-y-4"
+                    order={{ xs: 2, md: 1 }}
+                >
                     {servicesData.map((service, index) => (
                         <Stack
                             key={index}
@@ -73,7 +77,7 @@ const WhyUs = () => {
                         </Stack>
                     ))}
                 </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }} order={{ xs: 1, md: 2 }}>
                     <Box>
                         <Image
                             src={chooseUsImg}

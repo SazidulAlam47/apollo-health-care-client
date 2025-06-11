@@ -29,10 +29,14 @@ const HowItWorks = () => {
                     technologies and top-quality surgery facilities right here.
                 </Typography>
             </Box>
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" spacing={3}>
                 <Grid size={{ xs: 12, md: 6 }}>
                     <Box>
-                        <Image src={howItWorksImg} alt="how it works" />
+                        <Image
+                            src={howItWorksImg}
+                            alt="how it works"
+                            className="mx-auto"
+                        />
                     </Box>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>

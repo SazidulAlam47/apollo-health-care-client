@@ -1,3 +1,4 @@
+import Counter from '@/components/ui/HomePage/Counter/Counter';
 import HeroSection from '@/components/ui/HomePage/HeroSection/HeroSection';
 import HowItWorks from '@/components/ui/HomePage/HowItWorks/HowItWorks';
 import Specialties from '@/components/ui/HomePage/Specialties/Specialties';
@@ -12,6 +13,7 @@ const HomePage = () => {
             <TopRatedDoctors />
             <WhyUs />
             <HowItWorks />
+            <Counter />
         </>
     );
 };
