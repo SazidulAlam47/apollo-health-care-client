@@ -12,6 +12,7 @@ import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import styles from './Register.module.css';
 
 type Inputs = {
     password: string;
@@ -92,6 +93,26 @@ const RegisterPage = () => {
                                 <TextField
                                     label="Address"
                                     {...register('patient.address')}
+                                />
+                            </Grid>
+                            <Grid
+                                size={12}
+                                textAlign="start"
+                                display="flex"
+                                flexDirection="column"
+                                gap={0.5}
+                            >
+                                <label
+                                    htmlFor="file-upload"
+                                    className="font-light text-sm text-gray-900"
+                                >
+                                    Profile Photo
+                                </label>
+                                <input
+                                    type="file"
+                                    id="file-upload"
+                                    accept="image/*"
+                                    className={styles.styledFileInput}
                                 />
                             </Grid>
                             <Grid size={12}>
