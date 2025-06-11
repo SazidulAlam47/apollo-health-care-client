@@ -28,6 +28,25 @@ const theme = createTheme({
                 maxWidth: 'lg',
             },
         },
+        MuiTextField: {
+            defaultProps: {
+                variant: 'outlined',
+                fullWidth: true,
+                size: 'small',
+            },
+            styleOverrides: {
+                root: {
+                    color: 'gray',
+                },
+            },
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                notchedOutline: {
+                    transition: 'border-color 0.3s',
+                },
+            },
+        },
     },
     typography: {
         body1: {
