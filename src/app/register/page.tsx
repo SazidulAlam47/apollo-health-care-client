@@ -1,3 +1,4 @@
+'use client';
 import {
     Box,
     Button,
@@ -10,8 +11,27 @@ import {
 import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import Link from 'next/link';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+type Inputs = {
+    password: string;
+    patient: {
+        name: string;
+        email: string;
+        contractNumber: string;
+        address: string;
+    };
+};
 
 const RegisterPage = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<Inputs>();
+
+    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
     return (
         <Container>
             <Stack
@@ -41,29 +61,38 @@ const RegisterPage = () => {
                     <Typography variant="h5" component="h5" fontWeight={600}>
                         Patient Register
                     </Typography>
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Grid container spacing={3}>
                             <Grid size={12}>
-                                <TextField label="Name" name="name" />
+                                <TextField
+                                    label="Name"
+                                    {...register('patient.name')}
+                                />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField label="Email" name="email" />
+                                <TextField
+                                    label="Email"
+                                    {...register('patient.email')}
+                                />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     label="Password"
-                                    name="password"
+                                    {...register('password')}
                                     type="password"
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     label="Contract Number"
-                                    name="contractNumber"
+                                    {...register('patient.contractNumber')}
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField label="Address" name="address" />
+                                <TextField
+                                    label="Address"
+                                    {...register('patient.address')}
+                                />
                             </Grid>
                             <Grid size={12}>
                                 <Button type="submit" fullWidth>
