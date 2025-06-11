@@ -102,7 +102,7 @@ const TopRatedDoctors = async () => {
                                     <Stack
                                         direction="row"
                                         color="gray"
-                                        gap={1}
+                                        gap={0.5}
                                         alignItems="start"
                                     >
                                         <TbCurrencyTaka
