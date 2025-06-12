@@ -83,7 +83,7 @@ const RegisterPage = () => {
                     width="100%"
                     textAlign="center"
                 >
-                    <Box>
+                    <Box component={Link} href="/">
                         <Image
                             src={logo}
                             alt="logo"

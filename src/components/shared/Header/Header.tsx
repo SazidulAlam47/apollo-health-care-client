@@ -1,9 +1,13 @@
+'use client';
 import { Button, Container, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/logo/logo-black.png';
+import { getIsLoggedIn } from '@/services/auth.service';
 
 const Header = () => {
+    const isLoggedIn = getIsLoggedIn();
+    console.log({ isLoggedIn });
     return (
         <Container component="header">
             <Stack
@@ -41,9 +45,16 @@ const Header = () => {
                         NGOs
                     </Typography>
                 </Stack>
-                <Button component={Link} href="/login">
+                {isLoggedIn ? (
+                    <Button color="error">Logout</Button>
+                ) : (
+                    <Button component={Link} href="/login">
+                        Login
+                    </Button>
+                )}
+                {/* <Button component={Link} href="/login">
                     Login
-                </Button>
+                </Button> */}
             </Stack>
         </Container>
     );

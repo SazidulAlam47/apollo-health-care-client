@@ -14,8 +14,8 @@ import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 import userLogin from '@/services/actions/userLogin';
-import storeUserInfo from '@/services/actions/storeUserInfo';
-// import { useRouter } from 'next/navigation';
+import { storeUserInfo } from '@/services/auth.service';
+import { useRouter } from 'next/navigation';
 
 export type TLoginInputs = {
     email: string;
@@ -23,7 +23,7 @@ export type TLoginInputs = {
 };
 
 const LoginPage = () => {
-    // const router = useRouter();
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -37,7 +37,7 @@ const LoginPage = () => {
             if (res.success) {
                 storeUserInfo(res.data.accessToken);
                 toast.success('Logged in successfully', { id: toastId });
-                // router.push('/login');
+                router.push('/');
             } else {
                 toast.error(res.message, { id: toastId });
             }
@@ -63,7 +63,7 @@ const LoginPage = () => {
                     width="100%"
                     textAlign="center"
                 >
-                    <Box>
+                    <Box component={Link} href="/">
                         <Image
                             src={logo}
                             alt="logo"
