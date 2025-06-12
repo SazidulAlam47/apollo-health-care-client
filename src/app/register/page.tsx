@@ -16,7 +16,7 @@ import registerPatient from '@/services/actions/registerPatient';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
-type Inputs = {
+type TRegisterInputs = {
     password: string;
     image: FileList;
     patient: {
@@ -32,10 +32,10 @@ const RegisterPage = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
-    } = useForm<Inputs>();
+        // formState: { errors },
+    } = useForm<TRegisterInputs>();
 
-    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const onSubmit: SubmitHandler<TRegisterInputs> = async (data) => {
         const formData = new FormData();
 
         const patientData = {
@@ -52,18 +52,17 @@ const RegisterPage = () => {
 
         // console.log(Object.fromEntries(formData));
 
+        const toastId = toast.loading('Creating...');
         try {
             const res = await registerPatient(formData);
-            console.log(res);
             if (res.success) {
-                toast.success('Account created successfully');
+                toast.success('Account created successfully', { id: toastId });
                 router.push('/login');
             } else {
-                toast.error(res.message);
+                toast.error(res.message, { id: toastId });
             }
         } catch (error: any) {
-            console.error(error.message);
-            toast.error(error.message);
+            toast.error(error.message, { id: toastId });
         }
     };
 

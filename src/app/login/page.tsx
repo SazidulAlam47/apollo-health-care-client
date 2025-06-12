@@ -1,3 +1,4 @@
+'use client';
 import {
     Box,
     Button,
@@ -10,8 +11,41 @@ import {
 import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import Link from 'next/link';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { toast } from 'sonner';
+import userLogin from '@/services/actions/userLogin';
+import storeUserInfo from '@/services/actions/storeUserInfo';
+// import { useRouter } from 'next/navigation';
+
+export type TLoginInputs = {
+    email: string;
+    password: string;
+};
 
 const LoginPage = () => {
+    // const router = useRouter();
+    const {
+        register,
+        handleSubmit,
+        // formState: { errors },
+    } = useForm<TLoginInputs>();
+
+    const onSubmit: SubmitHandler<TLoginInputs> = async (data) => {
+        const toastId = toast.loading('Logging in...');
+        try {
+            const res = await userLogin(data);
+            if (res.success) {
+                storeUserInfo(res.data.accessToken);
+                toast.success('Logged in successfully', { id: toastId });
+                // router.push('/login');
+            } else {
+                toast.error(res.message, { id: toastId });
+            }
+        } catch (error: any) {
+            toast.error(error.message, { id: toastId });
+        }
+    };
+
     return (
         <Container>
             <Stack
@@ -41,16 +75,19 @@ const LoginPage = () => {
                     <Typography variant="h5" component="h5" fontWeight={600}>
                         Login Apollo Health Care
                     </Typography>
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Grid container spacing={3}>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField label="Email" name="email" />
+                                <TextField
+                                    label="Email"
+                                    {...register('email')}
+                                />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     label="Password"
-                                    name="password"
                                     type="password"
+                                    {...register('password')}
                                 />
                             </Grid>
 
