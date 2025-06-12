@@ -3,11 +3,20 @@ import { Button, Container, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/logo/logo-black.png';
-import { getIsLoggedIn } from '@/services/auth.service';
+import { getIsLoggedIn, removeUser } from '@/services/auth.service';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
     const isLoggedIn = getIsLoggedIn();
-    console.log({ isLoggedIn });
+    const router = useRouter();
+
+    const handleLogout = () => {
+        toast.success('Logged out successfully');
+        removeUser();
+        router.refresh();
+    };
+
     return (
         <Container component="header">
             <Stack
@@ -46,15 +55,14 @@ const Header = () => {
                     </Typography>
                 </Stack>
                 {isLoggedIn ? (
-                    <Button color="error">Logout</Button>
+                    <Button color="error" onClick={handleLogout}>
+                        Logout
+                    </Button>
                 ) : (
                     <Button component={Link} href="/login">
                         Login
                     </Button>
                 )}
-                {/* <Button component={Link} href="/login">
-                    Login
-                </Button> */}
             </Stack>
         </Container>
     );

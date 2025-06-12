@@ -15,6 +15,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import registerPatient from '@/services/actions/registerPatient';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import userLogin from '@/services/actions/userLogin';
+import { storeUserInfo } from '@/services/auth.service';
 
 type TRegisterInputs = {
     password: string;
@@ -54,12 +56,23 @@ const RegisterPage = () => {
 
         const toastId = toast.loading('Creating...');
         try {
-            const res = await registerPatient(formData);
-            if (res.success) {
+            const regRes = await registerPatient(formData);
+            if (regRes.success) {
                 toast.success('Account created successfully', { id: toastId });
-                router.push('/login');
+
+                const loginRes = await userLogin({
+                    email: data.patient.email,
+                    password: data.password,
+                });
+
+                if (loginRes.success) {
+                    storeUserInfo(loginRes.data.accessToken);
+                    router.push('/');
+                } else {
+                    toast.error(loginRes.message);
+                }
             } else {
-                toast.error(res.message, { id: toastId });
+                toast.error(regRes.message, { id: toastId });
             }
         } catch (error: any) {
             toast.error(error.message, { id: toastId });
