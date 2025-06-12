@@ -1,21 +1,13 @@
-'use client';
-import { Button, Container, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/logo/logo-black.png';
-import { getIsLoggedIn, removeUser } from '@/services/auth.service';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
 const Header = () => {
-    const isLoggedIn = getIsLoggedIn();
-    const router = useRouter();
-
-    const handleLogout = () => {
-        toast.success('Logged out successfully');
-        removeUser();
-        router.refresh();
-    };
+    const HeaderButton = dynamic(() => import('./HeaderButton'), {
+        ssr: false,
+    });
 
     return (
         <Container component="header">
@@ -54,15 +46,7 @@ const Header = () => {
                         NGOs
                     </Typography>
                 </Stack>
-                {isLoggedIn ? (
-                    <Button color="error" onClick={handleLogout}>
-                        Logout
-                    </Button>
-                ) : (
-                    <Button component={Link} href="/login">
-                        Login
-                    </Button>
-                )}
+                <HeaderButton />
             </Stack>
         </Container>
     );
