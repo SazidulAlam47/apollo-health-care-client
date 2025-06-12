@@ -12,26 +12,60 @@ import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import styles from './Register.module.css';
+import registerPatient from '@/services/actions/registerPatient';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 type Inputs = {
     password: string;
+    image: FileList;
     patient: {
         name: string;
         email: string;
-        contractNumber: string;
+        contactNumber: string;
         address: string;
     };
 };
 
 const RegisterPage = () => {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<Inputs>();
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        const formData = new FormData();
+
+        const patientData = {
+            password: data.password,
+            patient: data.patient,
+        };
+
+        formData.append('data', JSON.stringify(patientData));
+
+        if (data?.image.length) {
+            const file = data?.image[0];
+            formData.append('file', file);
+        }
+
+        // console.log(Object.fromEntries(formData));
+
+        try {
+            const res = await registerPatient(formData);
+            console.log(res);
+            if (res.success) {
+                toast.success('Account created successfully');
+                router.push('/login');
+            } else {
+                toast.error(res.message);
+            }
+        } catch (error: any) {
+            console.error(error.message);
+            toast.error(error.message);
+        }
+    };
 
     return (
         <Container>
@@ -86,7 +120,7 @@ const RegisterPage = () => {
                             <Grid size={{ xs: 12, md: 6 }}>
                                 <TextField
                                     label="Contract Number"
-                                    {...register('patient.contractNumber')}
+                                    {...register('patient.contactNumber')}
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
@@ -112,7 +146,8 @@ const RegisterPage = () => {
                                     type="file"
                                     id="file-upload"
                                     accept="image/*"
-                                    className={styles.styledFileInput}
+                                    className="file-input"
+                                    {...register('image')}
                                 />
                             </Grid>
                             <Grid size={12}>

@@ -41,3 +41,6 @@ pnpm-workspace.yaml
 
 #vscode
 .vscode
+
+#env
+.env
