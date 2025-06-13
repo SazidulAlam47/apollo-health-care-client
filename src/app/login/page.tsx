@@ -1,36 +1,20 @@
 'use client';
-import {
-    Box,
-    Button,
-    Container,
-    Grid,
-    Stack,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import Link from 'next/link';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 import userLogin from '@/services/actions/userLogin';
 import { storeUserInfo } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
-
-export type TLoginInputs = {
-    email: string;
-    password: string;
-};
+import HFrom from '@/components/Forms/HFrom';
+import HInput from '@/components/Forms/HInput';
 
 const LoginPage = () => {
     const router = useRouter();
-    const {
-        register,
-        handleSubmit,
-        // formState: { errors },
-    } = useForm<TLoginInputs>();
 
-    const onSubmit: SubmitHandler<TLoginInputs> = async (data) => {
+    const handleLogin = async (data: FieldValues) => {
         const toastId = toast.loading('Logging in...');
         try {
             const res = await userLogin(data);
@@ -75,19 +59,16 @@ const LoginPage = () => {
                     <Typography variant="h5" component="h5" fontWeight={600}>
                         Login Apollo Health Care
                     </Typography>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <HFrom onSubmit={handleLogin}>
                         <Grid container spacing={3}>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField
-                                    label="Email"
-                                    {...register('email')}
-                                />
+                                <HInput label="Email" name="email" />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField
+                                <HInput
                                     label="Password"
                                     type="password"
-                                    {...register('password')}
+                                    name="password"
                                 />
                             </Grid>
 
@@ -97,7 +78,7 @@ const LoginPage = () => {
                                 </Button>
                             </Grid>
                         </Grid>
-                    </form>
+                    </HFrom>
                     <Typography color="gray">
                         <Link href="/forgot-password">Forgot Password?</Link>
                     </Typography>

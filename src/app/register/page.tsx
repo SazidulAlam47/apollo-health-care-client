@@ -1,43 +1,22 @@
 'use client';
-import {
-    Box,
-    Button,
-    Container,
-    Grid,
-    Stack,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import Link from 'next/link';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 import registerPatient from '@/services/actions/registerPatient';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import userLogin from '@/services/actions/userLogin';
 import { storeUserInfo } from '@/services/auth.service';
-
-type TRegisterInputs = {
-    password: string;
-    image: FileList;
-    patient: {
-        name: string;
-        email: string;
-        contactNumber: string;
-        address: string;
-    };
-};
+import HInput from '@/components/Forms/HInput';
+import HFrom from '@/components/Forms/HFrom';
+import HImageUpload from '@/components/Forms/HImageUpload';
 
 const RegisterPage = () => {
     const router = useRouter();
-    const {
-        register,
-        handleSubmit,
-        // formState: { errors },
-    } = useForm<TRegisterInputs>();
 
-    const onSubmit: SubmitHandler<TRegisterInputs> = async (data) => {
+    const onSubmit = async (data: FieldValues) => {
         const formData = new FormData();
 
         const patientData = {
@@ -108,59 +87,35 @@ const RegisterPage = () => {
                     <Typography variant="h5" component="h5" fontWeight={600}>
                         Patient Register
                     </Typography>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <HFrom onSubmit={onSubmit}>
                         <Grid container spacing={3}>
                             <Grid size={12}>
-                                <TextField
-                                    label="Name"
-                                    {...register('patient.name')}
-                                />
+                                <HInput label="Name" name="patient.name" />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField
-                                    label="Email"
-                                    {...register('patient.email')}
-                                />
+                                <HInput label="Email" name="patient.email" />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField
+                                <HInput
                                     label="Password"
-                                    {...register('password')}
+                                    name="password"
                                     type="password"
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField
+                                <HInput
                                     label="Contract Number"
-                                    {...register('patient.contactNumber')}
+                                    name="patient.contactNumber"
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>
-                                <TextField
+                                <HInput
                                     label="Address"
-                                    {...register('patient.address')}
+                                    name="patient.address"
                                 />
                             </Grid>
-                            <Grid
-                                size={12}
-                                textAlign="start"
-                                display="flex"
-                                flexDirection="column"
-                                gap={0.5}
-                            >
-                                <label
-                                    htmlFor="file-upload"
-                                    className="font-light text-sm text-gray-900"
-                                >
-                                    Profile Photo
-                                </label>
-                                <input
-                                    type="file"
-                                    id="file-upload"
-                                    accept="image/*"
-                                    className="file-input"
-                                    {...register('image')}
-                                />
+                            <Grid size={12}>
+                                <HImageUpload />
                             </Grid>
                             <Grid size={12}>
                                 <Button type="submit" fullWidth>
@@ -168,7 +123,7 @@ const RegisterPage = () => {
                                 </Button>
                             </Grid>
                         </Grid>
-                    </form>
+                    </HFrom>
                     <Typography color="gray">
                         Do you already have an account?{' '}
                         <Link
