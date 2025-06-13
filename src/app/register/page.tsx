@@ -12,6 +12,8 @@ import { storeUserInfo } from '@/services/auth.service';
 import HInput from '@/components/Forms/HInput';
 import HFrom from '@/components/Forms/HFrom';
 import HImageUpload from '@/components/Forms/HImageUpload';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema } from '@/schemas/auth.schema';
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -87,7 +89,10 @@ const RegisterPage = () => {
                     <Typography variant="h5" component="h5" fontWeight={600}>
                         Patient Register
                     </Typography>
-                    <HFrom onSubmit={onSubmit}>
+                    <HFrom
+                        onSubmit={onSubmit}
+                        resolver={zodResolver(registerSchema)}
+                    >
                         <Grid container spacing={3}>
                             <Grid size={12}>
                                 <HInput label="Name" name="patient.name" />

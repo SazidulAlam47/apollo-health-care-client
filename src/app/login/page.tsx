@@ -10,6 +10,8 @@ import { storeUserInfo } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import HFrom from '@/components/Forms/HFrom';
 import HInput from '@/components/Forms/HInput';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema } from '@/schemas/auth.schema';
 
 const LoginPage = () => {
     const router = useRouter();
@@ -59,7 +61,10 @@ const LoginPage = () => {
                     <Typography variant="h5" component="h5" fontWeight={600}>
                         Login Apollo Health Care
                     </Typography>
-                    <HFrom onSubmit={handleLogin}>
+                    <HFrom
+                        onSubmit={handleLogin}
+                        resolver={zodResolver(loginSchema)}
+                    >
                         <Grid container spacing={3}>
                             <Grid size={{ xs: 12, md: 6 }}>
                                 <HInput label="Email" name="email" />

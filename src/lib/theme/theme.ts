@@ -47,6 +47,13 @@ const theme = createTheme({
                 },
             },
         },
+        MuiFormHelperText: {
+            styleOverrides: {
+                root: {
+                    marginLeft: 3,
+                },
+            },
+        },
     },
     typography: {
         body1: {
