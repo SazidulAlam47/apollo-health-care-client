@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const Specialties = async () => {
     const res = await fetch(
-        'http://localhost:5000/api/v1/specialties?limit=6',
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/specialties?limit=6`,
         {
             next: {
                 revalidate: 30,

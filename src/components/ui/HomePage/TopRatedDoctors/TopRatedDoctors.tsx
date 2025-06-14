@@ -16,7 +16,7 @@ import { TbCurrencyTaka } from 'react-icons/tb';
 
 const TopRatedDoctors = async () => {
     const res = await fetch(
-        'http://localhost:5000/api/v1/doctors?limit=3&sortBy=averageRating&sortOrder=desc',
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctors?limit=3&sortBy=averageRating&sortOrder=desc`,
         {
             next: {
                 revalidate: 30,
