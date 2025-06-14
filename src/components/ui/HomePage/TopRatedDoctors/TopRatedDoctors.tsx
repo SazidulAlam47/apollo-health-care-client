@@ -1,4 +1,4 @@
-import { TDoctor } from '@/types/doctor.type';
+import { TDoctor } from '@/types';
 import {
     Box,
     Button,

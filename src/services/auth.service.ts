@@ -1,5 +1,5 @@
 import { authKey } from '@/constants/auth.constant';
-import { TDecodedUser } from '@/types/jwt.type';
+import { TDecodedUser } from '@/types';
 import { decodeToken } from '@/utils/jwt';
 import {
     getFromLocalStorage,

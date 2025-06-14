@@ -1,4 +1,4 @@
-import { TSpecialty } from '@/types/specialties.type';
+import { TSpecialty } from '@/types';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
 
