@@ -39,12 +39,12 @@ const LoginPage = () => {
                 justifyContent="center"
                 alignItems="center"
             >
-                <Box
+                <Stack
                     boxShadow={1}
                     padding={4}
                     my={2}
                     borderRadius={2}
-                    className="space-y-4"
+                    spacing={2}
                     maxWidth={600}
                     width="100%"
                     textAlign="center"
@@ -55,7 +55,9 @@ const LoginPage = () => {
                             alt="logo"
                             width={50}
                             height={50}
-                            className="mx-auto"
+                            style={{
+                                margin: '0 auto',
+                            }}
                         />
                     </Box>
                     <Typography variant="h5" component="h5" fontWeight={600}>
@@ -91,12 +93,15 @@ const LoginPage = () => {
                         Don&apos;t have an account?{' '}
                         <Link
                             href="/register"
-                            className="text-[#1586FD] font-semibold"
+                            style={{
+                                color: '#1586FD',
+                                fontWeight: '600',
+                            }}
                         >
                             Create an account
                         </Link>
                     </Typography>
-                </Box>
+                </Stack>
             </Stack>
         </Container>
     );

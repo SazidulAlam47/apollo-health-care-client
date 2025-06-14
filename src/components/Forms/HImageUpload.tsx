@@ -1,18 +1,19 @@
 import { Stack } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
+import '@/scss/file.style.scss';
 
 const HImageUpload = () => {
     const { register } = useFormContext();
     return (
-        <Stack
-            display="flex"
-            flexDirection="column"
-            textAlign="start"
-            gap={0.5}
-        >
+        <Stack textAlign="start" spacing={0.5}>
             <label
                 htmlFor="file-upload"
-                className="font-light text-sm text-gray-900"
+                style={{
+                    fontSize: '0.875rem',
+                    lineHeight: '1.25rem',
+                    fontWeight: '300',
+                    color: '#111827',
+                }}
             >
                 Profile Photo
             </label>
@@ -20,7 +21,6 @@ const HImageUpload = () => {
                 type="file"
                 id="file-upload"
                 accept="image/*"
-                className="file-input"
                 {...register('image')}
             />
         </Stack>

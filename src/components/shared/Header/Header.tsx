@@ -21,7 +21,10 @@ const Header = () => {
                     <Image
                         src={logo}
                         alt="logo"
-                        className="w-full max-w-[280px]"
+                        style={{
+                            width: '100%',
+                            maxWidth: '280px',
+                        }}
                     />
                 </Link>
                 <Stack

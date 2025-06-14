@@ -67,7 +67,11 @@ const Footer = () => {
                         />
                     </Link>
                 </Stack>
-                <div className="border-b-[1px] border-dashed" />
+                <Box
+                    sx={{
+                        borderBottom: '1px dashed #ddd',
+                    }}
+                />
                 <Stack
                     direction={{ sx: 'column', md: 'row' }}
                     gap={4}
@@ -82,7 +86,10 @@ const Footer = () => {
                     <Image
                         src={logo}
                         alt="Apollo Health Care"
-                        className="w-full max-w-[280px]"
+                        style={{
+                            width: '100%',
+                            maxWidth: '280px',
+                        }}
                     />
                     <Stack direction="row" gap={1}>
                         <Link href="/privacy">Privacy Policy</Link>
