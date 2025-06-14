@@ -57,6 +57,8 @@ const LoginPage = () => {
                             height={50}
                             style={{
                                 margin: '0 auto',
+                                width: '50px',
+                                height: '50px',
                             }}
                         />
                     </Box>

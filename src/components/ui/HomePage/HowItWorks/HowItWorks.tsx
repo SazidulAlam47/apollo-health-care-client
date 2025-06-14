@@ -68,6 +68,10 @@ const HowItWorks = () => {
                                             <Image
                                                 src={solution.imageSrc}
                                                 alt="solution"
+                                                style={{
+                                                    width: '50px',
+                                                    height: '50px',
+                                                }}
                                             />
                                         </Box>
                                         <Typography
