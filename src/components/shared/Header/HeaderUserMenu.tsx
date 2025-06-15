@@ -27,6 +27,7 @@ export default function AccountMenu() {
     };
 
     const handleLogout = () => {
+        handleClose();
         toast.success('Logged out successfully');
         removeUser();
         router.refresh();
@@ -60,11 +61,11 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handleClose}>
+                <MenuItem component={Link} href="/dashboard">
                     <ListItemIcon>
                         <MdDashboard />
                     </ListItemIcon>
-                    <Link href="/dashboard">Dashboard</Link>
+                    Dashboard
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleLogout}>
