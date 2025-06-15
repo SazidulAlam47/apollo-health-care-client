@@ -46,6 +46,7 @@ const Footer = () => {
                 <Box
                     sx={{
                         borderBottom: '1px dashed #ddd',
+                        marginBottom: { xs: 1, md: 0 },
                     }}
                 />
                 <Stack
@@ -55,7 +56,7 @@ const Footer = () => {
                     alignItems="center"
                     py={1}
                 >
-                    <Typography component="p" textAlign="center">
+                    <Typography textAlign={{ xs: 'center', md: 'start' }}>
                         &copy;{new Date().getFullYear()} Apollo Health Care. All
                         Rights Reserved.
                     </Typography>
@@ -67,9 +68,9 @@ const Footer = () => {
                             maxWidth: '280px',
                         }}
                     />
-                    <Stack direction="row" gap={1}>
+                    <Stack direction="row" gap={1} fontSize={14}>
                         <Link href="/privacy">Privacy Policy</Link>
-                        <Typography>|</Typography>
+                        <Box borderLeft="1px solid #fff" />
                         <Link href="/terms">Terms & Conditions</Link>
                     </Stack>
                 </Stack>
