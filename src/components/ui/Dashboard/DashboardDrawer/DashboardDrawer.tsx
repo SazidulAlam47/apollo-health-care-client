@@ -3,7 +3,7 @@ import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { ReactNode, useMemo } from 'react';
 import { NextAppProvider } from '@toolpad/core/nextjs';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Box } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { navigation } from './dashboardNavigation';
 import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
@@ -59,14 +59,28 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
             <DashboardLayout
                 branding={{
                     logo: (
-                        <Image
-                            src={logo}
-                            alt="Apollo Health Care"
-                            width={80}
-                            height={80}
-                        />
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            <Image
+                                src={logo}
+                                alt="Apollo Health Care"
+                                width={50}
+                                height={50}
+                                style={{
+                                    height: '30px',
+                                    width: '30px',
+                                }}
+                            />
+                            <Typography
+                                variant="h6"
+                                component="h1"
+                                fontWeight={500}
+                                fontSize={{ xs: '0.9rem', sm: '1.2rem' }}
+                            >
+                                Apollo Health Care
+                            </Typography>
+                        </Stack>
                     ),
-                    title: 'Apollo Health Care',
+                    title: '',
                     homeUrl: '/',
                 }}
             >

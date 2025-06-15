@@ -8,6 +8,15 @@ type THInputProps = {
     type?: string;
     sx?: SxProps;
     placeholder?: string;
+    inputMode?:
+        | 'text'
+        | 'search'
+        | 'email'
+        | 'tel'
+        | 'url'
+        | 'none'
+        | 'numeric'
+        | 'decimal';
 };
 
 const HInput = ({
@@ -16,6 +25,7 @@ const HInput = ({
     type = 'text',
     sx,
     placeholder,
+    inputMode = 'text',
 }: THInputProps) => {
     const {
         register,
@@ -33,6 +43,7 @@ const HInput = ({
             {...register(name)}
             error={!!fieldError}
             helperText={fieldError?.message || ''}
+            inputMode={inputMode}
         />
     );
 };

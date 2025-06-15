@@ -69,7 +69,7 @@ const RegisterPage = () => {
             >
                 <Stack
                     boxShadow={1}
-                    padding={4}
+                    padding={{ xs: 2.5, md: 4 }}
                     my={2}
                     borderRadius={2}
                     spacing={2}
@@ -115,6 +115,7 @@ const RegisterPage = () => {
                                 <HInput
                                     label="Contract Number"
                                     name="patient.contactNumber"
+                                    inputMode="numeric"
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, md: 6 }}>

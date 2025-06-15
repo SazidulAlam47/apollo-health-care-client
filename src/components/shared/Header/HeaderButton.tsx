@@ -12,7 +12,7 @@ const HeaderButton = () => {
             {isLoggedIn ? (
                 <HeaderUserMenu />
             ) : (
-                <Button component={Link} href="/login">
+                <Button component={Link} href="/login" sx={{ ml: 1 }}>
                     Login
                 </Button>
             )}

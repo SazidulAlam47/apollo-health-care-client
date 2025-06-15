@@ -1,11 +1,9 @@
 import { Box, Container, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import facebookLogo from '@/assets/landing_page/facebook.png';
-import instagramLogo from '@/assets/landing_page/instagram.png';
-import twitterLogo from '@/assets/landing_page/twitter.png';
-import linkedinLogo from '@/assets/landing_page/linkedin.png';
 import logo from '@/assets/logo/logo-white.png';
+import headerMenuLinks from '../Header/headerMenuLinks';
+import footerSocialLinks from './footerSocialLinks';
 
 const Footer = () => {
     return (
@@ -17,55 +15,33 @@ const Footer = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <Typography component={Link} href="/consultation">
-                        Consultation
-                    </Typography>
-                    <Typography component={Link} href="/health-plans">
-                        Health Plans
-                    </Typography>
-                    <Typography component={Link} href="/medicine">
-                        Medicine
-                    </Typography>
-                    <Typography component={Link} href="/diagnostics">
-                        Diagnostics
-                    </Typography>
-                    <Typography component={Link} href="/ngo">
-                        NGOs
-                    </Typography>
+                    {headerMenuLinks.map((menu, index) => (
+                        <Typography
+                            key={index}
+                            component={Link}
+                            href={menu.route}
+                        >
+                            {menu.title}
+                        </Typography>
+                    ))}
                 </Stack>
-                <Stack direction="row" gap={3} justifyContent="center" py={2}>
-                    <Link href="https://facebook.com" target="_blank">
-                        <Image
-                            src={facebookLogo}
-                            alt="facebook"
-                            width={30}
-                            height={30}
-                        />
-                    </Link>
-                    <Link href="https://instagram.com" target="_blank">
-                        <Image
-                            src={instagramLogo}
-                            alt="instagram"
-                            width={30}
-                            height={30}
-                        />
-                    </Link>
-                    <Link href="https://x.com" target="_blank">
-                        <Image
-                            src={twitterLogo}
-                            alt="twitter"
-                            width={30}
-                            height={30}
-                        />
-                    </Link>
-                    <Link href="https://linkedin.com" target="_blank">
-                        <Image
-                            src={linkedinLogo}
-                            alt="linkedin"
-                            width={30}
-                            height={30}
-                        />
-                    </Link>
+                <Stack
+                    direction="row"
+                    gap={3}
+                    justifyContent="center"
+                    py={2}
+                    mt={{ xs: 1, md: 0 }}
+                >
+                    {footerSocialLinks.map((social, index) => (
+                        <Link key={index} href={social.link} target="_blank">
+                            <Image
+                                src={social.logo}
+                                alt={social.title}
+                                width={30}
+                                height={30}
+                            />
+                        </Link>
+                    ))}
                 </Stack>
                 <Box
                     sx={{
@@ -79,7 +55,7 @@ const Footer = () => {
                     alignItems="center"
                     py={1}
                 >
-                    <Typography component="p">
+                    <Typography component="p" textAlign="center">
                         &copy;{new Date().getFullYear()} Apollo Health Care. All
                         Rights Reserved.
                     </Typography>

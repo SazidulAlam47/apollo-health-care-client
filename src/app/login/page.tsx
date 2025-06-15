@@ -41,7 +41,7 @@ const LoginPage = () => {
             >
                 <Stack
                     boxShadow={1}
-                    padding={4}
+                    padding={{ xs: 2.5, md: 4 }}
                     my={2}
                     borderRadius={2}
                     spacing={2}
