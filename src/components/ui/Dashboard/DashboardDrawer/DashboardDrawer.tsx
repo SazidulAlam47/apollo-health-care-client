@@ -9,7 +9,7 @@ import logo from '@/assets/logo/logo-icon.png';
 import { Session } from '@toolpad/core/AppProvider';
 import { toast } from 'sonner';
 import { removeUser } from '@/services/auth.service';
-import getDrawerItems from '@/utils/getDrawerItems';
+import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 
 const DashboardDrawer = ({ children }: { children: ReactNode }) => {
     const pathname = usePathname();
@@ -51,7 +51,7 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
 
     return (
         <NextAppProvider
-            navigation={getDrawerItems('SUPER_ADMIN')}
+            navigation={getDashboardMenus('SUPER_ADMIN')}
             router={{ pathname, searchParams, navigate }}
             authentication={authentication}
             session={session}

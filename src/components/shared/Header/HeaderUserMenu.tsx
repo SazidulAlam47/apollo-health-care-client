@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import { Stack } from '@mui/material';
 import userMenuSlotProps from '@/constants/userMenuSlotProps';
-import getDrawerItems from '@/utils/getDrawerItems';
+import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 
 export default function AccountMenu() {
     const router = useRouter();
@@ -60,7 +60,7 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                {getDrawerItems('ADMIN').map((item) => {
+                {getDashboardMenus('ADMIN').map((item) => {
                     if (
                         'segment' in item &&
                         'title' in item &&
