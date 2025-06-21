@@ -30,7 +30,7 @@ export const createMenusWithBaseRoute = (
             'icon' in navigation
         ) {
             return {
-                segment: `dashboard/${role === 'SUPER_ADMIN' ? 'super-admin' : role.toLocaleLowerCase()}/${navigation.segment}`,
+                segment: `dashboard/${role === 'SUPER_ADMIN' ? 'super-admin' : role.toLocaleLowerCase()}${navigation.segment && '/' + navigation.segment}`,
                 title: navigation.title,
                 icon: navigation.icon,
             };
