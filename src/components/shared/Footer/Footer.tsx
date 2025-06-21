@@ -2,8 +2,8 @@ import { Box, Container, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/logo/logo-white.png';
-import headerMenuLinks from '../Header/headerMenuLinks';
-import footerSocialLinks from './footerSocialLinks';
+import headerMenuLinks from '@/constants/headerMenuLinks';
+import footerSocialLinks from '@/constants/footerSocialLinks';
 
 const Footer = () => {
     return (

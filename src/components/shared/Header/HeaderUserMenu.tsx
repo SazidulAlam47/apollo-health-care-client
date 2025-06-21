@@ -7,13 +7,13 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { FiLogOut } from 'react-icons/fi';
-import { MdDashboard } from 'react-icons/md';
 import { removeUser } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { Stack } from '@mui/material';
 import userMenuSlotProps from '@/constants/userMenuSlotProps';
+import getDrawerItems from '@/utils/getDrawerItems';
 
 export default function AccountMenu() {
     const router = useRouter();
@@ -60,12 +60,28 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem component={Link} href="/dashboard">
-                    <ListItemIcon>
-                        <MdDashboard />
-                    </ListItemIcon>
-                    Dashboard
-                </MenuItem>
+                {getDrawerItems('ADMIN').map((item) => {
+                    if (
+                        'segment' in item &&
+                        'title' in item &&
+                        'icon' in item &&
+                        typeof item.segment === 'string' &&
+                        typeof item.title === 'string' &&
+                        typeof item.icon === 'object'
+                    )
+                        return (
+                            <MenuItem
+                                key={item.segment}
+                                component={Link}
+                                href={item.segment}
+                            >
+                                <ListItemIcon>{item.icon}</ListItemIcon>
+                                {item.title}
+                            </MenuItem>
+                        );
+                    return null;
+                })}
+
                 <Divider />
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>

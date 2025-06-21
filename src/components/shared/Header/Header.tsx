@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/logo/logo-black.png';
 import dynamic from 'next/dynamic';
-import headerMenuLinks from './headerMenuLinks';
 import HeaderMobileDrawer from './HeaderMobileDrawer';
+import headerMenuLinks from '@/constants/headerMenuLinks';
 
 const Header = () => {
     const HeaderButton = dynamic(() => import('./HeaderButton'), {

@@ -4,12 +4,12 @@ import { ReactNode, useMemo } from 'react';
 import { NextAppProvider } from '@toolpad/core/nextjs';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Box, Stack, Typography } from '@mui/material';
-import { navigation } from './dashboardNavigation';
 import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import { Session } from '@toolpad/core/AppProvider';
 import { toast } from 'sonner';
 import { removeUser } from '@/services/auth.service';
+import getDrawerItems from '@/utils/getDrawerItems';
 
 const DashboardDrawer = ({ children }: { children: ReactNode }) => {
     const pathname = usePathname();
@@ -51,7 +51,7 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
 
     return (
         <NextAppProvider
-            navigation={navigation}
+            navigation={getDrawerItems('SUPER_ADMIN')}
             router={{ pathname, searchParams, navigate }}
             authentication={authentication}
             session={session}

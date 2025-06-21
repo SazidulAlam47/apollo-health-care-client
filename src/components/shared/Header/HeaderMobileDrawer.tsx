@@ -8,7 +8,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { IconButton } from '@mui/material';
 import { IoMenu } from 'react-icons/io5';
-import headerMenuLinks from './headerMenuLinks';
+import headerMenuLinks from '../../../constants/headerMenuLinks';
 import Link from 'next/link';
 
 const HeaderMobileDrawer = () => {

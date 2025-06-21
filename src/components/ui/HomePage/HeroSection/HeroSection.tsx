@@ -7,6 +7,7 @@ const HeroSection = () => {
         <Container
             sx={{
                 my: { xs: 1, md: 16 },
+                pb: { xs: 4, md: 0 },
             }}
         >
             <Grid container alignItems="center" spacing={3}>
