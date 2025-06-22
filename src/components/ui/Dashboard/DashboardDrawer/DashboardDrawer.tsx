@@ -1,6 +1,6 @@
 'use client';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { NextAppProvider } from '@toolpad/core/nextjs';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Box, Stack, Typography } from '@mui/material';
@@ -8,13 +8,24 @@ import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import { Session } from '@toolpad/core/AppProvider';
 import { toast } from 'sonner';
-import { removeUser } from '@/services/auth.service';
+import { getUserInfo, removeUser } from '@/services/auth.service';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
+import { TUserRole } from '@/types';
 
 const DashboardDrawer = ({ children }: { children: ReactNode }) => {
+    const [userRole, setUserRole] = useState<TUserRole | undefined>(undefined);
     const pathname = usePathname();
     const router = useRouter();
     const nextSearchParams = useSearchParams();
+
+    useEffect(() => {
+        const userInfo = getUserInfo();
+        if (!userInfo) {
+            router.push('/');
+            return;
+        }
+        setUserRole(userInfo.role);
+    }, [router]);
 
     // const [session, setSession] = useState<Session | null>({
     //     user: {
@@ -51,7 +62,7 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
 
     return (
         <NextAppProvider
-            navigation={getDashboardMenus('SUPER_ADMIN')}
+            navigation={getDashboardMenus(userRole)}
             router={{ pathname, searchParams, navigate }}
             authentication={authentication}
             session={session}

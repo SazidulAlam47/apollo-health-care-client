@@ -100,6 +100,11 @@ export const patientMenus: Navigation = [
     ...createMenusWithBaseRoute('PATIENT', [
         header,
         {
+            segment: '',
+            title: 'Dashboard',
+            icon: <MdDashboard />,
+        },
+        {
             segment: 'appointments',
             title: 'Appointments',
             icon: <RiBookOpenLine />,

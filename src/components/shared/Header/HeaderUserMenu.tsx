@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,18 +7,26 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { FiLogOut } from 'react-icons/fi';
-import { removeUser } from '@/services/auth.service';
+import { getUserInfo, removeUser } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { Stack } from '@mui/material';
 import userMenuSlotProps from '@/constants/userMenuSlotProps';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
+import { TUserRole } from '@/types';
 
-export default function AccountMenu() {
-    const router = useRouter();
+const AccountMenu = () => {
+    const [userRole, setUserRole] = useState<TUserRole | undefined>(undefined);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+    const router = useRouter();
+    const open = !!anchorEl;
+
+    useEffect(() => {
+        const userInfo = getUserInfo();
+        setUserRole(userInfo!.role);
+    }, []);
+
     const handleClick = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -60,7 +68,7 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                {getDashboardMenus('ADMIN').map((item) => {
+                {getDashboardMenus(userRole).map((item, index) => {
                     if (
                         'segment' in item &&
                         'title' in item &&
@@ -71,14 +79,18 @@ export default function AccountMenu() {
                     )
                         return (
                             <MenuItem
-                                key={item.segment}
+                                key={index}
                                 component={Link}
                                 href={item.segment}
+                                sx={{ mb: 0.5 }}
                             >
                                 <ListItemIcon>{item.icon}</ListItemIcon>
                                 {item.title}
                             </MenuItem>
                         );
+                    if ('kind' in item && item.kind === 'divider') {
+                        return <Divider key={index} />;
+                    }
                     return null;
                 })}
 
@@ -92,4 +104,6 @@ export default function AccountMenu() {
             </Menu>
         </>
     );
-}
+};
+
+export default AccountMenu;

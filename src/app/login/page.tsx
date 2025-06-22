@@ -12,6 +12,7 @@ import HFrom from '@/components/Forms/HFrom';
 import HInput from '@/components/Forms/HInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/auth.schema';
+import getRoleLowerCase from '@/utils/getRoleLowerCase';
 
 const LoginPage = () => {
     const router = useRouter();
@@ -23,7 +24,7 @@ const LoginPage = () => {
             if (res.success) {
                 storeUserInfo(res.data.accessToken);
                 toast.success('Logged in successfully', { id: toastId });
-                router.push('/dashboard');
+                router.push(`/dashboard/${getRoleLowerCase(res.data.role)}`);
             } else {
                 toast.error(res.message, { id: toastId });
             }

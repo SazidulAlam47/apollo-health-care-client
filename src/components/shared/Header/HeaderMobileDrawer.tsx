@@ -27,9 +27,9 @@ const HeaderMobileDrawer = () => {
                 aria-label="open drawer"
                 onClick={toggleDrawer(true)}
                 sx={{
-                    // paddingRight: 0,
+                    paddingRight: 0,
                     ':hover': {
-                        // background: 'inherit',
+                        background: 'inherit',
                     },
                 }}
             >

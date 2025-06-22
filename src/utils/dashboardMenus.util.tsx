@@ -1,8 +1,9 @@
 import { TUserRole } from '@/types';
 import { Navigation } from '@toolpad/core/AppProvider';
 import { MdOutlinePerson, MdOutlineKey } from 'react-icons/md';
+import getRoleLowerCase from './getRoleLowerCase';
 
-export const getDashboardMenus = (role: TUserRole): Navigation => {
+export const getDashboardMenus = (role: TUserRole | undefined): Navigation => {
     const menus = require('@/constants/dashboardMenus.constant');
 
     switch (role) {
@@ -30,7 +31,7 @@ export const createMenusWithBaseRoute = (
             'icon' in navigation
         ) {
             return {
-                segment: `dashboard/${role === 'SUPER_ADMIN' ? 'super-admin' : role.toLocaleLowerCase()}${navigation.segment && '/' + navigation.segment}`,
+                segment: `dashboard/${getRoleLowerCase(role)}${navigation.segment && '/' + navigation.segment}`,
                 title: navigation.title,
                 icon: navigation.icon,
             };
@@ -51,7 +52,7 @@ export const createAccountMenu = (role: TUserRole): Navigation => {
             title: 'Account',
         },
         {
-            segment: `${role === 'SUPER_ADMIN' ? 'super-admin' : role.toLocaleLowerCase()}/profile`,
+            segment: `${getRoleLowerCase(role)}/profile`,
             title: 'Profile',
             icon: <MdOutlinePerson />,
         },

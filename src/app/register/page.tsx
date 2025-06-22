@@ -14,6 +14,7 @@ import HFrom from '@/components/Forms/HFrom';
 import HImageUpload from '@/components/Forms/HImageUpload';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/schemas/auth.schema';
+import getRoleLowerCase from '@/utils/getRoleLowerCase';
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -48,7 +49,9 @@ const RegisterPage = () => {
 
                 if (loginRes.success) {
                     storeUserInfo(loginRes.data.accessToken);
-                    router.push('/');
+                    router.push(
+                        `/dashboard/${getRoleLowerCase(loginRes.data.role)}`,
+                    );
                 } else {
                     toast.error(loginRes.message);
                 }
