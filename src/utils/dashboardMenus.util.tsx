@@ -52,12 +52,12 @@ export const createAccountMenu = (role: TUserRole): Navigation => {
             title: 'Account',
         },
         {
-            segment: `${getRoleLowerCase(role)}/profile`,
+            segment: `dashboard/${getRoleLowerCase(role)}/profile`,
             title: 'Profile',
             icon: <MdOutlinePerson />,
         },
         {
-            segment: 'change-password',
+            segment: 'dashboard/change-password',
             title: 'Change Password',
             icon: <MdOutlineKey />,
         },

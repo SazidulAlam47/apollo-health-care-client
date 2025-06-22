@@ -1,9 +1,7 @@
-const ManageUsersPage = () => {
-    return (
-        <div>
-            <p>This is ManageUsersPage</p>
-        </div>
-    );
-};
+const ManageUsersPage = () => (
+    <div>
+        <p>This is Manage Users Page (Super Admin)</p>
+    </div>
+);
 
 export default ManageUsersPage;
