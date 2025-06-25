@@ -1,5 +1,6 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
+import getFieldError from '@/utils/getFieldError';
 import '@/scss/file.style.scss';
 
 type THImageUploadProps = {
@@ -7,7 +8,13 @@ type THImageUploadProps = {
 };
 
 const HImageUpload = ({ title }: THImageUploadProps) => {
-    const { register } = useFormContext();
+    const {
+        register,
+        formState: { errors },
+    } = useFormContext();
+
+    const fieldError = getFieldError(errors, 'image');
+
     return (
         <Stack textAlign="start" spacing={0.5}>
             <label
@@ -27,6 +34,11 @@ const HImageUpload = ({ title }: THImageUploadProps) => {
                 accept="image/*"
                 {...register('image')}
             />
+            {fieldError && (
+                <Typography fontSize={13} color="error">
+                    {fieldError.message}
+                </Typography>
+            )}
         </Stack>
     );
 };

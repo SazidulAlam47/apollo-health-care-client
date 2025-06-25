@@ -29,7 +29,7 @@ export const loginSchema = z.object({
     password: z.string().min(1, 'Please enter your Password'),
 });
 
-export const registerSchema = z.object({
+export const registerPatientSchema = z.object({
     password: newPasswordSchema,
     patient: z.object({
         name: z.string().min(1, 'Please enter your Name'),

@@ -13,7 +13,7 @@ import HInput from '@/components/Forms/HInput';
 import HFrom from '@/components/Forms/HFrom';
 import HImageUpload from '@/components/Forms/HImageUpload';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema } from '@/schemas/auth.schema';
+import { registerPatientSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
 
 const RegisterPage = () => {
@@ -98,7 +98,7 @@ const RegisterPage = () => {
                     </Typography>
                     <HFrom
                         onSubmit={onSubmit}
-                        resolver={zodResolver(registerSchema)}
+                        resolver={zodResolver(registerPatientSchema)}
                     >
                         <Grid container spacing={3}>
                             <Grid size={12}>
