@@ -8,11 +8,11 @@ import { store } from '@/redux/store';
 
 const Providers = ({ children }: { children: ReactNode }) => {
     return (
-        <ReduxProvider store={store}>
-            <ThemeProvider theme={theme}>
-                <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
-            </ThemeProvider>
-        </ReduxProvider>
+        <AppRouterCacheProvider>
+            <ReduxProvider store={store}>
+                <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            </ReduxProvider>
+        </AppRouterCacheProvider>
     );
 };
 

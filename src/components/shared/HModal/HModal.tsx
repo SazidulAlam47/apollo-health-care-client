@@ -1,3 +1,4 @@
+'use client';
 import { styled, SxProps } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';

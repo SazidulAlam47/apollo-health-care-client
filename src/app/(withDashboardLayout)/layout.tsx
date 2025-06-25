@@ -1,3 +1,4 @@
+'use client';
 import DashboardDrawer from '@/components/ui/Dashboard/DashboardDrawer/DashboardDrawer';
 import { ReactNode } from 'react';
 

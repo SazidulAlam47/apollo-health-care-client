@@ -3,23 +3,38 @@ import HFrom from '@/components/Forms/HFrom';
 import HImageUpload from '@/components/Forms/HImageUpload';
 import HInput from '@/components/Forms/HInput';
 import HModal from '@/components/shared/HModal/HModal';
+import { useCreateSpecialtiesMutation } from '@/redux/api/specialtiesApi';
 import { createSpecialistSchema } from '@/schemas/specialties.schema';
 import createFormData from '@/utils/createFormData';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Stack } from '@mui/material';
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
+import { toast } from 'sonner';
 
 const SpecialistModal = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [createSpecialties] = useCreateSpecialtiesMutation();
 
-    const handleCreateSpecialist = (data: FieldValues) => {
+    const handleCreateSpecialist = async (data: FieldValues) => {
         const formData = createFormData(data);
+        const toastId = toast.loading('Creating...');
+        try {
+            const res = await createSpecialties(formData).unwrap();
+            if (res.id) {
+                toast.success('Specialist created successfully', {
+                    id: toastId,
+                });
+                setIsModalOpen(false);
+            }
+        } catch (error: any) {
+            toast.error(error.data, { id: toastId });
+        }
     };
 
     return (
         <>
-            <Button variant="contained" onClick={() => setIsModalOpen(true)}>
+            <Button onClick={() => setIsModalOpen(true)}>
                 Create Specialist
             </Button>
             <HModal
@@ -38,11 +53,7 @@ const SpecialistModal = () => {
                             size="small"
                         />
                         <HImageUpload title="Specialist Icon" />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            sx={{ mt: 1 }}
-                        >
+                        <Button type="submit" sx={{ mt: 1, padding: '7px' }}>
                             Create
                         </Button>
                     </Stack>
