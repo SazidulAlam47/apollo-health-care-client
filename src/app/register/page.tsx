@@ -15,26 +15,13 @@ import HImageUpload from '@/components/Forms/HImageUpload';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerPatientSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
+import createFormData from '@/utils/createFormData';
 
 const RegisterPage = () => {
     const router = useRouter();
 
     const onSubmit = async (data: FieldValues) => {
-        const formData = new FormData();
-
-        const patientData = {
-            password: data.password,
-            patient: data.patient,
-        };
-
-        formData.append('data', JSON.stringify(patientData));
-
-        if (data?.image.length) {
-            const file = data?.image[0];
-            formData.append('file', file);
-        }
-
-        // console.log(Object.fromEntries(formData));
+        const formData = createFormData(data);
 
         const toastId = toast.loading('Creating...');
         try {
