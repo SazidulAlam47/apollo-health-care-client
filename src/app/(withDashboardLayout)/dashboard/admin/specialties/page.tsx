@@ -53,7 +53,14 @@ const SpecialtiesPage = () => {
             width: 150,
             headerAlign: 'center',
             renderCell: ({ row }: { row: TSpecialty }) => (
-                <Image src={row.icon} alt={row.title} width={20} height={20} />
+                <Box height="100%" padding="5px 0">
+                    <Image
+                        src={row.icon}
+                        alt={row.title}
+                        width={30}
+                        height={30}
+                    />
+                </Box>
             ),
         },
         {
@@ -101,7 +108,9 @@ const SpecialtiesPage = () => {
                         rows={specialties}
                         columns={columns}
                         hideFooter
-                        sx={{ border: 0 }}
+                        sx={{
+                            border: 0,
+                        }}
                     />
                 )}
             </Box>
