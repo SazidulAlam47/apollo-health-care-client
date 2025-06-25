@@ -17,6 +17,7 @@ type THInputProps = {
         | 'none'
         | 'numeric'
         | 'decimal';
+    size?: 'small' | 'medium';
 };
 
 const HInput = ({
@@ -26,6 +27,7 @@ const HInput = ({
     sx,
     placeholder,
     inputMode = 'text',
+    size = 'medium',
 }: THInputProps) => {
     const {
         register,
@@ -39,6 +41,7 @@ const HInput = ({
             label={label}
             type={type}
             sx={sx}
+            size={size}
             placeholder={placeholder}
             {...register(name)}
             error={!!fieldError}

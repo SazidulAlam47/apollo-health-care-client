@@ -2,7 +2,11 @@ import { Stack } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import '@/scss/file.style.scss';
 
-const HImageUpload = () => {
+type THImageUploadProps = {
+    title: string;
+};
+
+const HImageUpload = ({ title }: THImageUploadProps) => {
     const { register } = useFormContext();
     return (
         <Stack textAlign="start" spacing={0.5}>
@@ -15,7 +19,7 @@ const HImageUpload = () => {
                     color: '#111827',
                 }}
             >
-                Profile Photo
+                {title}
             </label>
             <input
                 type="file"

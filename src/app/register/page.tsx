@@ -128,7 +128,7 @@ const RegisterPage = () => {
                                 />
                             </Grid>
                             <Grid size={12}>
-                                <HImageUpload />
+                                <HImageUpload title="Profile Photo" />
                             </Grid>
                             <Grid size={12}>
                                 <Button type="submit" fullWidth>
