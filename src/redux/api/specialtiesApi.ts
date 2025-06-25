@@ -1,9 +1,10 @@
+import { TSpecialty } from '@/types';
 import { tagTypes } from '../tagTypes';
 import { baseApi } from './baseApi';
 
 const specialtiesApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        createSpecialties: build.mutation({
+        createSpecialties: build.mutation<TSpecialty, any>({
             query: (data) => ({
                 url: '/specialties',
                 method: 'POST',
@@ -12,15 +13,25 @@ const specialtiesApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.specialties],
         }),
-        getAllSpecialties: build.query({
+        getAllSpecialties: build.query<TSpecialty[], object>({
             query: () => ({
                 url: '/specialties',
                 method: 'GET',
             }),
             providesTags: [tagTypes.specialties],
         }),
+        deleteSpecialties: build.mutation<TSpecialty, any>({
+            query: (id) => ({
+                url: `/specialties/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: [tagTypes.specialties],
+        }),
     }),
 });
 
-export const { useCreateSpecialtiesMutation, useGetAllSpecialtiesQuery } =
-    specialtiesApi;
+export const {
+    useCreateSpecialtiesMutation,
+    useGetAllSpecialtiesQuery,
+    useDeleteSpecialtiesMutation,
+} = specialtiesApi;

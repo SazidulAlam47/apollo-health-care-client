@@ -26,9 +26,15 @@ const SpecialistModal = () => {
                     id: toastId,
                 });
                 setIsModalOpen(false);
+            } else {
+                toast.error('Something went wrong', {
+                    id: toastId,
+                });
             }
         } catch (error: any) {
-            toast.error(error.data, { id: toastId });
+            toast.error(error.message || error.data || 'Something went wrong', {
+                id: toastId,
+            });
         }
     };
 

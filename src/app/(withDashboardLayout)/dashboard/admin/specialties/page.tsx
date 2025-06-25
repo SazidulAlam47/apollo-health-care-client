@@ -1,12 +1,86 @@
 'use client';
-import { Box, Stack, TextField } from '@mui/material';
+import { Box, IconButton, Stack, TextField } from '@mui/material';
 import SpecialistModal from './components/SpecialistModal';
-import { useGetAllSpecialtiesQuery } from '@/redux/api/specialtiesApi';
+import {
+    useDeleteSpecialtiesMutation,
+    useGetAllSpecialtiesQuery,
+} from '@/redux/api/specialtiesApi';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import Loader from '@/components/shared/Loader/Loader';
+import Image from 'next/image';
+import { MdDelete } from 'react-icons/md';
+import { TSpecialty } from '@/types';
+import { useDialogs } from '@toolpad/core/useDialogs';
+import { toast } from 'sonner';
 
 const SpecialtiesPage = () => {
-    const { data, isLoading } = useGetAllSpecialtiesQuery({});
+    const { data: specialties, isLoading } = useGetAllSpecialtiesQuery({});
+    const [deleteSpecialties] = useDeleteSpecialtiesMutation();
+    const dialogs = useDialogs();
+
+    const handleDelete = (specialty: TSpecialty) => async () => {
+        const deleteConfirmed = await dialogs.confirm(
+            `Are you sure you want to delete "${specialty.title}"?`,
+        );
+        if (deleteConfirmed) {
+            const toastId = toast.loading('Deleting...');
+            try {
+                const res = await deleteSpecialties(specialty.id).unwrap();
+                if (res.id) {
+                    toast.success('Specialist deleted successfully', {
+                        id: toastId,
+                    });
+                } else {
+                    toast.error('Something went wrong', {
+                        id: toastId,
+                    });
+                }
+            } catch (error: any) {
+                toast.error(
+                    error.message || error.data || 'Something went wrong',
+                    {
+                        id: toastId,
+                    },
+                );
+            }
+        }
+    };
+
+    const columns: GridColDef[] = [
+        {
+            field: 'icon',
+            headerName: 'Icon',
+            width: 150,
+            headerAlign: 'center',
+            renderCell: ({ row }: { row: TSpecialty }) => (
+                <Image src={row.icon} alt={row.title} width={20} height={20} />
+            ),
+        },
+        {
+            field: 'title',
+            headerName: 'Title',
+            flex: 1,
+        },
+        {
+            field: 'action',
+            headerName: 'Action',
+            width: 300,
+            headerAlign: 'center',
+            align: 'center',
+            renderCell: ({ row }: { row: TSpecialty }) => (
+                <IconButton
+                    color="error"
+                    aria-label="delete"
+                    onClick={handleDelete(row)}
+                >
+                    <MdDelete />
+                </IconButton>
+            ),
+        },
+    ];
+
     return (
-        <Box>
+        <Stack direction="column" gap={3}>
             <Stack
                 direction="row"
                 justifyContent="space-between"
@@ -19,8 +93,19 @@ const SpecialtiesPage = () => {
                     sx={{ maxWidth: '300px' }}
                 />
             </Stack>
-            <Box></Box>
-        </Box>
+            <Box>
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <DataGrid
+                        rows={specialties}
+                        columns={columns}
+                        hideFooter
+                        sx={{ border: 0 }}
+                    />
+                )}
+            </Box>
+        </Stack>
     );
 };
 
