@@ -1,6 +1,6 @@
 'use client';
 import { Box, IconButton, Stack, TextField } from '@mui/material';
-import SpecialistModal from './components/SpecialistModal';
+import CreateSpecialistModal from './components/CreateSpecialistModal';
 import {
     useDeleteSpecialtiesMutation,
     useGetAllSpecialtiesQuery,
@@ -93,7 +93,7 @@ const SpecialtiesPage = () => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <SpecialistModal />
+                <CreateSpecialistModal />
                 <TextField
                     size="small"
                     placeholder="Search Specialties"

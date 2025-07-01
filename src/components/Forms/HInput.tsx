@@ -18,6 +18,10 @@ type THInputProps = {
         | 'numeric'
         | 'decimal';
     size?: 'small' | 'medium';
+    multiline?: boolean;
+    rows?: number;
+    minRows?: number;
+    maxRows?: number;
 };
 
 const HInput = ({
@@ -28,6 +32,10 @@ const HInput = ({
     placeholder,
     inputMode = 'text',
     size = 'medium',
+    multiline = false,
+    rows = 1,
+    minRows = 1,
+    maxRows = 1,
 }: THInputProps) => {
     const {
         register,
@@ -47,6 +55,10 @@ const HInput = ({
             error={!!fieldError}
             helperText={fieldError?.message || ''}
             inputMode={inputMode}
+            multiline={multiline}
+            rows={rows}
+            minRows={minRows}
+            maxRows={maxRows}
         />
     );
 };

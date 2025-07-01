@@ -4,3 +4,13 @@ export const UserRole = {
     DOCTOR: 'DOCTOR',
     PATIENT: 'PATIENT',
 };
+
+export const Gender = {
+    MALE: 'MALE',
+    FEMALE: 'FEMALE',
+};
+
+export const GenderSelect = Object.values(Gender).map((g) => ({
+    value: g,
+    label: g,
+}));

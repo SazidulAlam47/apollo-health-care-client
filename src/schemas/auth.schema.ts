@@ -40,8 +40,8 @@ export const registerPatientSchema = z.object({
         contactNumber: z
             .string()
             .min(1, 'Please enter your Contact Number')
-            .regex(/^\+?[\d\s\-()]+$/, {
-                message: 'Invalid Contact Number',
+            .regex(/^01\d{9}$/, {
+                message: 'Number must be 11 digits and start with 01',
             }),
         address: z.string().transform((val) => (val === '' ? undefined : val)),
     }),

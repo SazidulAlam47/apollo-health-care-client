@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 
-const SpecialistModal = () => {
+const CreateSpecialistModal = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [createSpecialties] = useCreateSpecialtiesMutation();
 
@@ -69,4 +69,4 @@ const SpecialistModal = () => {
     );
 };
 
-export default SpecialistModal;
+export default CreateSpecialistModal;
