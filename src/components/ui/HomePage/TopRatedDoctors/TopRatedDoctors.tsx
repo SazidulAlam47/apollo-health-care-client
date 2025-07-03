@@ -1,4 +1,5 @@
 import { TDoctor } from '@/types';
+import getProfilePhotoOrAvatar from '@/utils/getProfilePhotoOrAvatar';
 import {
     Box,
     Button,
@@ -72,7 +73,10 @@ const TopRatedDoctors = async () => {
                                         }}
                                     >
                                         <Image
-                                            src={doctor.profilePhoto}
+                                            src={getProfilePhotoOrAvatar(
+                                                doctor.profilePhoto,
+                                                doctor.gender,
+                                            )}
                                             alt={doctor.name}
                                             height={200}
                                             width={200}
@@ -110,7 +114,7 @@ const TopRatedDoctors = async () => {
                                                 }}
                                             />{' '}
                                             <Typography>
-                                                {doctor.address}
+                                                {doctor.currentWorkingPlace}
                                             </Typography>
                                         </Stack>
                                         <Stack

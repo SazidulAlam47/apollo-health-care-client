@@ -1,6 +1,9 @@
 import { Gender, UserRole } from '@/constants/user.constant';
+import { TDoctorSpecialty } from './specialties.type';
 
 export type TUserRole = keyof typeof UserRole;
+
+export type TGender = keyof typeof Gender;
 
 export interface TDoctor {
     name: string;
@@ -9,7 +12,7 @@ export interface TDoctor {
     address: string | null;
     registrationNumber: string;
     experience: number;
-    gender: keyof typeof Gender;
+    gender: TGender;
     appointmentFee: number;
     qualification: string;
     currentWorkingPlace: string;
@@ -20,4 +23,5 @@ export interface TDoctor {
     averageRating: number;
     isDeleted: boolean;
     profilePhoto: string | null;
+    doctorSpecialties?: TDoctorSpecialty[];
 }
