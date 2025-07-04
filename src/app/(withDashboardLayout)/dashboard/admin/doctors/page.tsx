@@ -13,9 +13,22 @@ import getProfilePhotoOrAvatar from '@/utils/getProfilePhotoOrAvatar';
 import { MdDelete } from 'react-icons/md';
 import { useDialogs } from '@toolpad/core/useDialogs';
 import { toast } from 'sonner';
+import { useState } from 'react';
+import useDebounced from '@/hooks/useDebounced';
 
 const DoctorsPage = () => {
-    const { data, isLoading } = useGetAllDoctorsQuery({});
+    const query: Record<string, unknown> = {};
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedValue = useDebounced({
+        searchQuery: searchTerm,
+        delay: 600,
+    });
+
+    if (!!debouncedValue) {
+        query.searchTerm = searchTerm;
+    }
+
+    const { data, isLoading } = useGetAllDoctorsQuery(query);
     const [deleteDoctor] = useDeleteDoctorMutation();
     const dialogs = useDialogs();
 
@@ -118,8 +131,9 @@ const DoctorsPage = () => {
                 <CreateDoctorModal />
                 <TextField
                     size="small"
-                    placeholder="Search Specialties"
+                    placeholder="Search Doctors"
                     sx={{ maxWidth: '300px' }}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </Stack>
             <Box>
