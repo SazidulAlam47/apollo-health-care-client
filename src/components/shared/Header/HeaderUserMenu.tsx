@@ -15,8 +15,10 @@ import { Stack } from '@mui/material';
 import userMenuSlotProps from '@/constants/userMenuSlotProps';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 import { TUserRole } from '@/types';
+import { useGetSingleUserQuery } from '@/redux/api/userApi';
 
 const AccountMenu = () => {
+    const { data: user } = useGetSingleUserQuery({});
     const [userRole, setUserRole] = useState<TUserRole | undefined>(undefined);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const router = useRouter();
@@ -53,7 +55,11 @@ const AccountMenu = () => {
                     >
                         <Avatar
                             alt="Sharp"
-                            src="https://avatars.githubusercontent.com/u/19550456"
+                            src={
+                                user?.profilePhoto
+                                    ? user.profilePhoto
+                                    : undefined
+                            }
                         />
                     </IconButton>
                 </Tooltip>

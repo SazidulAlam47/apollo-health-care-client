@@ -12,12 +12,21 @@ import { getUserInfo, removeUser } from '@/services/auth.service';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 import { TUserRole } from '@/types';
 import theme from '@/lib/theme/theme';
+import { useGetSingleUserQuery } from '@/redux/api/userApi';
+import { Account } from '@toolpad/core/Account';
 
 const DashboardDrawer = ({ children }: { children: ReactNode }) => {
     const [userRole, setUserRole] = useState<TUserRole | undefined>(undefined);
     const pathname = usePathname();
     const router = useRouter();
     const nextSearchParams = useSearchParams();
+    const { data: user } = useGetSingleUserQuery({});
+
+    const [session, setSession] = useState<Session | null>({
+        user: {
+            name: 'User',
+        },
+    });
 
     useEffect(() => {
         const userInfo = getUserInfo();
@@ -28,21 +37,17 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
         setUserRole(userInfo.role);
     }, [router]);
 
-    // const [session, setSession] = useState<Session | null>({
-    //     user: {
-    //         name: 'Bharat',
-    //         email: 'bharatkashyap@outlook.com',
-    //         image: 'https://avatars.githubusercontent.com/u/19550456',
-    //     },
-    // });
-
-    const session: Session = {
-        user: {
-            name: 'Bharat ',
-            email: 'bharatkashyap@outlook.com',
-            image: 'https://avatars.githubusercontent.com/u/19550456',
-        },
-    };
+    useEffect(() => {
+        if (user) {
+            setSession({
+                user: {
+                    name: user.name || 'User',
+                    email: user.email,
+                    image: user.profilePhoto,
+                },
+            });
+        }
+    }, [user]);
 
     const searchParams = new URLSearchParams(nextSearchParams.toString());
 
@@ -72,7 +77,11 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
                 <DashboardLayout
                     branding={{
                         logo: (
-                            <Stack direction="row" spacing={1} alignItems="center">
+                            <Stack
+                                direction="row"
+                                spacing={1}
+                                alignItems="center"
+                            >
                                 <Image
                                     src={logo}
                                     alt="Apollo Health Care"
@@ -95,6 +104,9 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
                         ),
                         title: '',
                         homeUrl: '/',
+                    }}
+                    slots={{
+                        toolbarActions: () => <Account />,
                     }}
                 >
                     <Box sx={{ p: 3 }}>{children}</Box>

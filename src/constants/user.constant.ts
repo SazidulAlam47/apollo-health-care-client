@@ -14,3 +14,9 @@ export const GenderSelect = Object.values(Gender).map((g) => ({
     value: g,
     label: g,
 }));
+
+export const UserStatus = {
+    ACTIVE: 'ACTIVE',
+    BLOCKED: 'BLOCKED',
+    DELETED: 'DELETED',
+};
