@@ -12,9 +12,22 @@ import { MdDelete } from 'react-icons/md';
 import { TSpecialty } from '@/types';
 import { useDialogs } from '@toolpad/core/useDialogs';
 import { toast } from 'sonner';
+import { useState } from 'react';
+import useDebounced from '@/hooks/useDebounced';
 
 const SpecialtiesPage = () => {
-    const { data: specialties, isLoading } = useGetAllSpecialtiesQuery({});
+    const query: Record<string, unknown> = {};
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedValue = useDebounced({
+        searchQuery: searchTerm,
+        delay: 600,
+    });
+
+    if (!!debouncedValue) {
+        query.searchTerm = searchTerm;
+    }
+
+    const { data: specialties, isLoading } = useGetAllSpecialtiesQuery(query);
     const [deleteSpecialties] = useDeleteSpecialtiesMutation();
     const dialogs = useDialogs();
 
@@ -98,6 +111,7 @@ const SpecialtiesPage = () => {
                     size="small"
                     placeholder="Search Specialties"
                     sx={{ maxWidth: '300px' }}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </Stack>
             <Box>

@@ -14,9 +14,10 @@ const specialtiesApi = baseApi.injectEndpoints({
             invalidatesTags: [tagTypes.specialties],
         }),
         getAllSpecialties: build.query<TSpecialty[], object>({
-            query: () => ({
+            query: (args: Record<string, unknown>) => ({
                 url: '/specialties',
                 method: 'GET',
+                params: args,
             }),
             providesTags: [tagTypes.specialties],
         }),

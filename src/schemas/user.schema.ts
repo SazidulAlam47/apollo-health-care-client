@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 import { Gender } from '@/constants/user.constant';
 import { z } from 'zod';
 

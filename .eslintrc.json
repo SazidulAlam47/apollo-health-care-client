@@ -6,6 +6,6 @@
         "no-unused-expressions": "error",
         "no-console": "warn",
         "no-undef": "error",
-        "quotes": ["warn", "single"]
+        "quotes": ["warn", "single", { "avoidEscape": true }]
     }
 }
