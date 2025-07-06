@@ -15,6 +15,7 @@ import { useDialogs } from '@toolpad/core/useDialogs';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import useDebounced from '@/hooks/useDebounced';
+import UpdateDoctorModal from './components/UpdateDoctorModal';
 
 const DoctorsPage = () => {
     const query: Record<string, unknown> = {};
@@ -110,13 +111,16 @@ const DoctorsPage = () => {
             headerAlign: 'center',
             align: 'center',
             renderCell: ({ row }: { row: TDoctor }) => (
-                <IconButton
-                    color="error"
-                    aria-label="delete"
-                    onClick={handleDelete(row)}
-                >
-                    <MdDelete />
-                </IconButton>
+                <Box>
+                    <IconButton
+                        color="error"
+                        aria-label="delete"
+                        onClick={handleDelete(row)}
+                    >
+                        <MdDelete />
+                    </IconButton>
+                    <UpdateDoctorModal doctor={row} />
+                </Box>
             ),
         },
     ];

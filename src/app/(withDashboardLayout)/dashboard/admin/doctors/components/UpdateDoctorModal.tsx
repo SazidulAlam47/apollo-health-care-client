@@ -1,31 +1,43 @@
 'use client';
 import HFrom from '@/components/Forms/HFrom';
-import HImageUpload from '@/components/Forms/HImageUpload';
 import HInput from '@/components/Forms/HInput';
 import HSelect from '@/components/Forms/HSelect';
 import HFullScreenModal from '@/components/shared/HModal/HFullScreenModal';
 import { GenderSelect } from '@/constants/user.constant';
-import { useCreateDoctorMutation } from '@/redux/api/doctorsApi';
-import { createDoctorSchema } from '@/schemas/doctor.schema';
-import createFormData from '@/utils/createFormData';
+import { useUpdateDoctorMutation } from '@/redux/api/doctorsApi';
+import { updateDoctorSchema } from '@/schemas/doctor.schema';
+import { TDoctor } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, IconButton } from '@mui/material';
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
+import { MdEdit } from 'react-icons/md';
 import { toast } from 'sonner';
 
-const CreateDoctorModal = () => {
+const UpdateDoctorModal = ({ doctor }: { doctor: TDoctor }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [createDoctor] = useCreateDoctorMutation();
+    const [updateDoctor] = useUpdateDoctorMutation();
+
+    const defaultValues = {
+        name: doctor.name || '',
+        email: doctor.email || '',
+        contactNumber: doctor.contactNumber || '',
+        address: doctor.address || '',
+        currentWorkingPlace: doctor.currentWorkingPlace || '',
+        gender: doctor.gender || '',
+        experience: doctor.experience.toString() || '',
+        appointmentFee: doctor.appointmentFee.toString() || '',
+        registrationNumber: doctor.registrationNumber || '',
+        qualification: doctor.qualification || '',
+        designation: doctor.designation || '',
+    };
 
     const handleCreateDoctor = async (data: FieldValues) => {
-        const formData = createFormData(data);
-
-        const toastId = toast.loading('Creating...');
+        const toastId = toast.loading('Updating...');
         try {
-            const res = await createDoctor(formData).unwrap();
+            const res = await updateDoctor({ id: doctor.id, data }).unwrap();
             if (res.id) {
-                toast.success('Doctor created successfully', {
+                toast.success('Doctor updated successfully', {
                     id: toastId,
                 });
                 setIsModalOpen(false);
@@ -43,32 +55,39 @@ const CreateDoctorModal = () => {
 
     return (
         <>
-            <Button onClick={() => setIsModalOpen(true)}>Create Doctor</Button>
+            <IconButton
+                color="default"
+                aria-label="delete"
+                onClick={() => setIsModalOpen(true)}
+            >
+                <MdEdit />
+            </IconButton>
             <HFullScreenModal
                 open={isModalOpen}
                 setOpen={setIsModalOpen}
-                title="Create a Doctor Account"
+                title="Update Doctor Account"
             >
                 <HFrom
                     onSubmit={handleCreateDoctor}
-                    resolver={zodResolver(createDoctorSchema)}
+                    resolver={zodResolver(updateDoctorSchema)}
+                    defaultValues={defaultValues}
                 >
                     <Grid container spacing={2}>
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} order={1}>
-                            <HInput name="doctor.name" label="Name" />
+                            <HInput name="name" label="Name" />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} order={2}>
-                            <HInput name="doctor.email" label="Email" />
+                            <HInput name="email" label="Email" disabled />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} order={3}>
                             <HInput
-                                name="doctor.contactNumber"
+                                name="contactNumber"
                                 label="Contact Number"
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }} order={{ xs: 5, md: 4 }}>
                             <HInput
-                                name="doctor.address"
+                                name="address"
                                 label="Address"
                                 multiline
                                 rows={2}
@@ -77,7 +96,7 @@ const CreateDoctorModal = () => {
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }} order={{ xs: 6, md: 5 }}>
                             <HInput
-                                name="doctor.currentWorkingPlace"
+                                name="currentWorkingPlace"
                                 label="Current Working Place"
                                 multiline
                                 rows={2}
@@ -89,52 +108,37 @@ const CreateDoctorModal = () => {
                             order={{ xs: 4, md: 6 }}
                         >
                             <HSelect
-                                name="doctor.gender"
+                                name="gender"
                                 label="Gender"
                                 options={GenderSelect}
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} order={7}>
                             <HInput
-                                name="doctor.experience"
+                                name="experience"
                                 label="Experience (Years)"
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} order={8}>
                             <HInput
-                                name="doctor.appointmentFee"
+                                name="appointmentFee"
                                 label="Appointment Fee"
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} order={9}>
                             <HInput
-                                name="doctor.registrationNumber"
+                                name="registrationNumber"
                                 label="Registration Number"
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} order={10}>
                             <HInput
-                                name="doctor.qualification"
+                                name="qualification"
                                 label="Qualification"
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} order={11}>
-                            <HInput
-                                name="doctor.designation"
-                                label="Designation"
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={2} mt={2}>
-                        <Grid size={{ xs: 12, sm: 6 }} order={12}>
-                            <HImageUpload title="Profile Photo" />
-                        </Grid>
-                        <Grid size={{ xs: 12, sm: 6 }} order={13}>
-                            <HInput
-                                name="password"
-                                label="Password"
-                                type="password"
-                            />
+                            <HInput name="designation" label="Designation" />
                         </Grid>
                     </Grid>
                     <Box mt={2} textAlign="right">
@@ -145,7 +149,7 @@ const CreateDoctorModal = () => {
                                 width: 'fit-content',
                             }}
                         >
-                            Create Doctor
+                            Update Doctor
                         </Button>
                     </Box>
                 </HFrom>
@@ -154,4 +158,4 @@ const CreateDoctorModal = () => {
     );
 };
 
-export default CreateDoctorModal;
+export default UpdateDoctorModal;

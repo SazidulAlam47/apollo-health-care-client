@@ -1,6 +1,6 @@
 import getFieldError from '@/utils/getFieldError';
 import { MenuItem, SxProps, TextField } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 
 type THSelectProps = {
     label: string;
@@ -23,29 +23,35 @@ const HSelect = ({
     size = 'medium',
 }: THSelectProps) => {
     const {
-        register,
+        control,
         formState: { errors },
     } = useFormContext();
 
     const fieldError = getFieldError(errors, name);
 
     return (
-        <TextField
-            select
-            label={label}
-            size={size}
-            placeholder={placeholder}
-            sx={sx}
-            {...register(name)}
-            error={!!fieldError}
-            helperText={fieldError?.message || ''}
-        >
-            {options.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                </MenuItem>
-            ))}
-        </TextField>
+        <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+                <TextField
+                    select
+                    label={label}
+                    size={size}
+                    placeholder={placeholder}
+                    sx={sx}
+                    {...field}
+                    error={!!fieldError}
+                    helperText={fieldError?.message || ''}
+                >
+                    {options.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            )}
+        />
     );
 };
 

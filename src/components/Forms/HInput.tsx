@@ -22,6 +22,7 @@ type THInputProps = {
     rows?: number;
     minRows?: number;
     maxRows?: number;
+    disabled?: boolean;
 };
 
 const HInput = ({
@@ -36,6 +37,7 @@ const HInput = ({
     rows = 1,
     minRows = 1,
     maxRows = 1,
+    disabled = false,
 }: THInputProps) => {
     const {
         register,
@@ -59,6 +61,7 @@ const HInput = ({
             rows={rows}
             minRows={minRows}
             maxRows={maxRows}
+            disabled={disabled}
         />
     );
 };
