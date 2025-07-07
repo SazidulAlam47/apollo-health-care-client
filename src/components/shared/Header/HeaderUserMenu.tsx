@@ -7,21 +7,23 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { FiLogOut } from 'react-icons/fi';
-import { getUserInfo, removeUser } from '@/services/auth.service';
+import { getUserInfo } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 import Link from 'next/link';
 import { Stack } from '@mui/material';
 import userMenuSlotProps from '@/constants/userMenuSlotProps';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 import { TUserRole } from '@/types';
 import { useGetSingleUserQuery } from '@/redux/api/userApi';
+import userLogout from '@/services/actions/userLogout';
+import { toast } from 'sonner';
 
 const AccountMenu = () => {
     const { data: user } = useGetSingleUserQuery({});
     const [userRole, setUserRole] = useState<TUserRole | undefined>(undefined);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const router = useRouter();
+
     const open = !!anchorEl;
 
     useEffect(() => {
@@ -36,11 +38,18 @@ const AccountMenu = () => {
         setAnchorEl(null);
     };
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         handleClose();
-        toast.success('Logged out successfully');
-        removeUser();
-        router.refresh();
+        const toastId = toast.loading('Logging out...');
+        try {
+            await userLogout();
+            router.refresh();
+            toast.success('Logged out successfully', { id: toastId });
+        } catch (error: any) {
+            toast.error(error.message || 'Something went wrong', {
+                id: toastId,
+            });
+        }
     };
 
     return (
@@ -54,7 +63,7 @@ const AccountMenu = () => {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <Avatar
-                            alt="Sharp"
+                            alt={user?.name || 'User'}
                             src={
                                 user?.profilePhoto
                                     ? user.profilePhoto

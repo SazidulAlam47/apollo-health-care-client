@@ -7,13 +7,14 @@ import { Box, Stack, ThemeProvider, Typography } from '@mui/material';
 import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import { Session } from '@toolpad/core/AppProvider';
-import { toast } from 'sonner';
-import { getUserInfo, removeUser } from '@/services/auth.service';
+import { getUserInfo } from '@/services/auth.service';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 import { TUserRole } from '@/types';
 import theme from '@/lib/theme/theme';
 import { useGetSingleUserQuery } from '@/redux/api/userApi';
 import { Account } from '@toolpad/core/Account';
+import userLogout from '@/services/actions/userLogout';
+import { toast } from 'sonner';
 
 const DashboardDrawer = ({ children }: { children: ReactNode }) => {
     const [userRole, setUserRole] = useState<TUserRole | undefined>(undefined);
@@ -58,10 +59,18 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
     const authentication = useMemo(() => {
         return {
             signIn: () => {},
-            signOut: () => {
+            signOut: async () => {
                 router.push('/');
-                toast.success('Logged out successfully');
-                removeUser();
+
+                const toastId = toast.loading('Logging out...');
+                try {
+                    await userLogout();
+                    toast.success('Logged out successfully', { id: toastId });
+                } catch (error: any) {
+                    toast.error(error.message || 'Something went wrong', {
+                        id: toastId,
+                    });
+                }
             },
         };
     }, [router]);

@@ -1,4 +1,3 @@
-'use server';
 import { FieldValues } from 'react-hook-form';
 
 const userLogin = async (data: FieldValues) => {
@@ -10,10 +9,11 @@ const userLogin = async (data: FieldValues) => {
                 'content-type': 'application/json',
             },
             body: JSON.stringify(data),
-            cache: 'no-store',
+            credentials: 'include',
         },
     );
     const userInfo = await res.json();
+
     return userInfo;
 };
 
