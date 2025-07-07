@@ -9,6 +9,8 @@ const axiosInstance = axios.create();
 axiosInstance.defaults.headers.post['Content-Type'] = 'application/json';
 axiosInstance.defaults.headers['Accept'] = 'application/json';
 axiosInstance.defaults.timeout = 60000;
+axiosInstance.defaults.baseURL = process.env
+    .NEXT_PUBLIC_BACKEND_API_URL as string;
 
 axiosInstance.interceptors.request.use(
     function (config) {
