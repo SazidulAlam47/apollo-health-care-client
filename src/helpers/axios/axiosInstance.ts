@@ -40,12 +40,13 @@ axiosInstance.interceptors.response.use(
         if (error?.status === 401 && !config.sent) {
             config.sent = true;
             const accessToken = await getNewAccessToken();
+
             if (accessToken) {
                 config.headers.Authorization = `Bearer ${accessToken}`;
                 storeUserInfo(accessToken);
                 return axiosInstance(config);
             } else {
-                userLogout();
+                await userLogout();
 
                 const responseObject: TResponseErrorType = {
                     statusCode: 401,

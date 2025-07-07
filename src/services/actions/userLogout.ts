@@ -1,13 +1,8 @@
 import { removeUser } from '../auth.service';
+import axiosInstance from '@/helpers/axios/axiosInstance';
 
 const userLogout = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/logout`, {
-        method: 'GET',
-        headers: {
-            'content-type': 'application/json',
-        },
-        credentials: 'include',
-    }); // remove refresh token
+    await axiosInstance.get('/auth/logout'); // remove refresh token
     removeUser(); // remove access token
     return null;
 };
