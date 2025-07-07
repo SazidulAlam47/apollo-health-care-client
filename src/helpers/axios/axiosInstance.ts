@@ -11,6 +11,7 @@ axiosInstance.defaults.headers['Accept'] = 'application/json';
 axiosInstance.defaults.timeout = 60000;
 axiosInstance.defaults.baseURL = process.env
     .NEXT_PUBLIC_BACKEND_API_URL as string;
+axiosInstance.defaults.withCredentials = true;
 
 axiosInstance.interceptors.request.use(
     function (config) {
@@ -38,8 +39,7 @@ axiosInstance.interceptors.response.use(
         const { config } = error;
         if (error?.status === 401 && !config.sent) {
             config.sent = true;
-            const res = await getNewAccessToken();
-            const accessToken = res.data.accessToken;
+            const accessToken = await getNewAccessToken();
             if (accessToken) {
                 config.headers.Authorization = `Bearer ${accessToken}`;
                 storeUserInfo(accessToken);

@@ -7,7 +7,6 @@ import { FieldValues } from 'react-hook-form';
 import registerPatient from '@/services/actions/registerPatient';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import userLogin from '@/services/actions/userLogin';
 import { storeUserInfo } from '@/services/auth.service';
 import HInput from '@/components/Forms/HInput';
 import HFrom from '@/components/Forms/HFrom';
@@ -16,9 +15,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registerPatientSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
 import createFormData from '@/utils/createFormData';
+import { useLoginMutation } from '@/redux/api/userApi';
 
 const RegisterPage = () => {
     const router = useRouter();
+    const [login] = useLoginMutation();
 
     const onSubmit = async (data: FieldValues) => {
         const formData = createFormData(data);
@@ -29,24 +30,26 @@ const RegisterPage = () => {
             if (regRes.success) {
                 toast.success('Account created successfully', { id: toastId });
 
-                const loginRes = await userLogin({
+                const loginRes = await login({
                     email: data.patient.email,
                     password: data.password,
-                });
+                }).unwrap();
 
-                if (loginRes.success) {
-                    storeUserInfo(loginRes.data.accessToken);
+                if (loginRes.accessToken) {
+                    storeUserInfo(loginRes.accessToken);
                     router.push(
-                        `/dashboard/${getRoleLowerCase(loginRes.data.role)}`,
+                        `/dashboard/${getRoleLowerCase(loginRes.role)}`,
                     );
                 } else {
-                    toast.error(loginRes.message);
+                    toast.error('Something went wrong', { id: toastId });
                 }
             } else {
                 toast.error(regRes.message, { id: toastId });
             }
         } catch (error: any) {
-            toast.error(error.message, { id: toastId });
+            toast.error(error.message || error.data || 'Something went wrong', {
+                id: toastId,
+            });
         }
     };
 

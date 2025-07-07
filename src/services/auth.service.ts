@@ -32,10 +32,6 @@ export const removeUser = () => {
 };
 
 export const getNewAccessToken = async () => {
-    return await axiosInstance({
-        url: '/auth/refresh-token',
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-    });
+    const res = await axiosInstance.get('/auth/refresh-token');
+    return res.data.accessToken as string | undefined;
 };

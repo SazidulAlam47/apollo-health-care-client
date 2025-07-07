@@ -5,7 +5,6 @@ import logo from '@/assets/logo/logo-icon.png';
 import Link from 'next/link';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
-import userLogin from '@/services/actions/userLogin';
 import { storeUserInfo } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import HFrom from '@/components/Forms/HFrom';
@@ -13,23 +12,28 @@ import HInput from '@/components/Forms/HInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
+import { useLoginMutation } from '@/redux/api/userApi';
 
 const LoginPage = () => {
     const router = useRouter();
+    const [login] = useLoginMutation();
 
     const handleLogin = async (data: FieldValues) => {
         const toastId = toast.loading('Logging in...');
         try {
-            const res = await userLogin(data);
-            if (res.success) {
-                storeUserInfo(res.data.accessToken);
+            const res = await login(data).unwrap();
+
+            if (res.accessToken) {
+                storeUserInfo(res.accessToken);
                 toast.success('Logged in successfully', { id: toastId });
-                router.push(`/dashboard/${getRoleLowerCase(res.data.role)}`);
+                router.push(`/dashboard/${getRoleLowerCase(res.role)}`);
             } else {
-                toast.error(res.message, { id: toastId });
+                toast.error('Something went wrong', { id: toastId });
             }
         } catch (error: any) {
-            toast.error(error.message, { id: toastId });
+            toast.error(error.message || error.data || 'Something went wrong', {
+                id: toastId,
+            });
         }
     };
 
