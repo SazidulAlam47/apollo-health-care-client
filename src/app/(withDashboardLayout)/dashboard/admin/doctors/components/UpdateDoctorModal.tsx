@@ -19,17 +19,17 @@ const UpdateDoctorModal = ({ doctor }: { doctor: TDoctor }) => {
     const [updateDoctor] = useUpdateDoctorMutation();
 
     const defaultValues = {
-        name: doctor.name || '',
-        email: doctor.email || '',
-        contactNumber: doctor.contactNumber || '',
-        address: doctor.address || '',
-        currentWorkingPlace: doctor.currentWorkingPlace || '',
-        gender: doctor.gender || '',
-        experience: doctor.experience.toString() || '',
-        appointmentFee: doctor.appointmentFee.toString() || '',
-        registrationNumber: doctor.registrationNumber || '',
-        qualification: doctor.qualification || '',
-        designation: doctor.designation || '',
+        name: doctor?.name || '',
+        email: doctor?.email || '',
+        contactNumber: doctor?.contactNumber || '',
+        address: doctor?.address || '',
+        currentWorkingPlace: doctor?.currentWorkingPlace || '',
+        gender: doctor?.gender || '',
+        experience: doctor?.experience.toString() || '0',
+        appointmentFee: doctor?.appointmentFee.toString() || '0',
+        registrationNumber: doctor?.registrationNumber || '',
+        qualification: doctor?.qualification || '',
+        designation: doctor?.designation || '',
     };
 
     const handleCreateDoctor = async (data: FieldValues) => {

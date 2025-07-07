@@ -13,7 +13,7 @@ const DashboardPage = () => {
         if (userInfo) {
             router.push(`/dashboard/${getRoleLowerCase(userInfo.role)}`);
         } else {
-            router.push('/');
+            router.push('/login');
         }
     }, [router]);
 

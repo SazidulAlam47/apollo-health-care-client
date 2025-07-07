@@ -1,6 +1,5 @@
 import { authKey } from '@/constants/auth.constant';
 import axiosInstance from '@/helpers/axios/axiosInstance';
-import { TDecodedUser } from '@/types';
 import { decodeToken } from '@/utils/jwt';
 import {
     getFromLocalStorage,
@@ -19,11 +18,7 @@ export const getUserInfo = () => {
         return null;
     }
 
-    const decodedUser = decodeToken(token) as TDecodedUser;
-
-    if (!decodedUser) {
-        return removeUser();
-    }
+    const decodedUser = decodeToken(token);
 
     return decodedUser;
 };

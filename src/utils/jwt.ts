@@ -1,3 +1,4 @@
+import { TDecodedUser } from '@/types';
 import { jwtDecode } from 'jwt-decode';
 
 export const decodeToken = (token: string) => {
@@ -5,7 +6,7 @@ export const decodeToken = (token: string) => {
         return null;
     }
     try {
-        return jwtDecode(token);
+        return jwtDecode(token) as TDecodedUser;
     } catch (error) {
         return null;
     }
