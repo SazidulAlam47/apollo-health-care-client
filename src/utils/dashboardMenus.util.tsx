@@ -1,6 +1,5 @@
 import { TUserRole } from '@/types';
 import { Navigation } from '@toolpad/core/AppProvider';
-import { MdOutlinePerson, MdOutlineKey } from 'react-icons/md';
 import getRoleLowerCase from './getRoleLowerCase';
 
 export const getDashboardMenus = (role: TUserRole | undefined): Navigation => {
@@ -40,26 +39,4 @@ export const createMenusWithBaseRoute = (
         }
     });
     return result;
-};
-
-export const createAccountMenu = (role: TUserRole): Navigation => {
-    return [
-        {
-            kind: 'divider',
-        },
-        {
-            kind: 'header',
-            title: 'Account',
-        },
-        {
-            segment: `dashboard/${getRoleLowerCase(role)}/profile`,
-            title: 'Profile',
-            icon: <MdOutlinePerson />,
-        },
-        {
-            segment: 'dashboard/change-password',
-            title: 'Change Password',
-            icon: <MdOutlineKey />,
-        },
-    ];
 };

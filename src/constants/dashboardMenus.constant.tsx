@@ -6,19 +6,38 @@ import {
     MdReviews,
     MdOutlineAttachMoney,
     MdOutlineReceiptLong,
+    MdOutlinePerson,
+    MdOutlineKey,
 } from 'react-icons/md';
 import { FaUserGroup } from 'react-icons/fa6';
 import { GiStethoscope } from 'react-icons/gi';
 import { RiBookOpenLine } from 'react-icons/ri';
-import {
-    createAccountMenu,
-    createMenusWithBaseRoute,
-} from '@/utils/dashboardMenus.util';
+import { createMenusWithBaseRoute } from '@/utils/dashboardMenus.util';
 
 const header: NavigationItem = {
     kind: 'header',
     title: 'Dashboard Menu',
 };
+
+const accountMenu: Navigation = [
+    {
+        kind: 'divider',
+    },
+    {
+        kind: 'header',
+        title: 'Account',
+    },
+    {
+        segment: 'dashboard/profile',
+        title: 'Profile',
+        icon: <MdOutlinePerson />,
+    },
+    {
+        segment: 'dashboard/change-password',
+        title: 'Change Password',
+        icon: <MdOutlineKey />,
+    },
+];
 
 export const superAdminMenus: Navigation = [
     ...createMenusWithBaseRoute('SUPER_ADMIN', [
@@ -34,7 +53,7 @@ export const superAdminMenus: Navigation = [
             icon: <FaUserGroup />,
         },
     ]),
-    ...createAccountMenu('SUPER_ADMIN'),
+    ...accountMenu,
 ];
 
 export const adminMenus: Navigation = [
@@ -71,7 +90,7 @@ export const adminMenus: Navigation = [
             icon: <MdReviews />,
         },
     ]),
-    ...createAccountMenu('ADMIN'),
+    ...accountMenu,
 ];
 
 export const doctorMenus: Navigation = [
@@ -93,7 +112,7 @@ export const doctorMenus: Navigation = [
             icon: <RiBookOpenLine />,
         },
     ]),
-    ...createAccountMenu('DOCTOR'),
+    ...accountMenu,
 ];
 
 export const patientMenus: Navigation = [
@@ -120,5 +139,5 @@ export const patientMenus: Navigation = [
             icon: <MdOutlineAttachMoney />,
         },
     ]),
-    ...createAccountMenu('PATIENT'),
+    ...accountMenu,
 ];
