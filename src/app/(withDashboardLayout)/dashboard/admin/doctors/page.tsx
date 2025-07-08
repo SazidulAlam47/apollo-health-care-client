@@ -1,5 +1,5 @@
 'use client';
-import { Box, IconButton, Stack, TextField } from '@mui/material';
+import { Box, IconButton, Pagination, Stack, TextField } from '@mui/material';
 import CreateDoctorModal from './components/CreateDoctorModal';
 import {
     useDeleteDoctorMutation,
@@ -19,6 +19,7 @@ import UpdateDoctorModal from './components/UpdateDoctorModal';
 
 const DoctorsPage = () => {
     const query: Record<string, unknown> = {};
+    const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
     const debouncedValue = useDebounced({
         searchQuery: searchTerm,
@@ -28,6 +29,7 @@ const DoctorsPage = () => {
     if (!!debouncedValue) {
         query.searchTerm = searchTerm;
     }
+    query.page = page;
 
     const { data, isLoading } = useGetAllDoctorsQuery(query);
     const [deleteDoctor] = useDeleteDoctorMutation();
@@ -144,13 +146,28 @@ const DoctorsPage = () => {
                 {isLoading ? (
                     <Loader />
                 ) : (
-                    <DataGrid
-                        rows={data?.doctors}
-                        columns={columns}
-                        sx={{
-                            border: 0,
-                        }}
-                    />
+                    <>
+                        <DataGrid
+                            rows={data?.doctors}
+                            columns={columns}
+                            hideFooter
+                            sx={{
+                                border: 0,
+                            }}
+                        />
+                        <Box sx={{ mt: 1 }}>
+                            <Pagination
+                                color="primary"
+                                count={data?.meta.totalPage}
+                                page={data?.meta.page}
+                                onChange={(event, page) => setPage(page)}
+                                sx={{
+                                    width: 'fit-content',
+                                    ml: 'auto',
+                                }}
+                            />
+                        </Box>
+                    </>
                 )}
             </Box>
         </Stack>

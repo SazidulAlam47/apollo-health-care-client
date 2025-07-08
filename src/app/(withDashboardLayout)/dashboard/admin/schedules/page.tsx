@@ -1,5 +1,5 @@
 'use client';
-import { Box, IconButton, Stack } from '@mui/material';
+import { Box, IconButton, Pagination, Stack } from '@mui/material';
 import CreateScheduleModal from './components/CreateScheduleModal';
 import {
     useDeleteScheduleMutation,
@@ -12,9 +12,11 @@ import { MdDelete } from 'react-icons/md';
 import { useDialogs } from '@toolpad/core/useDialogs';
 import { toast } from 'sonner';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 
 const SchedulesPage = () => {
-    const { data, isLoading } = useGetAllSchedulesQuery({});
+    const [page, setPage] = useState(1);
+    const { data, isLoading } = useGetAllSchedulesQuery({ page });
     const [deleteSchedule] = useDeleteScheduleMutation();
     const dialogs = useDialogs();
 
@@ -105,24 +107,33 @@ const SchedulesPage = () => {
                 alignItems="center"
             >
                 <CreateScheduleModal />
-                {/* <TextField
-                    size="small"
-                    placeholder="Search Doctors"
-                    sx={{ maxWidth: '300px' }}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                /> */}
             </Stack>
             <Box>
                 {isLoading ? (
                     <Loader />
                 ) : (
-                    <DataGrid
-                        rows={data?.schedules}
-                        columns={columns}
-                        sx={{
-                            border: 0,
-                        }}
-                    />
+                    <>
+                        <DataGrid
+                            rows={data?.schedules}
+                            columns={columns}
+                            hideFooter
+                            sx={{
+                                border: 0,
+                            }}
+                        />
+                        <Box sx={{ mt: 1 }}>
+                            <Pagination
+                                color="primary"
+                                count={data?.meta.totalPage}
+                                page={data?.meta.page}
+                                onChange={(event, page) => setPage(page)}
+                                sx={{
+                                    width: 'fit-content',
+                                    ml: 'auto',
+                                }}
+                            />
+                        </Box>
+                    </>
                 )}
             </Box>
         </Stack>

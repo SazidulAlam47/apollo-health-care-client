@@ -1,4 +1,4 @@
-import { TSpecialty } from '@/types';
+import { TMeta, TSpecialty } from '@/types';
 import { tagTypes } from '../tagTypes';
 import { baseApi } from './baseApi';
 
@@ -13,12 +13,18 @@ const specialtiesApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.specialties],
         }),
-        getAllSpecialties: build.query<TSpecialty[], object>({
+        getAllSpecialties: build.query({
             query: (args: Record<string, unknown>) => ({
                 url: '/specialties',
                 method: 'GET',
                 params: args,
             }),
+            transformResponse: (response: TSpecialty[], meta: TMeta) => {
+                return {
+                    specialties: response,
+                    meta,
+                };
+            },
             providesTags: [tagTypes.specialties],
         }),
         deleteSpecialties: build.mutation<TSpecialty, any>({

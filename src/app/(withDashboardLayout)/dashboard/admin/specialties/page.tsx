@@ -1,5 +1,5 @@
 'use client';
-import { Box, IconButton, Stack, TextField } from '@mui/material';
+import { Box, IconButton, Pagination, Stack, TextField } from '@mui/material';
 import CreateSpecialistModal from './components/CreateSpecialistModal';
 import {
     useDeleteSpecialtiesMutation,
@@ -17,6 +17,7 @@ import useDebounced from '@/hooks/useDebounced';
 
 const SpecialtiesPage = () => {
     const query: Record<string, unknown> = {};
+    const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
     const debouncedValue = useDebounced({
         searchQuery: searchTerm,
@@ -26,8 +27,9 @@ const SpecialtiesPage = () => {
     if (!!debouncedValue) {
         query.searchTerm = searchTerm;
     }
+    query.page = page;
 
-    const { data: specialties, isLoading } = useGetAllSpecialtiesQuery(query);
+    const { data, isLoading } = useGetAllSpecialtiesQuery(query);
     const [deleteSpecialties] = useDeleteSpecialtiesMutation();
     const dialogs = useDialogs();
 
@@ -118,14 +120,28 @@ const SpecialtiesPage = () => {
                 {isLoading ? (
                     <Loader />
                 ) : (
-                    <DataGrid
-                        rows={specialties}
-                        columns={columns}
-                        hideFooter
-                        sx={{
-                            border: 0,
-                        }}
-                    />
+                    <>
+                        <DataGrid
+                            rows={data?.specialties}
+                            columns={columns}
+                            hideFooter
+                            sx={{
+                                border: 0,
+                            }}
+                        />
+                        <Box sx={{ mt: 1 }}>
+                            <Pagination
+                                color="primary"
+                                count={data?.meta.totalPage}
+                                page={data?.meta.page}
+                                onChange={(event, page) => setPage(page)}
+                                sx={{
+                                    width: 'fit-content',
+                                    ml: 'auto',
+                                }}
+                            />
+                        </Box>
+                    </>
                 )}
             </Box>
         </Stack>
