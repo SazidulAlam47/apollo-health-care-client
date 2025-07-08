@@ -7,7 +7,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { FiLogOut } from 'react-icons/fi';
-import { getUserInfo } from '@/services/auth.service';
+import { getUserInfo, userLogout } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Stack } from '@mui/material';
@@ -15,7 +15,6 @@ import userMenuSlotProps from '@/constants/userMenuSlotProps';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 import { TUserRole } from '@/types';
 import { useGetSingleUserQuery } from '@/redux/api/userApi';
-import userLogout from '@/services/actions/userLogout';
 import { toast } from 'sonner';
 
 const AccountMenu = () => {

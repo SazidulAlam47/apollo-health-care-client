@@ -7,13 +7,12 @@ import { Box, Stack, ThemeProvider, Typography } from '@mui/material';
 import Image from 'next/image';
 import logo from '@/assets/logo/logo-icon.png';
 import { Session } from '@toolpad/core/AppProvider';
-import { getUserInfo } from '@/services/auth.service';
+import { getUserInfo, userLogout } from '@/services/auth.service';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 import { TUserRole } from '@/types';
 import theme from '@/lib/theme/theme';
 import { useGetSingleUserQuery } from '@/redux/api/userApi';
 import { Account } from '@toolpad/core/Account';
-import userLogout from '@/services/actions/userLogout';
 import { toast } from 'sonner';
 
 const DashboardDrawer = ({ children }: { children: ReactNode }) => {

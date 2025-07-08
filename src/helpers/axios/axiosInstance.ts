@@ -1,6 +1,9 @@
 import { authKey } from '@/constants/auth.constant';
-import userLogout from '@/services/actions/userLogout';
-import { getNewAccessToken, storeUserInfo } from '@/services/auth.service';
+import {
+    getNewAccessToken,
+    storeUserInfo,
+    userLogout,
+} from '@/services/auth.service';
 import { TResponseErrorType, TResponseSuccessType } from '@/types';
 import { getFromLocalStorage } from '@/utils/localStorage';
 import axios from 'axios';

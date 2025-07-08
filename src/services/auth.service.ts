@@ -1,4 +1,5 @@
 import { authKey } from '@/constants/auth.constant';
+import axiosInstance from '@/helpers/axios/axiosInstance';
 import { decodeToken } from '@/utils/jwt';
 import {
     getFromLocalStorage,
@@ -41,4 +42,10 @@ export const getNewAccessToken = async () => {
     } catch (error) {
         return null;
     }
+};
+
+export const userLogout = async () => {
+    await axiosInstance.get('/auth/logout'); // remove refresh token
+    removeUser(); // remove access token
+    return null;
 };
