@@ -32,10 +32,13 @@ export const removeUser = () => {
 };
 
 export const getNewAccessToken = async () => {
-    const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/refresh-token`,
-        { withCredentials: true },
-    );
-
-    return res.data.data.accessToken as string | undefined;
+    try {
+        const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/refresh-token`,
+            { withCredentials: true },
+        );
+        return res.data.data.accessToken as string;
+    } catch (error) {
+        return null;
+    }
 };
