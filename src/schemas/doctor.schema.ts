@@ -45,22 +45,22 @@ export const createDoctorSchema = z.object({
 });
 
 export const updateDoctorSchema = z.object({
-    name: z.string().min(1, 'Please enter your Name'),
-    // email: z.string().min(1, 'Please enter your Email').email('Invalid Email'),
+    name: z.string().transform((val) => (val === '' ? undefined : val)),
     contactNumber: z
         .string()
-        .min(1, 'Please enter your Contact Number')
-        .regex(/^01\d{9}$/, {
+        .transform((val) => (val === '' ? undefined : val))
+        .refine((val) => val === undefined || /^01\d{9}$/.test(val), {
             message: 'Number must be 11 digits and start with 01',
         }),
     address: z.string().transform((val) => (val === '' ? undefined : val)),
     registrationNumber: z
         .string()
-        .min(1, "Please enter doctor's Registration Number"),
+        .transform((val) => (val === '' ? undefined : val)),
+     
     experience: z
         .string()
-        .transform((val) => (val === '' ? 0 : Number(val)))
-        .refine((val) => !isNaN(val), {
+        .transform((val) => (val === '' ? undefined : Number(val)))
+        .refine((val) => val === undefined || !isNaN(val), {
             message: 'Experience must be a valid number',
         }),
     gender: z.nativeEnum(Gender, {
@@ -68,14 +68,15 @@ export const updateDoctorSchema = z.object({
     }),
     appointmentFee: z
         .string()
-        .min(1, "Please Enter doctor's Appointment Fee")
-        .transform((val) => Number(val))
-        .refine((val) => !isNaN(val), {
+        .transform((val) => (val === '' ? undefined : Number(val)))
+        .refine((val) => val === undefined || !isNaN(val), {
             message: 'Appointment Fee must be a valid number',
         }),
-    qualification: z.string().min(1, "Please enter doctor's Qualification"),
+    qualification: z
+        .string()
+        .transform((val) => (val === '' ? undefined : val)),
     currentWorkingPlace: z
         .string()
-        .min(1, "Please enter doctor's Current Working Place"),
-    designation: z.string().min(1, "Please enter doctor's Designation"),
+        .transform((val) => (val === '' ? undefined : val)),
+    designation: z.string().transform((val) => (val === '' ? undefined : val)),
 });

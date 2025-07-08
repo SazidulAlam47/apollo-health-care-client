@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material';
 const ProfileField = ({ label, value }: { label: string; value: any }) => {
     if (!value) return null;
     return (
-        <Grid size={{ xs: 6 }}>
+        <Grid size={{ xs: 12, sm: 6 }}>
             <Typography variant="subtitle2" color="text.secondary">
                 {label}
             </Typography>

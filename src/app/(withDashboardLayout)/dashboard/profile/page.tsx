@@ -11,9 +11,11 @@ import {
     Typography,
     Divider,
     Stack,
+    Button,
 } from '@mui/material';
 import ProfileField from './components/ProfileField';
 import capitalize from '@/utils/capitalize';
+import Link from 'next/link';
 
 const ProfilePage = () => {
     const { data: user, isLoading } = useGetSingleUserQuery({});
@@ -42,7 +44,14 @@ const ProfilePage = () => {
             alignItems="center"
             minHeight="80vh"
         >
-            <Card sx={{ maxWidth: 600, width: '100%', p: 3, boxShadow: 3 }}>
+            <Card
+                sx={{
+                    maxWidth: 600,
+                    width: '100%',
+                    p: { sx: 0, md: 3 },
+                    boxShadow: { xs: 0, md: 3 },
+                }}
+            >
                 <Stack direction="column" alignItems="center" mb={2}>
                     <Avatar
                         src={user.profilePhoto || undefined}
@@ -57,6 +66,18 @@ const ProfilePage = () => {
                         {user.email}
                     </Typography>
                 </Stack>
+                {!(user.role === 'SUPER_ADMIN') && (
+                    <Box textAlign={{ xs: 'center', sm: 'right' }}>
+                        <Button
+                            component={Link}
+                            href="/dashboard/profile/edit"
+                            size="small"
+                            sx={{ mb: 2, px: '15px', py: '6px' }}
+                        >
+                            Edit Profile
+                        </Button>
+                    </Box>
+                )}
                 <Divider sx={{ mb: 2 }} />
                 <CardContent>
                     <Grid container spacing={2}>
@@ -82,6 +103,10 @@ const ProfilePage = () => {
                             value={user.registrationNumber}
                         />
                         <ProfileField
+                            label="Qualification"
+                            value={user.qualification}
+                        />
+                        <ProfileField
                             label="Experience"
                             value={
                                 user.experience
@@ -90,8 +115,12 @@ const ProfilePage = () => {
                             }
                         />
                         <ProfileField
-                            label="Qualification"
-                            value={user.qualification}
+                            label="Appointment Fee"
+                            value={
+                                user.appointmentFee
+                                    ? `${user.appointmentFee} tk`
+                                    : undefined
+                            }
                         />
                         <ProfileField
                             label="Current Workplace"

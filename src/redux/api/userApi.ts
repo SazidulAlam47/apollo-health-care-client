@@ -11,7 +11,7 @@ const usersApi = baseApi.injectEndpoints({
             }),
             providesTags: [tagTypes.user],
         }),
-        login: build.mutation<ILogin, object>({
+        login: build.mutation<ILogin, any>({
             query: (data) => ({
                 url: '/auth/login',
                 method: 'POST',
@@ -19,7 +19,20 @@ const usersApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.user],
         }),
+        updateProfile: build.mutation<IUser, any>({
+            query: (data) => ({
+                url: '/users/update-my-profile',
+                method: 'PATCH',
+                contentType: 'multipart/form-data',
+                data,
+            }),
+            invalidatesTags: [tagTypes.user],
+        }),
     }),
 });
 
-export const { useGetSingleUserQuery, useLoginMutation } = usersApi;
+export const {
+    useGetSingleUserQuery,
+    useLoginMutation,
+    useUpdateProfileMutation,
+} = usersApi;
