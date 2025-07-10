@@ -78,3 +78,9 @@ export const createScheduleSchema = z
         startTime: convertTimeToString(values.startTime),
         endTime: convertTimeToString(values.endTime),
     }));
+
+export const createDoctorScheduleSchema = z.object({
+    scheduleIds: z.array(z.string(), {
+        required_error: 'Please Select Time Slots',
+    }),
+});

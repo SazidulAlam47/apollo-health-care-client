@@ -16,7 +16,10 @@ import { useState } from 'react';
 
 const SchedulesPage = () => {
     const [page, setPage] = useState(1);
-    const { data, isLoading } = useGetAllSchedulesQuery({ page });
+    const { data, isLoading } = useGetAllSchedulesQuery({
+        page,
+        limit: 10,
+    });
     const [deleteSchedule] = useDeleteScheduleMutation();
     const dialogs = useDialogs();
 
