@@ -28,6 +28,7 @@ export interface IUser {
     role: TUserRole;
     needPasswordChange: boolean;
     status: TUserStatus;
+    doctorSpecialties?: TDoctorSpecialty[];
 }
 
 export interface TDoctor {

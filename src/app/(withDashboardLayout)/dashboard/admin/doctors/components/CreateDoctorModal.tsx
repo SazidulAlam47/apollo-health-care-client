@@ -71,7 +71,6 @@ const CreateDoctorModal = () => {
                                 name="doctor.address"
                                 label="Address"
                                 multiline
-                                rows={2}
                                 minRows={2}
                             />
                         </Grid>
@@ -80,7 +79,6 @@ const CreateDoctorModal = () => {
                                 name="doctor.currentWorkingPlace"
                                 label="Current Working Place"
                                 multiline
-                                rows={2}
                                 minRows={2}
                             />
                         </Grid>

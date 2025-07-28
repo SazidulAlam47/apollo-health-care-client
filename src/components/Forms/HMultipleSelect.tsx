@@ -83,11 +83,12 @@ const HMultipleSelect = ({
             name={name}
             control={control}
             render={({ field }) => (
-                <FormControl sx={{ width: 400, ...sx }}>
+                <FormControl sx={{ width: '100%', ...sx }}>
                     <InputLabel id={`${name}-multiple-chip-label`}>
                         {label}
                     </InputLabel>
                     <Select
+                        fullWidth
                         labelId={`${name}-multiple-chip-label`}
                         id={`${name}-multiple-chip`}
                         multiple

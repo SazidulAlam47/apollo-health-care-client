@@ -19,9 +19,7 @@ type THInputProps = {
         | 'decimal';
     size?: 'small' | 'medium';
     multiline?: boolean;
-    rows?: number;
     minRows?: number;
-    maxRows?: number;
     disabled?: boolean;
 };
 
@@ -34,9 +32,7 @@ const HInput = ({
     inputMode = 'text',
     size = 'medium',
     multiline = false,
-    rows = 1,
     minRows = 1,
-    maxRows = 1,
     disabled = false,
 }: THInputProps) => {
     const {
@@ -58,9 +54,7 @@ const HInput = ({
             helperText={fieldError?.message || ''}
             inputMode={inputMode}
             multiline={multiline}
-            rows={rows}
             minRows={minRows}
-            maxRows={maxRows}
             disabled={disabled}
         />
     );

@@ -2,9 +2,11 @@
 import HFrom from '@/components/Forms/HFrom';
 import HImageUpload from '@/components/Forms/HImageUpload';
 import HInput from '@/components/Forms/HInput';
+import HMultipleSelect from '@/components/Forms/HMultipleSelect';
 import HSelect from '@/components/Forms/HSelect';
 import Loader from '@/components/shared/Loader/Loader';
 import { GenderSelect } from '@/constants/user.constant';
+import { useGetAllSpecialtiesQuery } from '@/redux/api/specialtiesApi';
 import {
     useGetSingleUserQuery,
     useUpdateProfileMutation,
@@ -24,10 +26,59 @@ import { AnyZodObject } from 'zod';
 
 const EditProfilePage = () => {
     const { data: user, isLoading } = useGetSingleUserQuery({});
+    const { data: specialtiesData } = useGetAllSpecialtiesQuery(
+        {},
+        { skip: user?.role !== 'DOCTOR' },
+    );
     const [updateProfile] = useUpdateProfileMutation();
     const router = useRouter();
 
+    if (isLoading || !user) {
+        return <Loader />;
+    }
+
+    const defaultValues = {
+        name: user?.name || undefined,
+        email: user?.email || undefined,
+        contactNumber: user?.contactNumber || undefined,
+        address: user?.address || undefined,
+        currentWorkingPlace: user?.currentWorkingPlace || undefined,
+        gender: user?.gender || undefined,
+        experience: user?.experience ? user.experience.toString() : undefined,
+        appointmentFee: user?.appointmentFee
+            ? user.appointmentFee.toString()
+            : undefined,
+        registrationNumber: user?.registrationNumber || undefined,
+        qualification: user?.qualification || undefined,
+        designation: user?.designation || undefined,
+        specialties: user?.doctorSpecialties?.length
+            ? user.doctorSpecialties.map(
+                  (specialty) => specialty.specialties.id,
+              )
+            : [],
+    };
+
     const handleUpdate = async (data: FieldValues) => {
+        if (user?.role === 'DOCTOR') {
+            const specialtiesToDelete = defaultValues?.specialties.filter(
+                (specialtyId: string) =>
+                    !data.specialties.includes(specialtyId),
+            );
+
+            const specialtiesPayload = [
+                ...specialtiesToDelete.map((specialtyId: string) => ({
+                    specialtiesId: specialtyId,
+                    isDeleted: true,
+                })),
+                ...data?.specialties.map((specialtyId: string) => ({
+                    specialtiesId: specialtyId,
+                    isDeleted: false,
+                })),
+            ];
+
+            data.specialties = specialtiesPayload;
+        }
+
         const formData = createFormData(data);
 
         const toastId = toast.loading('Updating...');
@@ -50,26 +101,6 @@ const EditProfilePage = () => {
         }
     };
 
-    const defaultValues = {
-        name: user?.name || undefined,
-        email: user?.email || undefined,
-        contactNumber: user?.contactNumber || undefined,
-        address: user?.address || undefined,
-        currentWorkingPlace: user?.currentWorkingPlace || undefined,
-        gender: user?.gender || undefined,
-        experience: user?.experience ? user.experience.toString() : undefined,
-        appointmentFee: user?.appointmentFee
-            ? user.appointmentFee.toString()
-            : undefined,
-        registrationNumber: user?.registrationNumber || undefined,
-        qualification: user?.qualification || undefined,
-        designation: user?.designation || undefined,
-    };
-
-    if (isLoading || !user) {
-        return <Loader />;
-    }
-
     let updateProfileSchema: AnyZodObject;
 
     switch (user.role) {
@@ -85,6 +116,13 @@ const EditProfilePage = () => {
         default:
             throw new Error('Unknown user role');
     }
+
+    const specialtiesOptions = specialtiesData?.specialties.length
+        ? specialtiesData?.specialties.map((specialty) => ({
+              value: specialty.id,
+              label: specialty.title,
+          }))
+        : [];
 
     return (
         <Box>
@@ -106,7 +144,7 @@ const EditProfilePage = () => {
                     <Grid size={{ xs: 12, md: 6 }}>
                         <HInput name="contactNumber" label="Contact Number" />
                     </Grid>
-                    <Grid size={12} order={12}>
+                    <Grid size={12} order={13}>
                         <HImageUpload title="Profile Photo" />
                     </Grid>
                     {user?.role === 'PATIENT' && (
@@ -131,7 +169,6 @@ const EditProfilePage = () => {
                                     name="address"
                                     label="Address"
                                     multiline
-                                    rows={2}
                                     minRows={2}
                                 />
                             </Grid>
@@ -143,7 +180,6 @@ const EditProfilePage = () => {
                                     name="currentWorkingPlace"
                                     label="Current Working Place"
                                     multiline
-                                    rows={2}
                                     minRows={2}
                                 />
                             </Grid>
@@ -175,6 +211,13 @@ const EditProfilePage = () => {
                                 <HInput
                                     name="designation"
                                     label="Designation"
+                                />
+                            </Grid>
+                            <Grid size={12} order={12}>
+                                <HMultipleSelect
+                                    name="specialties"
+                                    label="Specialties"
+                                    options={specialtiesOptions}
                                 />
                             </Grid>
                         </>

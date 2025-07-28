@@ -1,9 +1,19 @@
 import { Grid, Typography } from '@mui/material';
 
-const ProfileField = ({ label, value }: { label: string; value: any }) => {
+type TProfileFieldProps = {
+    label: string;
+    value: any;
+    fullWidth?: boolean;
+};
+
+const ProfileField = ({
+    label,
+    value,
+    fullWidth = false,
+}: TProfileFieldProps) => {
     if (!value) return null;
     return (
-        <Grid size={{ xs: 12, sm: 6 }}>
+        <Grid size={{ xs: 12, sm: fullWidth ? 12 : 6 }}>
             <Typography variant="subtitle2" color="text.secondary">
                 {label}
             </Typography>

@@ -86,20 +86,12 @@ const UpdateDoctorModal = ({ doctor }: { doctor: TDoctor }) => {
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }} order={{ xs: 5, md: 4 }}>
-                            <HInput
-                                name="address"
-                                label="Address"
-                                multiline
-                                rows={2}
-                                minRows={2}
-                            />
+                            <HInput name="address" label="Address" />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }} order={{ xs: 6, md: 5 }}>
                             <HInput
                                 name="currentWorkingPlace"
                                 label="Current Working Place"
-                                multiline
-                                rows={2}
                                 minRows={2}
                             />
                         </Grid>

@@ -60,5 +60,6 @@ export const updateDoctorProfileSchema = z.object({
         .string()
         .transform((val) => (val === '' ? undefined : val)),
     designation: z.string().transform((val) => (val === '' ? undefined : val)),
+    specialties: z.array(z.string()),
     image: z.any(),
 });

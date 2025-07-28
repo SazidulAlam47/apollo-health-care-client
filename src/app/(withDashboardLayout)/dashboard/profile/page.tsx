@@ -16,6 +16,7 @@ import {
 import ProfileField from './components/ProfileField';
 import capitalize from '@/utils/capitalize';
 import Link from 'next/link';
+import { MdEdit } from 'react-icons/md';
 
 const ProfilePage = () => {
     const { data: user, isLoading } = useGetSingleUserQuery({});
@@ -36,6 +37,13 @@ const ProfilePage = () => {
             </Box>
         );
     }
+
+    const doctorSpecialtiesString =
+        user.role === 'DOCTOR' && user?.doctorSpecialties?.length
+            ? user?.doctorSpecialties
+                  .map((doctorSpecialty) => doctorSpecialty.specialties.title)
+                  .join(', ')
+            : null;
 
     return (
         <Box
@@ -73,6 +81,7 @@ const ProfilePage = () => {
                             href="/dashboard/profile/edit"
                             size="small"
                             sx={{ mb: 2, px: '15px', py: '6px' }}
+                            startIcon={<MdEdit />}
                         >
                             Edit Profile
                         </Button>
@@ -147,6 +156,11 @@ const ProfilePage = () => {
                                       ).toLocaleDateString()
                                     : undefined
                             }
+                        />
+                        <ProfileField
+                            label="Specialties"
+                            value={doctorSpecialtiesString}
+                            fullWidth
                         />
                     </Grid>
                 </CardContent>
