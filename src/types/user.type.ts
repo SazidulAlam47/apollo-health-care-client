@@ -43,8 +43,6 @@ export interface TDoctor {
     currentWorkingPlace: string;
     designation: string;
     id: string;
-    createdAt: Date;
-    updatedAt: Date;
     averageRating: number;
     isDeleted: boolean;
     profilePhoto: string | null;

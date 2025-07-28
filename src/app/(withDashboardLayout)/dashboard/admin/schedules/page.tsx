@@ -11,8 +11,8 @@ import { TSchedule } from '@/types';
 import { MdDelete } from 'react-icons/md';
 import { useDialogs } from '@toolpad/core/useDialogs';
 import { toast } from 'sonner';
-import dayjs from 'dayjs';
 import { useState } from 'react';
+import { formatDateUTC, formatTimeUTC } from '@/utils/formatDateTimeUTC';
 
 const SchedulesPage = () => {
     const [page, setPage] = useState(1);
@@ -53,19 +53,11 @@ const SchedulesPage = () => {
 
     const columns: GridColDef[] = [
         {
-            field: 'startDate',
-            headerName: 'Start Date',
+            field: 'date',
+            headerName: 'Date',
             flex: 1,
             renderCell: ({ row }: { row: TSchedule }) => (
-                <>{dayjs(row.startDateTime).format('DD/MM/YYYY')}</>
-            ),
-        },
-        {
-            field: 'endDate',
-            headerName: 'End Date',
-            flex: 1,
-            renderCell: ({ row }: { row: TSchedule }) => (
-                <>{dayjs(row.endDateTime).format('DD/MM/YYYY')}</>
+                <>{formatDateUTC(row.startDateTime)}</>
             ),
         },
         {
@@ -73,7 +65,7 @@ const SchedulesPage = () => {
             headerName: 'Start Time',
             flex: 1,
             renderCell: ({ row }: { row: TSchedule }) => (
-                <>{dayjs(row.startDateTime).format('hh:mm a')}</>
+                <>{formatTimeUTC(row.startDateTime)}</>
             ),
         },
         {
@@ -81,7 +73,7 @@ const SchedulesPage = () => {
             headerName: 'End Time',
             flex: 1,
             renderCell: ({ row }: { row: TSchedule }) => (
-                <>{dayjs(row.endDateTime).format('hh:mm a')}</>
+                <>{formatTimeUTC(row.endDateTime)}</>
             ),
         },
         {

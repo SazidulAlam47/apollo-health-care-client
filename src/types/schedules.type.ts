@@ -1,9 +1,9 @@
+import { TAppointment } from './appointment.type';
+
 export type TSchedule = {
     id: string;
-    createdAt: Date;
     startDateTime: Date;
     endDateTime: Date;
-    updatedAt: Date;
 };
 
 export type TDoctorSchedule = {
@@ -12,6 +12,7 @@ export type TDoctorSchedule = {
     isBooked: boolean;
     appointmentId: string | null;
     schedule: TSchedule;
+    appointment: TAppointment;
 };
 
 export type TCreateDoctorScheduleResponse = {

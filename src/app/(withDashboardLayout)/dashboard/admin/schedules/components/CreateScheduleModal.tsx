@@ -20,7 +20,7 @@ const CreateScheduleModal = () => {
         try {
             const res = await createSchedule(data).unwrap();
             if (res.length) {
-                toast.success('Schedules created successfully', {
+                toast.success(`${res.length} Schedules created successfully`, {
                     id: toastId,
                 });
                 setIsModalOpen(false);

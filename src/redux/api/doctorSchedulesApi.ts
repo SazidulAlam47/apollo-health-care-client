@@ -1,4 +1,4 @@
-import { TCreateDoctorScheduleResponse } from '@/types';
+import { TCreateDoctorScheduleResponse, TDoctorSchedule, TMeta } from '@/types';
 import { tagTypes } from '../tagTypes';
 import { baseApi } from './baseApi';
 
@@ -15,28 +15,32 @@ const doctorSchedulesApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.doctorSchedules],
         }),
-        // getAllSchedules: build.query({
-        //     query: (args: Record<string, unknown>) => ({
-        //         url: '/schedules',
-        //         method: 'GET',
-        //         params: args,
-        //     }),
-        //     transformResponse: (response: TSchedule[], meta: TMeta) => {
-        //         return {
-        //             schedules: response,
-        //             meta,
-        //         };
-        //     },
-        //     providesTags: [tagTypes.schedules],
-        // }),
-        // deleteSchedule: build.mutation<TSchedule, any>({
-        //     query: (id) => ({
-        //         url: `/schedules/${id}`,
-        //         method: 'DELETE',
-        //     }),
-        //     invalidatesTags: [tagTypes.schedules],
-        // }),
+        getAllMyDoctorSchedules: build.query({
+            query: (args: Record<string, unknown>) => ({
+                url: '/doctor-schedules/my-schedule',
+                method: 'GET',
+                params: args,
+            }),
+            transformResponse: (response: TDoctorSchedule[], meta: TMeta) => {
+                return {
+                    doctorSchedules: response,
+                    meta,
+                };
+            },
+            providesTags: [tagTypes.doctorSchedules],
+        }),
+        deleteDoctorSchedule: build.mutation<TDoctorSchedule, any>({
+            query: (id) => ({
+                url: `/doctor-schedules/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: [tagTypes.doctorSchedules],
+        }),
     }),
 });
 
-export const { useCreateDoctorScheduleMutation } = doctorSchedulesApi;
+export const {
+    useCreateDoctorScheduleMutation,
+    useGetAllMyDoctorSchedulesQuery,
+    useDeleteDoctorScheduleMutation,
+} = doctorSchedulesApi;

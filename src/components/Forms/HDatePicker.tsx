@@ -41,6 +41,7 @@ const HDatePicker = ({
                         timezone="system"
                         disablePast
                         {...fields}
+                        format="DD/MM/YYYY"
                         label={label}
                         value={value || Date.now()}
                         onChange={(date) => onChange(date)}

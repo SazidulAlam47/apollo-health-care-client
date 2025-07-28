@@ -13,6 +13,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
+import { formatTimeUTC } from '@/utils/formatDateTimeUTC';
 
 const DoctorScheduleModal = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,7 @@ const DoctorScheduleModal = () => {
     const resetTimesRef = useRef<THMultipleSelectFncRef>(undefined);
     const [createDoctorSchedule] = useCreateDoctorScheduleMutation();
 
-    const query: Record<string, unknown> = {};
+    const query: Record<string, unknown> = { sortOrder: 'asc' };
 
     if (!!selectedDate) {
         const localDayjs = selectedDate;
@@ -45,7 +46,7 @@ const DoctorScheduleModal = () => {
     const timeSlots = data
         ? data.schedules.map((schedule) => ({
               value: schedule.id,
-              label: `${dayjs(schedule.startDateTime).format('hh:mm a')} - ${dayjs(schedule.endDateTime).format('hh:mm a')}`,
+              label: `${formatTimeUTC(schedule.startDateTime)} - ${formatTimeUTC(schedule.endDateTime)}`,
           }))
         : [];
 
