@@ -88,6 +88,14 @@ const DoctorSchedulesPage = () => {
             ),
         },
         {
+            field: 'patientName',
+            headerName: 'Patient Name',
+            flex: 1,
+            renderCell: ({ row }: { row: TDoctorSchedule }) => (
+                <>{row?.appointment?.patient?.name || 'N/A'}</>
+            ),
+        },
+        {
             field: 'action',
             headerName: 'Action',
             flex: 1,

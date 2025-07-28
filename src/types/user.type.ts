@@ -48,3 +48,13 @@ export interface TDoctor {
     profilePhoto: string | null;
     doctorSpecialties?: TDoctorSpecialty[];
 }
+
+export type TPatient = {
+    id: string;
+    name: string;
+    email: string;
+    profilePhoto: string | null;
+    contactNumber: string;
+    address: string | null;
+    isDeleted: boolean;
+};

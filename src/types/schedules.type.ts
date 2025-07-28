@@ -12,7 +12,7 @@ export type TDoctorSchedule = {
     isBooked: boolean;
     appointmentId: string | null;
     schedule: TSchedule;
-    appointment: TAppointment;
+    appointment?: TAppointment;
 };
 
 export type TCreateDoctorScheduleResponse = {

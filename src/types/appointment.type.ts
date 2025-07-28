@@ -1,3 +1,5 @@
+import { TPatient } from './user.type';
+
 export type TAppointment = {
     id: string;
     patientId: string;
@@ -7,4 +9,5 @@ export type TAppointment = {
     status: string;
     paymentStatus: string;
     reminderSent: boolean;
+    patient: TPatient;
 };
