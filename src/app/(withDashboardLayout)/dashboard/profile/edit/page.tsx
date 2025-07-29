@@ -25,15 +25,13 @@ import { toast } from 'sonner';
 import { AnyZodObject } from 'zod';
 
 const EditProfilePage = () => {
-    const { data: user, isLoading } = useGetSingleUserQuery({});
-    const { data: specialtiesData } = useGetAllSpecialtiesQuery(
-        {},
-        { skip: user?.role !== 'DOCTOR' },
-    );
+    const { data: user, isLoading: isUserLoading } = useGetSingleUserQuery({});
+    const { data: specialtiesData, isLoading: isSpecialtiesLoading } =
+        useGetAllSpecialtiesQuery({}, { skip: user?.role !== 'DOCTOR' });
     const [updateProfile] = useUpdateProfileMutation();
     const router = useRouter();
 
-    if (isLoading || !user) {
+    if (isUserLoading || !user) {
         return <Loader />;
     }
 
@@ -218,6 +216,7 @@ const EditProfilePage = () => {
                                     name="specialties"
                                     label="Specialties"
                                     options={specialtiesOptions}
+                                    disabled={isSpecialtiesLoading}
                                 />
                             </Grid>
                         </>

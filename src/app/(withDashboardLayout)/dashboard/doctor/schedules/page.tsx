@@ -131,23 +131,29 @@ const DoctorSchedulesPage = () => {
                             rows={data?.doctorSchedules}
                             columns={columns}
                             getRowId={(row) => row.scheduleId}
-                            hideFooter
+                            hideFooterPagination
                             sx={{
                                 border: 0,
                             }}
+                            slots={{
+                                footer: () => (
+                                    <Box sx={{ mt: 1 }}>
+                                        <Pagination
+                                            color="primary"
+                                            count={data?.meta.totalPage}
+                                            page={data?.meta.page}
+                                            onChange={(event, page) =>
+                                                setPage(page)
+                                            }
+                                            sx={{
+                                                width: 'fit-content',
+                                                ml: 'auto',
+                                            }}
+                                        />
+                                    </Box>
+                                ),
+                            }}
                         />
-                        <Box sx={{ mt: 1 }}>
-                            <Pagination
-                                color="primary"
-                                count={data?.meta.totalPage}
-                                page={data?.meta.page}
-                                onChange={(event, page) => setPage(page)}
-                                sx={{
-                                    width: 'fit-content',
-                                    ml: 'auto',
-                                }}
-                            />
-                        </Box>
                     </>
                 )}
             </Box>

@@ -123,6 +123,7 @@ const DoctorScheduleModal = () => {
                             options={timeSlots}
                             disabled={isLoading}
                             fncRef={resetTimesRef}
+                            sx={{ width: 400 }}
                         />
                         <Button type="submit">Submit</Button>
                     </Stack>
