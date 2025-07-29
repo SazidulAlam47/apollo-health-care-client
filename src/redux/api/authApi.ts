@@ -19,7 +19,29 @@ const authApi = baseApi.injectEndpoints({
                 data,
             }),
         }),
+        forgotPassword: build.mutation<null, any>({
+            query: (data) => ({
+                url: '/auth/forgot-password',
+                method: 'POST',
+                data,
+            }),
+        }),
+        resetPassword: build.mutation<null, any>({
+            query: (args) => ({
+                url: '/auth/reset-password',
+                method: 'POST',
+                data: args.data,
+                headers: {
+                    Authorization: `Bearer ${args.token}`,
+                },
+            }),
+        }),
     }),
 });
 
-export const { useLoginMutation, useChangePasswordMutation } = authApi;
+export const {
+    useLoginMutation,
+    useChangePasswordMutation,
+    useForgotPasswordMutation,
+    useResetPasswordMutation,
+} = authApi;

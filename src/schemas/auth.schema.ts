@@ -52,3 +52,19 @@ export const changePasswordSchema = z.object({
     oldPassword: z.string().min(1, 'Please enter your Old Password'),
     newPassword: newPasswordSchema,
 });
+
+export const forgotPasswordSchema = z.object({
+    email: z.string().min(1, 'Please enter your Email').email('Invalid Email'),
+});
+
+export const resetPasswordSchema = z
+    .object({
+        password: newPasswordSchema,
+        confirmPassword: z
+            .string()
+            .min(1, { message: 'Please enter confirm Password' }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: 'Passwords do not matched',
+        path: ['confirmPassword'],
+    });
