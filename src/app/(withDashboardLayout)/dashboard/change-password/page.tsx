@@ -4,6 +4,7 @@ import HFrom from '@/components/Forms/HFrom';
 import HInput from '@/components/Forms/HInput';
 import { useChangePasswordMutation } from '@/redux/api/authApi';
 import { changePasswordSchema } from '@/schemas/auth.schema';
+import { userLogout } from '@/services/auth.service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
@@ -20,7 +21,8 @@ const ChangePasswordPage = () => {
         try {
             await changePassword(data).unwrap();
             toast.success('Password Changed successfully', { id: toastId });
-            router.push('/dashboard/profile');
+            await userLogout();
+            router.push('/login');
         } catch (error: any) {
             toast.error(error.message || error.data || 'Something went wrong', {
                 id: toastId,
@@ -72,7 +74,6 @@ const ChangePasswordPage = () => {
                                 size="small"
                             />
                         </Grid>
-
                         <Grid size={12}>
                             <Button type="submit" fullWidth>
                                 Change password
