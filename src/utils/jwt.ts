@@ -1,7 +1,7 @@
 import { TDecodedUser } from '@/types';
 import { jwtDecode } from 'jwt-decode';
 
-export const decodeToken = (token: string) => {
+export const decodeToken = (token: string | undefined) => {
     if (!token) {
         return null;
     }
