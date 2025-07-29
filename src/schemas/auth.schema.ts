@@ -47,3 +47,8 @@ export const registerPatientSchema = z.object({
     }),
     image: z.any(),
 });
+
+export const changePasswordSchema = z.object({
+    oldPassword: z.string().min(1, 'Please enter your Old Password'),
+    newPassword: newPasswordSchema,
+});

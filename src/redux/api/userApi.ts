@@ -1,4 +1,4 @@
-import { ILogin, IUser } from '@/types';
+import { IUser } from '@/types';
 import { tagTypes } from '../tagTypes';
 import { baseApi } from './baseApi';
 
@@ -10,14 +10,6 @@ const usersApi = baseApi.injectEndpoints({
                 method: 'GET',
             }),
             providesTags: [tagTypes.user],
-        }),
-        login: build.mutation<ILogin, any>({
-            query: (data) => ({
-                url: '/auth/login',
-                method: 'POST',
-                data,
-            }),
-            invalidatesTags: [tagTypes.user],
         }),
         updateProfile: build.mutation<IUser, any>({
             query: (data) => ({
@@ -31,8 +23,4 @@ const usersApi = baseApi.injectEndpoints({
     }),
 });
 
-export const {
-    useGetSingleUserQuery,
-    useLoginMutation,
-    useUpdateProfileMutation,
-} = usersApi;
+export const { useGetSingleUserQuery, useUpdateProfileMutation } = usersApi;

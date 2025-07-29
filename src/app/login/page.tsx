@@ -12,7 +12,7 @@ import HInput from '@/components/Forms/HInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
-import { useLoginMutation } from '@/redux/api/userApi';
+import { useLoginMutation } from '@/redux/api/authApi';
 
 const LoginPage = () => {
     const router = useRouter();
@@ -26,7 +26,11 @@ const LoginPage = () => {
             if (res.accessToken) {
                 storeUserInfo(res.accessToken);
                 toast.success('Logged in successfully', { id: toastId });
-                router.push(`/dashboard/${getRoleLowerCase(res.role)}`);
+                if (res.needPasswordChange) {
+                    router.push('/dashboard/change-password');
+                } else {
+                    router.push(`/dashboard/${getRoleLowerCase(res.role)}`);
+                }
             } else {
                 toast.error('Something went wrong', { id: toastId });
             }

@@ -58,6 +58,7 @@ const ProfilePage = () => {
                     width: '100%',
                     p: { sx: 0, md: 3 },
                     boxShadow: { xs: 0, md: 3 },
+                    borderRadius: '10px',
                 }}
             >
                 <Stack direction="column" alignItems="center" mb={2}>

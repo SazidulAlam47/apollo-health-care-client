@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registerPatientSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
 import createFormData from '@/utils/createFormData';
-import { useLoginMutation } from '@/redux/api/userApi';
+import { useLoginMutation } from '@/redux/api/authApi';
 
 const RegisterPage = () => {
     const router = useRouter();
