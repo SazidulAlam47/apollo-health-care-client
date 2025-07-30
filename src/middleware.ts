@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { decodeToken } from './utils/jwt';
 
-const AuthRoutes = ['/login', '/register'];
+const AuthRoutes = ['/login', '/register', '/forgot-password'];
 const commonPrivateRoutes = [
     '/dashboard',
     '/dashboard/profile',
@@ -47,5 +47,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/login', '/register', '/dashboard/:page*'],
+    matcher: ['/login', '/register', '/forgot-password', '/dashboard/:page*'],
 };

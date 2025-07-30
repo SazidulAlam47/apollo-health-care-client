@@ -1,23 +1,19 @@
 const headerMenuLinks = [
     {
-        route: '/consultation',
-        title: 'Consultation',
+        title: 'Doctors',
+        route: '/doctors',
     },
     {
-        route: '/health-plans',
-        title: 'Health Plans',
+        title: 'Specialties',
+        route: '/specialties',
     },
     {
-        route: '/medicine',
-        title: 'Medicine',
+        title: 'About Us',
+        route: '/about-us',
     },
     {
-        route: '/diagnostics',
-        title: 'Diagnostics',
-    },
-    {
-        route: '/ngo',
-        title: 'NGOs',
+        title: 'Contact Us',
+        route: '/contact-us',
     },
 ];
 

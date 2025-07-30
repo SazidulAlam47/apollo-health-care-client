@@ -1,19 +1,7 @@
 import { TDoctor } from '@/types';
-import getProfilePhotoOrAvatar from '@/utils/getProfilePhotoOrAvatar';
-import {
-    Box,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    Container,
-    Grid,
-    Stack,
-    Typography,
-} from '@mui/material';
-import Image from 'next/image';
-import { IoLocationOutline } from 'react-icons/io5';
-import { TbCurrencyTaka } from 'react-icons/tb';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import TopRatedDoctorCard from './TopRatedDoctorCard';
+import Link from 'next/link';
 
 const TopRatedDoctors = async () => {
     const res = await fetch(
@@ -57,111 +45,20 @@ const TopRatedDoctors = async () => {
                     </Box>
                     <Grid container spacing={2}>
                         {doctors.map((doctor: TDoctor) => (
-                            <Grid
+                            <TopRatedDoctorCard
                                 key={doctor.id}
-                                size={{ xs: 12, md: 4 }}
-                                sx={{
-                                    backgroundColor: '#fff',
-                                    borderRadius: '5px',
-                                    overflow: 'hidden',
-                                }}
-                            >
-                                <Card>
-                                    <Box
-                                        sx={{
-                                            width: '100%',
-                                        }}
-                                    >
-                                        <Image
-                                            src={getProfilePhotoOrAvatar(
-                                                doctor.profilePhoto,
-                                                doctor.gender,
-                                            )}
-                                            alt={doctor.name}
-                                            height={200}
-                                            width={200}
-                                            style={{
-                                                width: '100%',
-                                                height: '288px',
-                                                objectFit: 'cover',
-                                            }}
-                                        />
-                                    </Box>
-                                    <CardContent>
-                                        <Typography
-                                            variant="h6"
-                                            component="h6"
-                                            fontWeight={600}
-                                        >
-                                            {doctor.name}
-                                        </Typography>
-                                        <Typography
-                                            gutterBottom
-                                            sx={{ color: 'text.secondary' }}
-                                        >
-                                            {doctor.qualification}
-                                        </Typography>
-                                        <Stack
-                                            direction="row"
-                                            color="gray"
-                                            gap={1}
-                                            alignItems="start"
-                                        >
-                                            <IoLocationOutline
-                                                size={20}
-                                                style={{
-                                                    paddingTop: '4px',
-                                                }}
-                                            />{' '}
-                                            <Typography>
-                                                {doctor.currentWorkingPlace}
-                                            </Typography>
-                                        </Stack>
-                                        <Stack
-                                            direction="row"
-                                            color="gray"
-                                            gap={0.5}
-                                            alignItems="start"
-                                        >
-                                            <TbCurrencyTaka
-                                                size={20}
-                                                style={{
-                                                    paddingTop: '4px',
-                                                }}
-                                            />{' '}
-                                            <Typography>
-                                                Appointment Fee: &#2547;{' '}
-                                                {doctor.appointmentFee}
-                                            </Typography>
-                                        </Stack>
-                                    </CardContent>
-                                    <CardActions
-                                        sx={{
-                                            padding: 2,
-                                        }}
-                                    >
-                                        <Button
-                                            sx={{
-                                                width: '50%',
-                                            }}
-                                        >
-                                            Book Now
-                                        </Button>
-                                        <Button
-                                            variant="outlined"
-                                            sx={{
-                                                width: '50%',
-                                            }}
-                                        >
-                                            View Profile
-                                        </Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
+                                doctor={doctor}
+                            />
                         ))}
                     </Grid>
                     <Box textAlign="center">
-                        <Button variant="outlined">View All Doctors</Button>
+                        <Button
+                            component={Link}
+                            href="/doctors"
+                            variant="outlined"
+                        >
+                            View All Doctors
+                        </Button>
                     </Box>
                 </Stack>
             </Container>
