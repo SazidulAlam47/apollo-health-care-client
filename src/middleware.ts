@@ -31,6 +31,12 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
+    if (user.role === 'SUPER_ADMIN' && pathname === '/dashboard/profile/edit') {
+        return NextResponse.redirect(
+            new URL('/dashboard/profile', request.url),
+        );
+    }
+
     // common privet routes
     if (commonPrivateRoutes.includes(pathname)) {
         return NextResponse.next();

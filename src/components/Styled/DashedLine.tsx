@@ -5,7 +5,7 @@ const DashedLine = () => {
         <Box
             sx={{
                 borderBottom: '1px dashed #ddd',
-                marginBottom: { xs: 1, md: 0 },
+                marginBottom: 3,
             }}
         />
     );

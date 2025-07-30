@@ -22,7 +22,7 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
     return (
         <Container>
             <DashedLine />
-            <Stack direction="row" spacing={2} mt={3}>
+            <Stack direction="row" spacing={2}>
                 <Box
                     sx={{
                         borderRadius: '3px',

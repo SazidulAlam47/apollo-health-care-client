@@ -18,7 +18,7 @@ const SpecialtiesPage = async () => {
     return (
         <Container>
             <DashedLine />
-            <Stack direction="column" spacing={3} mt={3}>
+            <Stack direction="column" spacing={3}>
                 <Box textAlign="center">
                     <Typography variant="h4" component="h4" fontWeight={600}>
                         Explore Treatments across specialties

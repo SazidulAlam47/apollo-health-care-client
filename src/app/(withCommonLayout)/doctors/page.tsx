@@ -2,6 +2,7 @@ import { TDoctor } from '@/types';
 import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import SingleDoctor from './components/SingleDoctor';
 import DashedLine from '@/components/Styled/DashedLine';
+import SpecialtiesTab from './components/SpecialtiesTab';
 
 const DoctorsPage = async () => {
     const res = await fetch(
@@ -18,7 +19,7 @@ const DoctorsPage = async () => {
     return (
         <Container>
             <DashedLine />
-            <Stack direction="column" spacing={3} mt={3}>
+            <Stack direction="column" spacing={3}>
                 <Box textAlign="center">
                     <Typography variant="h4" component="h4" fontWeight={600}>
                         Our Doctors
@@ -29,6 +30,7 @@ const DoctorsPage = async () => {
                         Guide Your Care
                     </Typography>
                 </Box>
+                <SpecialtiesTab />
                 <Grid container spacing={2}>
                     {doctors.map((doctor: TDoctor) => (
                         <SingleDoctor key={doctor.id} doctor={doctor} />

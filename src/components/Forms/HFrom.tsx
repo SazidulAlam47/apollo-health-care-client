@@ -6,6 +6,10 @@ import {
     SubmitHandler,
 } from 'react-hook-form';
 
+export type TUFromFncRef = {
+    resetFrom: () => void;
+};
+
 type TFormConfig = {
     defaultValues?: Record<string, unknown>;
     resolver?: any;
