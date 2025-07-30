@@ -3,10 +3,21 @@ import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import SingleDoctor from './components/SingleDoctor';
 import DashedLine from '@/components/Styled/DashedLine';
 import SpecialtiesTab from './components/SpecialtiesTab';
+import DoctorPagination from './components/DoctorPagination';
 
-const DoctorsPage = async () => {
+const DoctorsPage = async ({
+    searchParams,
+}: {
+    searchParams: { specialties: string; page: string };
+}) => {
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctors`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctors?limit=10${
+            searchParams.page ? `&page=${searchParams.page}` : ''
+        }${
+            searchParams.specialties
+                ? `&specialties=${searchParams.specialties}`
+                : ''
+        }`,
         {
             next: {
                 revalidate: 30,
@@ -14,7 +25,7 @@ const DoctorsPage = async () => {
         },
     );
 
-    const { data: doctors } = await res.json();
+    const { data: doctors, meta } = await res.json();
 
     return (
         <Container>
@@ -36,6 +47,9 @@ const DoctorsPage = async () => {
                         <SingleDoctor key={doctor.id} doctor={doctor} />
                     ))}
                 </Grid>
+                <Box mb={3}>
+                    <DoctorPagination meta={meta} />
+                </Box>
             </Stack>
         </Container>
     );

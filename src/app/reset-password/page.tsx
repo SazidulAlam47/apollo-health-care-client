@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 const ResetPasswordPage = ({
     searchParams,
 }: {
-    searchParams: { [key: string]: string | string[] | undefined };
+    searchParams: { id: string; token: string };
 }) => {
     const [resetPassword] = useResetPasswordMutation();
     const router = useRouter();
