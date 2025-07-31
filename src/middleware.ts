@@ -9,6 +9,7 @@ const commonPrivateRoutes = [
     '/dashboard/profile',
     '/dashboard/profile/edit',
     '/dashboard/change-password',
+    '/video',
 ];
 const roleBasedPrivateRoutes = {
     PATIENT: [/^\/dashboard\/patient/],
@@ -53,5 +54,11 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/login', '/register', '/forgot-password', '/dashboard/:page*'],
+    matcher: [
+        '/login',
+        '/video',
+        '/register',
+        '/forgot-password',
+        '/dashboard/:page*',
+    ],
 };
