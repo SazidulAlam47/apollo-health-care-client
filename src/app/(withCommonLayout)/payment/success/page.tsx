@@ -7,7 +7,7 @@ import { FaCircleCheck } from 'react-icons/fa6';
 
 const PaymentSuccessPage = () => {
     const router = useRouter();
-    const [count, setCount] = useState(3);
+    const [count, setCount] = useState(5);
 
     useEffect(() => {
         const timer = setInterval(() => {

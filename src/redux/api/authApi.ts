@@ -10,7 +10,7 @@ const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 data,
             }),
-            invalidatesTags: [tagTypes.user],
+            invalidatesTags: [tagTypes.user, tagTypes.appointments],
         }),
         changePassword: build.mutation<null, any>({
             query: (data) => ({
