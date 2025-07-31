@@ -95,7 +95,7 @@ const AccountMenu = () => {
                             <MenuItem
                                 key={index}
                                 component={Link}
-                                href={item.segment}
+                                href={`/${item.segment}`}
                                 sx={{ mb: 0.5 }}
                             >
                                 <ListItemIcon>{item.icon}</ListItemIcon>

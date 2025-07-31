@@ -37,6 +37,8 @@ const LoginPage = () => {
                 toast.success('Logged in successfully', { id: toastId });
                 if (res.needPasswordChange) {
                     router.push('/dashboard/change-password');
+                } else if (res.role === 'PATIENT') {
+                    router.push('/');
                 } else {
                     router.push(`/dashboard/${getRoleLowerCase(res.role)}`);
                 }

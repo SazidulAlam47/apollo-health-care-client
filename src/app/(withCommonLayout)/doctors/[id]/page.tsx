@@ -20,6 +20,22 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
 
     const doctor = data as TDoctor;
 
+    if (!doctor) {
+        return (
+            <Container>
+                <DashedLine />
+                <Typography
+                    variant="h3"
+                    component="h3"
+                    textAlign="center"
+                    mt={2}
+                >
+                    No Doctor Found
+                </Typography>
+            </Container>
+        );
+    }
+
     return (
         <Container>
             <DashedLine />
