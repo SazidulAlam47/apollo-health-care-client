@@ -3,19 +3,17 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { SyntheticEvent, useState } from 'react';
-import { useGetAllSpecialtiesQuery } from '@/redux/api/specialtiesApi';
+import { SyntheticEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { TSpecialty } from '@/types';
 
-const SpecialtiesTab = () => {
+const SpecialtiesTab = ({ specialties }: { specialties: TSpecialty[] }) => {
     const searchParams = useSearchParams();
-    const specialties = searchParams.get('specialties') || '';
-    const [value, setValue] = useState(specialties);
-    const { data } = useGetAllSpecialtiesQuery({});
+    const activeSpecialty = searchParams.get('specialties') || '';
+
     const router = useRouter();
 
     const handleChange = (event: SyntheticEvent, newValue: string) => {
-        setValue(newValue);
         if (newValue) {
             router.push(`/doctors?specialties=${newValue}`);
         } else {
@@ -33,7 +31,7 @@ const SpecialtiesTab = () => {
                 }}
             >
                 <Tabs
-                    value={value}
+                    value={activeSpecialty}
                     onChange={handleChange}
                     variant="scrollable"
                     scrollButtons="auto"
@@ -46,7 +44,7 @@ const SpecialtiesTab = () => {
                             fontWeight: 600,
                         }}
                     />
-                    {data?.specialties.map((specialty) => (
+                    {specialties.map((specialty) => (
                         <Tab
                             key={specialty.id}
                             label={specialty.title}

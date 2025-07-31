@@ -10,7 +10,7 @@ const DoctorsPage = async ({
 }: {
     searchParams: { specialties: string; page: string };
 }) => {
-    const res = await fetch(
+    const doctorRes = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctors?limit=10${
             searchParams.page ? `&page=${searchParams.page}` : ''
         }${
@@ -25,14 +25,29 @@ const DoctorsPage = async ({
         },
     );
 
-    const { data: doctors, meta } = await res.json();
+    const specialtiesRes = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/specialties`,
+        {
+            next: {
+                revalidate: 30,
+            },
+        },
+    );
+
+    const { data: doctors, meta } = await doctorRes.json();
+    const { data: specialties } = await specialtiesRes.json();
 
     return (
         <Container>
             <DashedLine />
             <Stack direction="column" spacing={3}>
                 <Box textAlign="center">
-                    <Typography variant="h4" component="h4" fontWeight={600}>
+                    <Typography
+                        variant="h4"
+                        component="h4"
+                        fontSize={{ xs: 30, md: 33 }}
+                        fontWeight={600}
+                    >
                         Our Doctors
                     </Typography>
                     <Typography color="gray" maxWidth={500} margin="auto">
@@ -41,7 +56,7 @@ const DoctorsPage = async ({
                         Guide Your Care
                     </Typography>
                 </Box>
-                <SpecialtiesTab />
+                <SpecialtiesTab specialties={specialties} />
                 <Grid container spacing={2}>
                     {doctors.map((doctor: TDoctor) => (
                         <SingleDoctor key={doctor.id} doctor={doctor} />

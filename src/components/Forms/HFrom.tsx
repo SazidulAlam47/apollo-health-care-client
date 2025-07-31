@@ -13,6 +13,7 @@ export type TUFromFncRef = {
 type TFormConfig = {
     defaultValues?: Record<string, unknown>;
     resolver?: any;
+    values?: Record<string, unknown>;
 };
 
 type THFormProps = {
@@ -26,6 +27,7 @@ const HFrom = ({
     onSubmit,
     fncRef = undefined,
     defaultValues,
+    values,
     resolver,
 }: THFormProps) => {
     const formConfig: TFormConfig = {};
@@ -35,6 +37,10 @@ const HFrom = ({
     }
     if (resolver) {
         formConfig.resolver = resolver;
+    }
+
+    if (values) {
+        formConfig.values = values;
     }
 
     const methods = useForm(formConfig);

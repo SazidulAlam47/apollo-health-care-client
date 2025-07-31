@@ -13,10 +13,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
 import { useLoginMutation } from '@/redux/api/authApi';
+import { useState } from 'react';
+import {
+    adminLogin,
+    defaultLogin,
+    doctorLogin,
+    patientLogin,
+    superAdminLogin,
+} from '@/constants/credentials';
 
 const LoginPage = () => {
     const router = useRouter();
     const [login] = useLoginMutation();
+    const [values, setValues] = useState(defaultLogin);
 
     const handleLogin = async (data: FieldValues) => {
         const toastId = toast.loading('Logging in...');
@@ -77,6 +86,7 @@ const LoginPage = () => {
                     <HFrom
                         onSubmit={handleLogin}
                         resolver={zodResolver(loginSchema)}
+                        values={values}
                     >
                         <Grid container spacing={3}>
                             <Grid size={{ xs: 12, md: 6 }}>
@@ -97,6 +107,49 @@ const LoginPage = () => {
                             </Grid>
                         </Grid>
                     </HFrom>
+                    {/* Demo Account */}
+                    <Grid container spacing={2}>
+                        <Grid size={{ xs: 12, md: 3 }}>
+                            <Button
+                                variant="outlined"
+                                fullWidth
+                                sx={{ fontSize: 12 }}
+                                onClick={() => setValues(superAdminLogin)}
+                            >
+                                Login as Super_Admin
+                            </Button>
+                        </Grid>
+                        <Grid size={{ xs: 12, md: 3 }}>
+                            <Button
+                                variant="outlined"
+                                fullWidth
+                                sx={{ fontSize: 12 }}
+                                onClick={() => setValues(adminLogin)}
+                            >
+                                Login as Admin
+                            </Button>
+                        </Grid>
+                        <Grid size={{ xs: 12, md: 3 }}>
+                            <Button
+                                variant="outlined"
+                                fullWidth
+                                sx={{ fontSize: 12 }}
+                                onClick={() => setValues(doctorLogin)}
+                            >
+                                Login as Doctor
+                            </Button>
+                        </Grid>
+                        <Grid size={{ xs: 12, md: 3 }}>
+                            <Button
+                                variant="outlined"
+                                fullWidth
+                                sx={{ fontSize: 12 }}
+                                onClick={() => setValues(patientLogin)}
+                            >
+                                Login as Patient
+                            </Button>
+                        </Grid>
+                    </Grid>
                     <Typography color="gray">
                         <Link href="/forgot-password">Forgot Password?</Link>
                     </Typography>

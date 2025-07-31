@@ -7,7 +7,13 @@ import footerSocialLinks from '@/constants/footerSocialLinks';
 
 const Footer = () => {
     return (
-        <Box component="footer" bgcolor="#111a22" color="lightgray" py={5}>
+        <Box
+            component="footer"
+            bgcolor="#111a22"
+            color="lightgray"
+            py={5}
+            mt={3}
+        >
             <Container>
                 <Stack
                     direction={{ sx: 'column', md: 'row' }}

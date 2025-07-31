@@ -8,7 +8,7 @@ import { FaStar } from 'react-icons/fa';
 const SingleDoctor = ({ doctor }: { doctor: TDoctor }) => {
     return (
         <Grid
-            size={{ xs: 12, md: 6 }}
+            size={{ xs: 12, lg: 6 }}
             sx={{
                 border: '1px solid #ddd',
                 borderRadius: '10px',
@@ -19,36 +19,48 @@ const SingleDoctor = ({ doctor }: { doctor: TDoctor }) => {
                 },
             }}
         >
-            <Stack direction="row" spacing={2}>
-                <Box
-                    sx={{
-                        borderRadius: '3px',
-                        overflow: 'hidden',
-                        height: '100px',
-                        width: '100px',
-                        '& img': {
-                            height: '100%',
-                            width: '100%',
-                            objectFit: 'cover',
-                        },
-                    }}
-                >
-                    <Image
-                        src={getProfilePhotoOrAvatar(
-                            doctor.profilePhoto,
-                            doctor.gender,
-                        )}
-                        alt={doctor.name}
-                        width={100}
-                        height={100}
-                    />
+            <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                textAlign={{ xs: 'center', sm: 'left' }}
+                spacing={2}
+            >
+                <Box>
+                    <Box
+                        sx={{
+                            borderRadius: '3px',
+                            overflow: 'hidden',
+                            height: '100px',
+                            width: '100px',
+                            mx: { xs: 'auto', sm: 'inherit' },
+                            '& img': {
+                                height: '100%',
+                                width: '100%',
+                                objectFit: 'cover',
+                            },
+                        }}
+                    >
+                        <Image
+                            src={getProfilePhotoOrAvatar(
+                                doctor.profilePhoto,
+                                doctor.gender,
+                            )}
+                            alt={doctor.name}
+                            width={100}
+                            height={100}
+                        />
+                    </Box>
                 </Box>
                 <Stack direction="column" flexGrow={1}>
                     <Typography variant="h6" component="h6" fontWeight={600}>
                         {doctor.name}
                     </Typography>
                     <Typography color="gray">{doctor.qualification}</Typography>
-                    <Stack direction="row" spacing={1} mt={0.5}>
+                    <Stack
+                        direction="row"
+                        spacing={1}
+                        mt={0.5}
+                        justifyContent={{ xs: 'center', sm: 'flex-start' }}
+                    >
                         {doctor.doctorSpecialties?.map((doctorSpecialty) => (
                             <Chip
                                 key={doctorSpecialty.specialitiesId}
@@ -62,13 +74,13 @@ const SingleDoctor = ({ doctor }: { doctor: TDoctor }) => {
                 <Stack
                     direction="column"
                     justifyContent="space-between"
-                    textAlign="right"
+                    textAlign={{ xs: 'center', sm: 'right' }}
                 >
                     <Stack
                         direction="row"
                         alignItems="center"
                         spacing={1}
-                        justifyContent="flex-end"
+                        justifyContent={{ xs: 'center', sm: 'flex-end' }}
                     >
                         <FaStar color="#f7b033" />
                         <Typography color="gray">

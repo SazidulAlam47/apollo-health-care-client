@@ -1,9 +1,10 @@
 import DashedLine from '@/components/Styled/DashedLine';
 import { TDoctor } from '@/types';
 import getProfilePhotoOrAvatar from '@/utils/getProfilePhotoOrAvatar';
-import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material';
+import { Box, Chip, Container, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import { FaStar } from 'react-icons/fa';
+import DoctorSlots from './components/DoctorSlots';
 
 const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
     const { id } = params;
@@ -22,7 +23,7 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
     return (
         <Container>
             <DashedLine />
-            <Stack direction="row" spacing={2}>
+            <Stack direction={{ sx: 'column', md: 'row' }} gap={2}>
                 <Box
                     sx={{
                         borderRadius: '3px',
@@ -62,11 +63,15 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
                             />
                         ))}
                     </Stack>
-                    <Stack direction="row" spacing={2} my={2}>
+                    <Stack
+                        direction={{ xs: 'column', sm: 'row' }}
+                        spacing={2}
+                        my={2}
+                    >
                         <Box
                             sx={{
-                                borderRight: '1px dashed #ddd',
-                                paddingRight: 2,
+                                borderRight: { sm: '1px dashed #ddd' },
+                                paddingRight: { sm: 2 },
                             }}
                         >
                             <Typography color="#4b5563">
@@ -75,15 +80,15 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
                             <Typography
                                 color="#09090b"
                                 fontWeight={600}
-                                textAlign="center"
+                                textAlign={{ xs: 'left', sm: 'center' }}
                             >
                                 {doctor.experience} years
                             </Typography>
                         </Box>
                         <Box
                             sx={{
-                                borderRight: '1px dashed #ddd',
-                                paddingRight: 2,
+                                borderRight: { sm: '1px dashed #ddd' },
+                                paddingRight: { sm: 2 },
                             }}
                         >
                             <Typography color="#4b5563">
@@ -92,7 +97,7 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
                             <Typography
                                 color="#09090b"
                                 fontWeight={600}
-                                textAlign="center"
+                                textAlign={{ xs: 'left', sm: 'center' }}
                             >
                                 {doctor.registrationNumber}
                             </Typography>
@@ -105,7 +110,10 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
                                 direction="row"
                                 alignItems="center"
                                 spacing={1}
-                                justifyContent="center"
+                                justifyContent={{
+                                    xs: 'flex-start',
+                                    sm: 'center',
+                                }}
                             >
                                 <FaStar color="#f7b033" />
                                 <Typography color="gray">
@@ -125,11 +133,23 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
                         </Typography>{' '}
                         {doctor.currentWorkingPlace}
                     </Typography>
+                    {doctor.address && (
+                        <Typography color="gray">
+                            <Typography
+                                component="span"
+                                color="#626262ff"
+                                fontWeight={600}
+                            >
+                                Address:
+                            </Typography>{' '}
+                            {doctor.address}
+                        </Typography>
+                    )}
                 </Stack>
                 <Stack
                     direction="column"
                     justifyContent="center"
-                    textAlign="center"
+                    textAlign={{ xs: 'left', md: 'center' }}
                 >
                     <Typography
                         component="h5"
@@ -147,59 +167,9 @@ const DoctorDetailsPage = async ({ params }: { params: { id: string } }) => {
                             (Inc. VAT)
                         </Typography>
                     </Stack>
-
-                    <Button
-                        sx={{
-                            padding: '5px 10px',
-                        }}
-                    >
-                        Book Appointment
-                    </Button>
                 </Stack>
             </Stack>
-            <Box mt={3}>
-                <Typography
-                    variant="h6"
-                    component="h6"
-                    fontWeight={600}
-                    color="#09090b"
-                    gutterBottom
-                >
-                    Contact Information
-                </Typography>
-                <Typography color="gray">
-                    <Typography
-                        component="span"
-                        color="#626262ff"
-                        fontWeight={600}
-                    >
-                        Email:
-                    </Typography>{' '}
-                    {doctor.email}
-                </Typography>
-                <Typography color="gray">
-                    <Typography
-                        component="span"
-                        color="#626262ff"
-                        fontWeight={600}
-                    >
-                        Contact Number:
-                    </Typography>{' '}
-                    {doctor.contactNumber}
-                </Typography>
-                {doctor.address && (
-                    <Typography color="gray">
-                        <Typography
-                            component="span"
-                            color="#626262ff"
-                            fontWeight={600}
-                        >
-                            Address:
-                        </Typography>{' '}
-                        {doctor.address}
-                    </Typography>
-                )}
-            </Box>
+            <DoctorSlots doctorId={id} />
         </Container>
     );
 };

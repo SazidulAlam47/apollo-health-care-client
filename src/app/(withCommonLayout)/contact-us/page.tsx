@@ -10,7 +10,7 @@ const ContactPage = () => {
                 <Typography
                     variant="h4"
                     component="h4"
-                    fontSize="2.75rem"
+                    fontSize={{ xs: '25px', md: '45px' }}
                     fontWeight={600}
                 >
                     Get in touch with us

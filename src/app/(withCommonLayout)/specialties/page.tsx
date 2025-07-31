@@ -20,7 +20,12 @@ const SpecialtiesPage = async () => {
             <DashedLine />
             <Stack direction="column" spacing={3}>
                 <Box textAlign="center">
-                    <Typography variant="h4" component="h4" fontWeight={600}>
+                    <Typography
+                        variant="h4"
+                        component="h4"
+                        fontSize={{ xs: 25, md: 33 }}
+                        fontWeight={600}
+                    >
                         Explore Treatments across specialties
                     </Typography>
                     <Typography color="gray" maxWidth={500} margin="auto">
