@@ -6,9 +6,8 @@ import {
     MdOutlinePerson,
     MdOutlineKey,
 } from 'react-icons/md';
-import { FaUserGroup } from 'react-icons/fa6';
 import { GiStethoscope } from 'react-icons/gi';
-import { RiBookOpenLine } from 'react-icons/ri';
+import { RiAdminFill, RiBookOpenLine } from 'react-icons/ri';
 import { createMenusWithBaseRoute } from '@/utils/dashboardMenus.util';
 
 const header: NavigationItem = {
@@ -45,9 +44,9 @@ export const superAdminMenus: Navigation = [
             icon: <MdDashboard />,
         },
         {
-            segment: 'manage-users',
-            title: 'Manage Users',
-            icon: <FaUserGroup />,
+            segment: 'admins',
+            title: 'Admins',
+            icon: <RiAdminFill />,
         },
     ]),
     ...accountMenu,
