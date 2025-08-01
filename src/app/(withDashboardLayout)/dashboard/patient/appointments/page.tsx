@@ -11,12 +11,8 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { IoVideocam } from 'react-icons/io5';
 import Link from 'next/link';
-import { GoClock } from 'react-icons/go';
-import { RiProgress5Line } from 'react-icons/ri';
-import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
-import { MdOutlineCancel } from 'react-icons/md';
 import capitalize from '@/utils/capitalize';
-import HChip from '@/components/Styled/HChip';
+import AppointmentChip from '@/components/Styled/HChip';
 
 const PatientAppointmentsPage = () => {
     const [page, setPage] = useState(1);
@@ -103,36 +99,7 @@ const PatientAppointmentsPage = () => {
             headerName: 'Appointment Status',
             flex: 1,
             renderCell: ({ row }: { row: TAppointment }) => (
-                <>
-                    {row.status === 'SCHEDULED' && (
-                        <HChip
-                            label={row.status}
-                            icon={GoClock}
-                            color="#2cad75"
-                        />
-                    )}
-                    {row.status === 'IN_PROGRESS' && (
-                        <HChip
-                            label={row.status}
-                            icon={RiProgress5Line}
-                            color="#cc6e2e"
-                        />
-                    )}
-                    {row.status === 'COMPLETED' && (
-                        <HChip
-                            label={row.status}
-                            icon={IoMdCheckmarkCircleOutline}
-                            color="#689fe9"
-                        />
-                    )}
-                    {row.status === 'CANCELED' && (
-                        <HChip
-                            label={row.status}
-                            icon={MdOutlineCancel}
-                            color="#d05e5e"
-                        />
-                    )}
-                </>
+                <AppointmentChip label={row.status} />
             ),
         },
         {

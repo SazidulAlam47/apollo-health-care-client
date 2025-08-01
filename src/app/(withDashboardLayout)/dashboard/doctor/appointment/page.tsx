@@ -5,7 +5,6 @@ import {
     useGetAllMyAppointmentsQuery,
     useUpdateAppointmentStatusMutation,
 } from '@/redux/api/appointmentApi';
-
 import { TAppointment } from '@/types';
 import capitalize from '@/utils/capitalize';
 import { formatDateUTC, formatTimeUTC } from '@/utils/formatDateTimeUTC';
@@ -13,13 +12,9 @@ import { Box, Chip, IconButton, Pagination } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { GoClock } from 'react-icons/go';
-import { RiProgress5Line } from 'react-icons/ri';
-import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
-import { MdOutlineCancel } from 'react-icons/md';
 import { IoVideocam } from 'react-icons/io5';
 import { toast } from 'sonner';
-import HChip from '@/components/Styled/HChip';
+import AppointmentChip from '@/components/Styled/HChip';
 
 const DoctorAppointmentPage = () => {
     const [page, setPage] = useState(1);
@@ -115,36 +110,7 @@ const DoctorAppointmentPage = () => {
             headerName: 'Appointment Status',
             flex: 1,
             renderCell: ({ row }: { row: TAppointment }) => (
-                <>
-                    {row.status === 'SCHEDULED' && (
-                        <HChip
-                            label={row.status}
-                            icon={GoClock}
-                            color="#2cad75"
-                        />
-                    )}
-                    {row.status === 'IN_PROGRESS' && (
-                        <HChip
-                            label={row.status}
-                            icon={RiProgress5Line}
-                            color="#cc6e2e"
-                        />
-                    )}
-                    {row.status === 'COMPLETED' && (
-                        <HChip
-                            label={row.status}
-                            icon={IoMdCheckmarkCircleOutline}
-                            color="#689fe9"
-                        />
-                    )}
-                    {row.status === 'CANCELED' && (
-                        <HChip
-                            label={row.status}
-                            icon={MdOutlineCancel}
-                            color="#d05e5e"
-                        />
-                    )}
-                </>
+                <AppointmentChip label={row.status} />
             ),
         },
 
