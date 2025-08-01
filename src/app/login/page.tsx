@@ -7,13 +7,13 @@ import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 import { storeUserInfo } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
-import HFrom from '@/components/Forms/HFrom';
+import HFrom, { TUFromFncRef } from '@/components/Forms/HFrom';
 import HInput from '@/components/Forms/HInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
 import { useLoginMutation } from '@/redux/api/authApi';
-import { useState } from 'react';
+import { useRef } from 'react';
 import {
     adminLogin,
     defaultLogin,
@@ -25,7 +25,7 @@ import {
 const LoginPage = () => {
     const router = useRouter();
     const [login] = useLoginMutation();
-    const [values, setValues] = useState(defaultLogin);
+    const formRef = useRef<TUFromFncRef>(null);
 
     const handleLogin = async (data: FieldValues) => {
         const toastId = toast.loading('Logging in...');
@@ -88,7 +88,8 @@ const LoginPage = () => {
                     <HFrom
                         onSubmit={handleLogin}
                         resolver={zodResolver(loginSchema)}
-                        values={values}
+                        defaultValues={defaultLogin}
+                        fncRef={formRef}
                     >
                         <Grid container spacing={3}>
                             <Grid size={{ xs: 12, md: 6 }}>
@@ -116,7 +117,11 @@ const LoginPage = () => {
                                 variant="outlined"
                                 fullWidth
                                 sx={{ fontSize: 12 }}
-                                onClick={() => setValues(superAdminLogin)}
+                                onClick={() =>
+                                    formRef.current?.setFieldValues(
+                                        superAdminLogin,
+                                    )
+                                }
                             >
                                 Login as Super_Admin
                             </Button>
@@ -126,7 +131,9 @@ const LoginPage = () => {
                                 variant="outlined"
                                 fullWidth
                                 sx={{ fontSize: 12 }}
-                                onClick={() => setValues(adminLogin)}
+                                onClick={() =>
+                                    formRef.current?.setFieldValues(adminLogin)
+                                }
                             >
                                 Login as Admin
                             </Button>
@@ -136,7 +143,9 @@ const LoginPage = () => {
                                 variant="outlined"
                                 fullWidth
                                 sx={{ fontSize: 12 }}
-                                onClick={() => setValues(doctorLogin)}
+                                onClick={() =>
+                                    formRef.current?.setFieldValues(doctorLogin)
+                                }
                             >
                                 Login as Doctor
                             </Button>
@@ -146,7 +155,11 @@ const LoginPage = () => {
                                 variant="outlined"
                                 fullWidth
                                 sx={{ fontSize: 12 }}
-                                onClick={() => setValues(patientLogin)}
+                                onClick={() =>
+                                    formRef.current?.setFieldValues(
+                                        patientLogin,
+                                    )
+                                }
                             >
                                 Login as Patient
                             </Button>

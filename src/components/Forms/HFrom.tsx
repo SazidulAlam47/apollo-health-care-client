@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { ReactNode, RefObject, useImperativeHandle } from 'react';
 import {
     useForm,
@@ -8,18 +9,18 @@ import {
 
 export type TUFromFncRef = {
     resetFrom: () => void;
+    setFieldValues: (newValues: Record<string, unknown>) => void;
 };
 
 type TFormConfig = {
     defaultValues?: Record<string, unknown>;
     resolver?: any;
-    values?: Record<string, unknown>;
 };
 
 type THFormProps = {
     children: ReactNode;
     onSubmit: SubmitHandler<FieldValues>;
-    fncRef?: RefObject<unknown>;
+    fncRef?: RefObject<TUFromFncRef>;
 } & TFormConfig;
 
 const HFrom = ({
@@ -27,7 +28,7 @@ const HFrom = ({
     onSubmit,
     fncRef = undefined,
     defaultValues,
-    values,
+
     resolver,
 }: THFormProps) => {
     const formConfig: TFormConfig = {};
@@ -39,18 +40,24 @@ const HFrom = ({
         formConfig.resolver = resolver;
     }
 
-    if (values) {
-        formConfig.values = values;
-    }
-
     const methods = useForm(formConfig);
 
     const resetFrom = () => {
         methods.reset();
     };
 
+    const setFieldValues = (newValues: Record<string, unknown>) => {
+        Object.keys(newValues).forEach((key) => {
+            methods.setValue(key, newValues[key], {
+                shouldDirty: true,
+                shouldTouch: true,
+            });
+        });
+    };
+
     useImperativeHandle(fncRef, () => ({
         resetFrom,
+        setFieldValues,
     }));
 
     return (

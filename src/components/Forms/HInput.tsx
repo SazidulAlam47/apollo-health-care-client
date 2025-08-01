@@ -1,6 +1,6 @@
 import getFieldError from '@/utils/getFieldError';
 import { SxProps, TextField } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 type THInputProps = {
     label: string;
@@ -36,26 +36,32 @@ const HInput = ({
     disabled = false,
 }: THInputProps) => {
     const {
-        register,
+        control,
         formState: { errors },
     } = useFormContext();
 
     const fieldError = getFieldError(errors, name);
 
     return (
-        <TextField
-            label={label}
-            type={type}
-            sx={sx}
-            size={size}
-            placeholder={placeholder}
-            {...register(name)}
-            error={!!fieldError}
-            helperText={fieldError?.message || ''}
-            inputMode={inputMode}
-            multiline={multiline}
-            minRows={minRows}
-            disabled={disabled}
+        <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+                <TextField
+                    {...field}
+                    label={label}
+                    type={type}
+                    sx={sx}
+                    size={size}
+                    placeholder={placeholder}
+                    error={!!fieldError}
+                    helperText={fieldError?.message || ''}
+                    inputMode={inputMode}
+                    multiline={multiline}
+                    minRows={minRows}
+                    disabled={disabled}
+                />
+            )}
         />
     );
 };
