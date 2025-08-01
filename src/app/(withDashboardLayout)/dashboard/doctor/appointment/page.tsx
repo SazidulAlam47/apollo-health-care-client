@@ -1,24 +1,61 @@
 'use client';
 
 import Loader from '@/components/shared/Loader/Loader';
-import { useGetAllMyAppointmentsQuery } from '@/redux/api/appointmentApi';
+import {
+    useGetAllMyAppointmentsQuery,
+    useUpdateAppointmentStatusMutation,
+} from '@/redux/api/appointmentApi';
 
 import { TAppointment } from '@/types';
 import { formatDateUTC, formatTimeUTC } from '@/utils/formatDateTimeUTC';
 import { Box, IconButton, Pagination } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { IoVideocam } from 'react-icons/io5';
+import { toast } from 'sonner';
 
 const DoctorAppointmentPage = () => {
     const [page, setPage] = useState(1);
+    const router = useRouter();
+
+    const [updateAppointmentStatus] = useUpdateAppointmentStatusMutation();
 
     const { data, isLoading } = useGetAllMyAppointmentsQuery({
         page,
         limit: 10,
     });
+
+    const handleJoin = (appointment: TAppointment) => async () => {
+        const payload = {
+            id: appointment.id,
+            data: {
+                status: 'IN_PROGRESS',
+            },
+        };
+
+        const toastId = toast.loading('Joining...');
+        try {
+            const res = await updateAppointmentStatus(payload).unwrap();
+            if (res.id) {
+                toast.success('Video call starting...', {
+                    id: toastId,
+                });
+                router.push(
+                    `/video?videoCallingId=${appointment.videoCallingId}`,
+                );
+            } else {
+                toast.error('Something went wrong', {
+                    id: toastId,
+                });
+            }
+        } catch (error: any) {
+            toast.error(error.message || error.data || 'Something went wrong', {
+                id: toastId,
+            });
+        }
+    };
 
     const columns: GridColDef[] = [
         {
@@ -71,11 +108,9 @@ const DoctorAppointmentPage = () => {
             renderCell: ({ row }: { row: TAppointment }) => (
                 <>
                     {row.paymentStatus === 'PAID' &&
-                    row.status === 'SCHEDULED' ? (
-                        <IconButton
-                            component={Link}
-                            href={`/video?videoCallingId=${row.videoCallingId}`}
-                        >
+                    (row.status === 'SCHEDULED' ||
+                        row.status === 'IN_PROGRESS') ? (
+                        <IconButton onClick={handleJoin(row)}>
                             <IoVideocam />
                         </IconButton>
                     ) : null}

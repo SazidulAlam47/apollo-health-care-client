@@ -1,4 +1,4 @@
-import { TAppointment, TMeta } from '@/types';
+import { TAppointment, TAppointmentStatus, TMeta } from '@/types';
 import { tagTypes } from '../tagTypes';
 import { baseApi } from './baseApi';
 
@@ -11,6 +11,13 @@ const appointmentApi = baseApi.injectEndpoints({
                 data,
             }),
             invalidatesTags: [tagTypes.appointments],
+        }),
+        verifyVideoCall: build.query<TAppointment, any>({
+            query: (id: string) => ({
+                url: `/appointments/video-call/${id}`,
+                method: 'GET',
+            }),
+            providesTags: [tagTypes.appointments],
         }),
         getAllMyAppointments: build.query({
             query: (args: Record<string, unknown>) => ({
@@ -26,17 +33,23 @@ const appointmentApi = baseApi.injectEndpoints({
             },
             providesTags: [tagTypes.appointments],
         }),
-
-        // updateDoctor: build.mutation<TDoctor, any>({
-        //     query: (args: { id: string; data: Partial<TDoctor> }) => ({
-        //         url: `/doctors/${args.id}`,
-        //         method: 'PATCH',
-        //         data: args.data,
-        //     }),
-        //     invalidatesTags: [tagTypes.doctors],
-        // }),
+        updateAppointmentStatus: build.mutation<TAppointment, any>({
+            query: (args: {
+                id: string;
+                data: { status: TAppointmentStatus };
+            }) => ({
+                url: `/appointments/status/${args.id}`,
+                method: 'PATCH',
+                data: args.data,
+            }),
+            invalidatesTags: [tagTypes.appointments],
+        }),
     }),
 });
 
-export const { useCreateAppointmentMutation, useGetAllMyAppointmentsQuery } =
-    appointmentApi;
+export const {
+    useCreateAppointmentMutation,
+    useGetAllMyAppointmentsQuery,
+    useUpdateAppointmentStatusMutation,
+    useVerifyVideoCallQuery,
+} = appointmentApi;

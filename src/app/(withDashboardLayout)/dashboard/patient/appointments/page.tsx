@@ -116,7 +116,8 @@ const PatientAppointmentsPage = () => {
             renderCell: ({ row }: { row: TAppointment }) => (
                 <>
                     {row.paymentStatus === 'PAID' &&
-                    row.status === 'SCHEDULED' ? (
+                    (row.status === 'SCHEDULED' ||
+                        row.status === 'IN_PROGRESS') ? (
                         <IconButton
                             component={Link}
                             href={`/video?videoCallingId=${row.videoCallingId}`}

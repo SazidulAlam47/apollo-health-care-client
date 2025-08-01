@@ -1,13 +1,13 @@
 import { TSchedule } from './schedules.type';
 import { TDoctor, TPatient } from './user.type';
 
-type TAppointmentStatus =
+export type TAppointmentStatus =
     | 'SCHEDULED'
     | 'IN_PROGRESS'
     | 'COMPLETED'
     | 'CANCELED';
 
-type TPaymentStatus = 'PAID' | 'UNPAID';
+export type TPaymentStatus = 'PAID' | 'UNPAID';
 
 export type TAppointment = {
     id: string;
