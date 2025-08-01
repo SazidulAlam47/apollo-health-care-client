@@ -1,7 +1,7 @@
 'use client';
 
 import Loader from '@/components/shared/Loader/Loader';
-import { useGetSingleUserQuery } from '@/redux/api/userApi';
+import { useGetUserInfoQuery } from '@/redux/api/userApi';
 import {
     Avatar,
     Box,
@@ -19,7 +19,7 @@ import Link from 'next/link';
 import { MdEdit } from 'react-icons/md';
 
 const ProfilePage = () => {
-    const { data: user, isLoading } = useGetSingleUserQuery({});
+    const { data: user, isLoading } = useGetUserInfoQuery({});
 
     if (isLoading) {
         return <Loader />;

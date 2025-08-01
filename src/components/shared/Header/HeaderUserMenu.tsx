@@ -14,11 +14,11 @@ import { Stack } from '@mui/material';
 import userMenuSlotProps from '@/constants/userMenuSlotProps';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 import { TUserRole } from '@/types';
-import { useGetSingleUserQuery } from '@/redux/api/userApi';
+import { useGetUserInfoQuery } from '@/redux/api/userApi';
 import { toast } from 'sonner';
 
 const AccountMenu = () => {
-    const { data: user } = useGetSingleUserQuery({});
+    const { data: user } = useGetUserInfoQuery({});
     const [userRole, setUserRole] = useState<TUserRole | undefined>(undefined);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const router = useRouter();

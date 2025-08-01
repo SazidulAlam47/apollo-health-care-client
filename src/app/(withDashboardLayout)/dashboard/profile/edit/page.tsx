@@ -8,7 +8,7 @@ import Loader from '@/components/shared/Loader/Loader';
 import { GenderSelect } from '@/constants/user.constant';
 import { useGetAllSpecialtiesQuery } from '@/redux/api/specialtiesApi';
 import {
-    useGetSingleUserQuery,
+    useGetUserInfoQuery,
     useUpdateProfileMutation,
 } from '@/redux/api/userApi';
 import {
@@ -25,7 +25,7 @@ import { toast } from 'sonner';
 import { AnyZodObject } from 'zod';
 
 const EditProfilePage = () => {
-    const { data: user, isLoading: isUserLoading } = useGetSingleUserQuery({});
+    const { data: user, isLoading: isUserLoading } = useGetUserInfoQuery({});
     const { data: specialtiesData, isLoading: isSpecialtiesLoading } =
         useGetAllSpecialtiesQuery({}, { skip: user?.role !== 'DOCTOR' });
     const [updateProfile] = useUpdateProfileMutation();

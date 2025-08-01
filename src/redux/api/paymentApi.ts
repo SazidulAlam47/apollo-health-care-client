@@ -12,29 +12,6 @@ const paymentApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.payments],
         }),
-        // getAllDoctors: build.query({
-        //     query: (args: Record<string, unknown>) => ({
-        //         url: '/doctors',
-        //         method: 'GET',
-        //         params: args,
-        //     }),
-        //     transformResponse: (response: TDoctor[], meta: TMeta) => {
-        //         return {
-        //             doctors: response,
-        //             meta,
-        //         };
-        //     },
-        //     providesTags: [tagTypes.doctors],
-        // }),
-
-        // updateDoctor: build.mutation<TDoctor, any>({
-        //     query: (args: { id: string; data: Partial<TDoctor> }) => ({
-        //         url: `/doctors/${args.id}`,
-        //         method: 'PATCH',
-        //         data: args.data,
-        //     }),
-        //     invalidatesTags: [tagTypes.doctors],
-        // }),
     }),
 });
 

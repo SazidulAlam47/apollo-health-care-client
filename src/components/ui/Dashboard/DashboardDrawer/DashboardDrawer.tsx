@@ -11,7 +11,7 @@ import { getUserInfo, userLogout } from '@/services/auth.service';
 import { getDashboardMenus } from '@/utils/dashboardMenus.util';
 import { TUserRole } from '@/types';
 import theme from '@/lib/theme/theme';
-import { useGetSingleUserQuery } from '@/redux/api/userApi';
+import { useGetUserInfoQuery } from '@/redux/api/userApi';
 import { Account } from '@toolpad/core/Account';
 import { toast } from 'sonner';
 
@@ -20,7 +20,7 @@ const DashboardDrawer = ({ children }: { children: ReactNode }) => {
     const pathname = usePathname();
     const router = useRouter();
     const nextSearchParams = useSearchParams();
-    const { data: user } = useGetSingleUserQuery({});
+    const { data: user } = useGetUserInfoQuery({});
 
     const [session, setSession] = useState<Session | null>({
         user: {

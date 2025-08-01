@@ -33,6 +33,20 @@ const appointmentApi = baseApi.injectEndpoints({
             },
             providesTags: [tagTypes.appointments],
         }),
+        getAllAppointments: build.query({
+            query: (args: Record<string, unknown>) => ({
+                url: '/appointments',
+                method: 'GET',
+                params: args,
+            }),
+            transformResponse: (response: TAppointment[], meta: TMeta) => {
+                return {
+                    appointments: response,
+                    meta,
+                };
+            },
+            providesTags: [tagTypes.appointments],
+        }),
         updateAppointmentStatus: build.mutation<TAppointment, any>({
             query: (args: {
                 id: string;
@@ -50,6 +64,7 @@ const appointmentApi = baseApi.injectEndpoints({
 export const {
     useCreateAppointmentMutation,
     useGetAllMyAppointmentsQuery,
+    useGetAllAppointmentsQuery,
     useUpdateAppointmentStatusMutation,
     useVerifyVideoCallQuery,
 } = appointmentApi;

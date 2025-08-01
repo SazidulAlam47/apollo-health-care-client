@@ -3,9 +3,6 @@ import {
     MdDashboard,
     MdOutlineMedicalInformation,
     MdOutlineCalendarMonth,
-    MdReviews,
-    MdOutlineAttachMoney,
-    MdOutlineReceiptLong,
     MdOutlinePerson,
     MdOutlineKey,
 } from 'react-icons/md';
@@ -84,11 +81,6 @@ export const adminMenus: Navigation = [
             title: 'Appointments',
             icon: <RiBookOpenLine />,
         },
-        {
-            segment: 'reviews',
-            title: 'Reviews',
-            icon: <MdReviews />,
-        },
     ]),
     ...accountMenu,
 ];
@@ -127,16 +119,6 @@ export const patientMenus: Navigation = [
             segment: 'appointments',
             title: 'Appointments',
             icon: <RiBookOpenLine />,
-        },
-        {
-            segment: 'prescriptions',
-            title: 'Prescriptions',
-            icon: <MdOutlineReceiptLong />,
-        },
-        {
-            segment: 'payment-history',
-            title: 'Payment History',
-            icon: <MdOutlineAttachMoney />,
         },
     ]),
     ...accountMenu,

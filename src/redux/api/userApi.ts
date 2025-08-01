@@ -4,7 +4,7 @@ import { baseApi } from './baseApi';
 
 const usersApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        getSingleUser: build.query<IUser, object>({
+        getUserInfo: build.query<IUser, any>({
             query: () => ({
                 url: '/users/me',
                 method: 'GET',
@@ -23,4 +23,4 @@ const usersApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetSingleUserQuery, useUpdateProfileMutation } = usersApi;
+export const { useGetUserInfoQuery, useUpdateProfileMutation } = usersApi;
