@@ -1,10 +1,13 @@
 import { TSpecialty } from '@/types';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const SingleSpecialty = ({ specialty }: { specialty: TSpecialty }) => {
     return (
         <Grid
+            component={Link}
+            href={`/doctors?specialties=${specialty.title}`}
             size={{ xs: 12, sm: 4, md: 2 }}
             sx={{
                 background: '#f5f5f5',

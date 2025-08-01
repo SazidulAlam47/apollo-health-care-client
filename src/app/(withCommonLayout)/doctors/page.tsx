@@ -57,14 +57,30 @@ const DoctorsPage = async ({
                     </Typography>
                 </Box>
                 <SpecialtiesTab specialties={specialties} />
-                <Grid container spacing={2}>
-                    {doctors.map((doctor: TDoctor) => (
-                        <SingleDoctor key={doctor.id} doctor={doctor} />
-                    ))}
-                </Grid>
-                <Box mb={3}>
-                    <DoctorPagination meta={meta} />
-                </Box>
+                {doctors.length ? (
+                    <>
+                        <Grid container spacing={2}>
+                            {doctors.map((doctor: TDoctor) => (
+                                <SingleDoctor key={doctor.id} doctor={doctor} />
+                            ))}
+                        </Grid>
+                        <Box mb={3}>
+                            <DoctorPagination meta={meta} />
+                        </Box>
+                    </>
+                ) : (
+                    <Stack
+                        sx={{
+                            height: '30dvh',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Typography fontSize={20}>
+                            There is no doctor available for this specialty
+                        </Typography>
+                    </Stack>
+                )}
             </Stack>
         </Container>
     );

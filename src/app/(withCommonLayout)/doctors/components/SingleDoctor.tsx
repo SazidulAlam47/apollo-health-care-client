@@ -8,6 +8,8 @@ import { FaStar } from 'react-icons/fa';
 const SingleDoctor = ({ doctor }: { doctor: TDoctor }) => {
     return (
         <Grid
+            component={Link}
+            href={`/doctors/${doctor.id}`}
             size={{ xs: 12, lg: 6 }}
             sx={{
                 border: '1px solid #ddd',
@@ -91,8 +93,6 @@ const SingleDoctor = ({ doctor }: { doctor: TDoctor }) => {
                         &#2547; {doctor.appointmentFee}
                     </Typography>
                     <Button
-                        component={Link}
-                        href={`/doctors/${doctor.id}`}
                         variant="text"
                         size="small"
                         sx={{
