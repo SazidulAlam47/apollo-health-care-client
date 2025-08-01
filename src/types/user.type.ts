@@ -59,3 +59,12 @@ export type TPatient = {
     address: string | null;
     isDeleted: boolean;
 };
+
+export type TAdmin = {
+    id: string;
+    name: string;
+    email: string;
+    profilePhoto: string | null;
+    contactNumber: string;
+    isDeleted: boolean;
+};
