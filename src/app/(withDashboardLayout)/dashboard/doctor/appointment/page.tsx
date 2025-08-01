@@ -7,12 +7,16 @@ import {
 } from '@/redux/api/appointmentApi';
 
 import { TAppointment } from '@/types';
+import capitalize from '@/utils/capitalize';
 import { formatDateUTC, formatTimeUTC } from '@/utils/formatDateTimeUTC';
-import { Box, IconButton, Pagination } from '@mui/material';
+import { Box, Chip, IconButton, Pagination } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
+import { GoClock } from 'react-icons/go';
+import { RiProgress5Line } from 'react-icons/ri';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
+import { MdOutlineCancel } from 'react-icons/md';
 import { IoVideocam } from 'react-icons/io5';
 import { toast } from 'sonner';
 
@@ -94,11 +98,78 @@ const DoctorAppointmentPage = () => {
             field: 'paymentStatus',
             headerName: 'Payment Status',
             flex: 1,
+            renderCell: ({ row }: { row: TAppointment }) => (
+                <Chip
+                    label={capitalize(row.paymentStatus)}
+                    sx={
+                        row.paymentStatus === 'PAID'
+                            ? { bgcolor: '#d2f9e5', color: '#0a472d' }
+                            : { bgcolor: '#ffebeb', color: '#a50000' }
+                    }
+                />
+            ),
         },
         {
             field: 'status',
             headerName: 'Appointment Status',
             flex: 1,
+            renderCell: ({ row }: { row: TAppointment }) => (
+                <>
+                    {row.status === 'SCHEDULED' && (
+                        <Chip
+                            label={capitalize(row.status.replace('_', ' '))}
+                            variant="outlined"
+                            icon={<GoClock size={20} color="#2cad75" />}
+                            sx={{
+                                borderColor: '#2cad75',
+                                color: '#2cad75',
+                                paddingLeft: 0.5,
+                            }}
+                        />
+                    )}
+                    {row.status === 'IN_PROGRESS' && (
+                        <Chip
+                            label={capitalize(row.status.replace('_', ' '))}
+                            variant="outlined"
+                            icon={<RiProgress5Line size={20} color="#cc6e2e" />}
+                            sx={{
+                                borderColor: '#cc6e2e',
+                                color: '#cc6e2e',
+                                paddingLeft: 0.5,
+                            }}
+                        />
+                    )}
+                    {row.status === 'COMPLETED' && (
+                        <Chip
+                            label={capitalize(row.status.replace('_', ' '))}
+                            variant="outlined"
+                            icon={
+                                <IoMdCheckmarkCircleOutline
+                                    size={20}
+                                    color="#689fe9"
+                                />
+                            }
+                            sx={{
+                                borderColor: '#689fe9',
+                                color: '#689fe9',
+                                paddingLeft: 0.5,
+                            }}
+                        />
+                    )}
+                    {row.status === 'CANCELED' && (
+                        <Chip
+                            label={capitalize(row.status.replace('_', ' '))}
+                            variant="outlined"
+                            icon={<MdOutlineCancel size={20} color="#d05e5e" />}
+                            sx={{
+                                borderColor: '#d05e5e',
+                                color: '#d05e5e',
+                                paddingLeft: 0.5,
+                            }}
+                        />
+                    )}
+                </>
+            ),
         },
 
         {

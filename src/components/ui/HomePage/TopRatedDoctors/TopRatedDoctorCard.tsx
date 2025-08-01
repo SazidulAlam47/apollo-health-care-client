@@ -97,6 +97,8 @@ const TopRatedDoctorCard = ({ doctor }: { doctor: TDoctor }) => {
                     }}
                 >
                     <Button
+                        component={Link}
+                        href={`/doctors/${doctor.id}`}
                         sx={{
                             width: '50%',
                         }}
