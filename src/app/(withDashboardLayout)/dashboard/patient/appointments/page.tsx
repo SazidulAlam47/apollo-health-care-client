@@ -16,6 +16,7 @@ import { RiProgress5Line } from 'react-icons/ri';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { MdOutlineCancel } from 'react-icons/md';
 import capitalize from '@/utils/capitalize';
+import HChip from '@/components/Styled/HChip';
 
 const PatientAppointmentsPage = () => {
     const [page, setPage] = useState(1);
@@ -104,56 +105,31 @@ const PatientAppointmentsPage = () => {
             renderCell: ({ row }: { row: TAppointment }) => (
                 <>
                     {row.status === 'SCHEDULED' && (
-                        <Chip
-                            label={capitalize(row.status.replace('_', ' '))}
-                            variant="outlined"
-                            icon={<GoClock size={20} color="#2cad75" />}
-                            sx={{
-                                borderColor: '#2cad75',
-                                color: '#2cad75',
-                                paddingLeft: 0.5,
-                            }}
+                        <HChip
+                            label={row.status}
+                            icon={GoClock}
+                            color="#2cad75"
                         />
                     )}
                     {row.status === 'IN_PROGRESS' && (
-                        <Chip
-                            label={capitalize(row.status.replace('_', ' '))}
-                            variant="outlined"
-                            icon={<RiProgress5Line size={20} color="#cc6e2e" />}
-                            sx={{
-                                borderColor: '#cc6e2e',
-                                color: '#cc6e2e',
-                                paddingLeft: 0.5,
-                            }}
+                        <HChip
+                            label={row.status}
+                            icon={RiProgress5Line}
+                            color="#cc6e2e"
                         />
                     )}
                     {row.status === 'COMPLETED' && (
-                        <Chip
-                            label={capitalize(row.status.replace('_', ' '))}
-                            variant="outlined"
-                            icon={
-                                <IoMdCheckmarkCircleOutline
-                                    size={20}
-                                    color="#689fe9"
-                                />
-                            }
-                            sx={{
-                                borderColor: '#689fe9',
-                                color: '#689fe9',
-                                paddingLeft: 0.5,
-                            }}
+                        <HChip
+                            label={row.status}
+                            icon={IoMdCheckmarkCircleOutline}
+                            color="#689fe9"
                         />
                     )}
                     {row.status === 'CANCELED' && (
-                        <Chip
-                            label={capitalize(row.status.replace('_', ' '))}
-                            variant="outlined"
-                            icon={<MdOutlineCancel size={20} color="#d05e5e" />}
-                            sx={{
-                                borderColor: '#d05e5e',
-                                color: '#d05e5e',
-                                paddingLeft: 0.5,
-                            }}
+                        <HChip
+                            label={row.status}
+                            icon={MdOutlineCancel}
+                            color="#d05e5e"
                         />
                     )}
                 </>
