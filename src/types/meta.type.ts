@@ -1,23 +1,38 @@
-export interface AppointmentCountByMonth {
+export interface IAppointmentCountByMonth {
     month: string;
     count: number;
 }
 
-export interface AppointmentStatusDistribution {
+export interface IAppointmentStatusDistribution {
     status: string;
     count: number;
 }
 
-export interface TAdminMeta {
+export interface IAdminMeta {
     doctorCount: number;
     patientCount: number;
     appointmentCount: number;
     paymentCount: number;
     totalRevenue: number;
-    appointmentCountByMonth: AppointmentCountByMonth[];
-    appointmentStatusDistribution: AppointmentStatusDistribution[];
+    appointmentCountByMonth: IAppointmentCountByMonth[];
+    appointmentStatusDistribution: IAppointmentStatusDistribution[];
 }
 
-export interface TSuperAdminMeta extends TAdminMeta {
+export interface ISuperAdminMeta extends IAdminMeta {
     adminCount: number;
+}
+
+export interface IDoctorMeta {
+    appointmentCount: number;
+    patientCount: number;
+    reviewCount: number;
+    totalRevenue: number;
+    appointmentStatusDistribution: IAppointmentStatusDistribution[];
+}
+
+export interface IPatientMeta {
+    appointmentCount: number;
+    prescriptionCount: number;
+    reviewCount: number;
+    appointmentStatusDistribution: IAppointmentStatusDistribution[];
 }

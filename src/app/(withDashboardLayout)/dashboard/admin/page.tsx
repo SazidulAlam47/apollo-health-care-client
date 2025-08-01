@@ -1,7 +1,7 @@
 'use client';
 
 import { useGetMetaQuery } from '@/redux/api/metaApi';
-import { TAdminMeta } from '@/types/meta.type';
+import { IAdminMeta } from '@/types/meta.type';
 import {
     Box,
     Card,
@@ -29,7 +29,7 @@ import { useGetUserInfoQuery } from '@/redux/api/userApi';
 
 const AdminDashboardPage = () => {
     const { data, isLoading } = useGetMetaQuery(undefined);
-    const meta = data as TAdminMeta;
+    const meta = data as IAdminMeta;
 
     const { data: user, isLoading: isUserLoading } =
         useGetUserInfoQuery(undefined);

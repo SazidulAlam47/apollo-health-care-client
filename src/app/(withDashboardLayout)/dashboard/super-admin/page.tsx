@@ -1,7 +1,7 @@
 'use client';
 
 import { useGetMetaQuery } from '@/redux/api/metaApi';
-import { TSuperAdminMeta } from '@/types/meta.type';
+import { ISuperAdminMeta } from '@/types/meta.type';
 import {
     Box,
     Card,
@@ -29,7 +29,7 @@ import { RiAdminFill } from 'react-icons/ri';
 
 const SuperAdminDashboardPage = () => {
     const { data, isLoading } = useGetMetaQuery(undefined);
-    const meta = data as TSuperAdminMeta;
+    const meta = data as ISuperAdminMeta;
 
     if (isLoading) {
         return <Loader />;
