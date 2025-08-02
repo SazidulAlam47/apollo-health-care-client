@@ -18,14 +18,11 @@ const roleBasedPrivateRoutes = {
     SUPER_ADMIN: [/^\/dashboard\/super-admin/],
 };
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     const token = request.cookies.get(authKey)?.value;
     const user = decodeToken(token);
-
-    console.log({ token });
 
     if (!user) {
         if (AuthRoutes.includes(pathname)) {
@@ -54,7 +51,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
     matcher: [
         '/login',
