@@ -25,6 +25,8 @@ export function middleware(request: NextRequest) {
     const token = cookies().get('refreshToken')?.value;
     const user = decodeToken(token);
 
+    console.log({ token, user });
+
     if (!user) {
         if (AuthRoutes.includes(pathname)) {
             return NextResponse.next();
