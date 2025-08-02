@@ -21,6 +21,8 @@ import {
     patientLogin,
     superAdminLogin,
 } from '@/constants/credentials';
+import { setCookies } from '@/services/actions/cookiesAction';
+import { authKey } from '@/constants/auth.constant';
 
 const LoginPage = () => {
     const router = useRouter();
@@ -34,6 +36,7 @@ const LoginPage = () => {
 
             if (res.accessToken) {
                 storeUserInfo(res.accessToken);
+                await setCookies(authKey, res.accessToken);
                 toast.success('Logged in successfully', { id: toastId });
                 if (res.needPasswordChange) {
                     router.push('/dashboard/change-password');

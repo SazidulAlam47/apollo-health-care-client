@@ -16,6 +16,8 @@ import { registerPatientSchema } from '@/schemas/auth.schema';
 import getRoleLowerCase from '@/utils/getRoleLowerCase';
 import createFormData from '@/utils/createFormData';
 import { useLoginMutation } from '@/redux/api/authApi';
+import { authKey } from '@/constants/auth.constant';
+import { setCookies } from '@/services/actions/cookiesAction';
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -37,6 +39,7 @@ const RegisterPage = () => {
 
                 if (loginRes.accessToken) {
                     storeUserInfo(loginRes.accessToken);
+                    await setCookies(authKey, loginRes.accessToken);
                     router.push(
                         `/dashboard/${getRoleLowerCase(loginRes.role)}`,
                     );

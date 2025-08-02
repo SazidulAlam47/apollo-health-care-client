@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { decodeToken } from './utils/jwt';
+import { authKey } from './constants/auth.constant';
 
 const AuthRoutes = ['/login', '/register', '/forgot-password'];
 const commonPrivateRoutes = [
@@ -21,10 +22,10 @@ const roleBasedPrivateRoutes = {
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    const token = request.cookies.get('refreshToken')?.value;
+    const token = request.cookies.get(authKey)?.value;
     const user = decodeToken(token);
 
-    console.log({ token, user });
+    console.log({ token });
 
     if (!user) {
         if (AuthRoutes.includes(pathname)) {

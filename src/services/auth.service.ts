@@ -7,6 +7,7 @@ import {
     setToLocalStorage,
 } from '@/utils/localStorage';
 import axios from 'axios';
+import { removeCookies } from './actions/cookiesAction';
 
 export const storeUserInfo = (token: string) => {
     return setToLocalStorage(authKey, token);
@@ -47,5 +48,6 @@ export const getNewAccessToken = async () => {
 export const userLogout = async () => {
     await axiosInstance.get('/auth/logout'); // remove refresh token
     removeUser(); // remove access token
+    await removeCookies(authKey);
     return null;
 };
