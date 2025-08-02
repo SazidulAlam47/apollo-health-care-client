@@ -2,22 +2,28 @@ import { Gender } from '@/constants/user.constant';
 import { z } from 'zod';
 
 export const createDoctorSchema = z.object({
-    password: z.string().min(1, 'Please enter a Password'),
+    password: z
+        .string({ required_error: 'Please enter a Password' })
+        .min(1, 'Please enter a Password'),
     doctor: z.object({
-        name: z.string().min(1, 'Please enter your Name'),
+        name: z
+            .string({ required_error: 'Please enter your Name' })
+            .min(1, 'Please enter your Name'),
         email: z
-            .string()
+            .string({ required_error: 'Please enter your Email' })
             .min(1, 'Please enter your Email')
             .email('Invalid Email'),
         contactNumber: z
-            .string()
+            .string({ required_error: 'Please enter your Contact Number' })
             .min(1, 'Please enter your Contact Number')
             .regex(/^01\d{9}$/, {
                 message: 'Number must be 11 digits and start with 01',
             }),
         address: z.string().transform((val) => (val === '' ? undefined : val)),
         registrationNumber: z
-            .string()
+            .string({
+                required_error: "Please enter doctor's Registration Number",
+            })
             .min(1, "Please enter doctor's Registration Number"),
         experience: z
             .string()
@@ -29,17 +35,23 @@ export const createDoctorSchema = z.object({
             errorMap: () => ({ message: "Please select doctor's Gender" }),
         }),
         appointmentFee: z
-            .string()
+            .string({ required_error: "Please Enter doctor's Appointment Fee" })
             .min(1, "Please Enter doctor's Appointment Fee")
             .transform((val) => Number(val))
             .refine((val) => !isNaN(val), {
                 message: 'Appointment Fee must be a valid number',
             }),
-        qualification: z.string().min(1, "Please enter doctor's Qualification"),
+        qualification: z
+            .string({ required_error: "Please enter doctor's Qualification" })
+            .min(1, "Please enter doctor's Qualification"),
         currentWorkingPlace: z
-            .string()
+            .string({
+                required_error: "Please enter doctor's Current Working Place",
+            })
             .min(1, "Please enter doctor's Current Working Place"),
-        designation: z.string().min(1, "Please enter doctor's Designation"),
+        designation: z
+            .string({ required_error: "Please enter doctor's Designation" })
+            .min(1, "Please enter doctor's Designation"),
     }),
     image: z.any(),
 });
@@ -56,7 +68,7 @@ export const updateDoctorSchema = z.object({
     registrationNumber: z
         .string()
         .transform((val) => (val === '' ? undefined : val)),
-     
+
     experience: z
         .string()
         .transform((val) => (val === '' ? undefined : Number(val)))

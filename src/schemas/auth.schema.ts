@@ -25,20 +25,27 @@ const newPasswordSchema = z
     );
 
 export const loginSchema = z.object({
-    email: z.string().min(1, 'Please enter your Email').email('Invalid Email'),
-    password: z.string().min(1, 'Please enter your Password'),
+    email: z
+        .string({ required_error: 'Please enter your Email' })
+        .min(1, 'Please enter your Email')
+        .email('Invalid Email'),
+    password: z
+        .string({ required_error: 'Please enter your Password' })
+        .min(1, 'Please enter your Password'),
 });
 
 export const registerPatientSchema = z.object({
     password: newPasswordSchema,
     patient: z.object({
-        name: z.string().min(1, 'Please enter your Name'),
+        name: z
+            .string({ required_error: 'Please enter your Name' })
+            .min(1, 'Please enter your Name'),
         email: z
-            .string()
+            .string({ required_error: 'Please enter your Email' })
             .min(1, 'Please enter your Email')
             .email('Invalid Email'),
         contactNumber: z
-            .string()
+            .string({ required_error: 'Please enter your Contact Number' })
             .min(1, 'Please enter your Contact Number')
             .regex(/^01\d{9}$/, {
                 message: 'Number must be 11 digits and start with 01',
@@ -49,20 +56,25 @@ export const registerPatientSchema = z.object({
 });
 
 export const changePasswordSchema = z.object({
-    oldPassword: z.string().min(1, 'Please enter your Old Password'),
+    oldPassword: z
+        .string({ required_error: 'Please enter your Old Password' })
+        .min(1, 'Please enter your Old Password'),
     newPassword: newPasswordSchema,
 });
 
 export const forgotPasswordSchema = z.object({
-    email: z.string().min(1, 'Please enter your Email').email('Invalid Email'),
+    email: z
+        .string({ required_error: 'Please enter your Email' })
+        .min(1, 'Please enter your Email')
+        .email('Invalid Email'),
 });
 
 export const resetPasswordSchema = z
     .object({
         password: newPasswordSchema,
         confirmPassword: z
-            .string()
-            .min(1, { message: 'Please enter confirm Password' }),
+            .string({ required_error: 'Please enter confirm Password' })
+            .min(1, 'Please enter confirm Password'),
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: 'Passwords do not matched',

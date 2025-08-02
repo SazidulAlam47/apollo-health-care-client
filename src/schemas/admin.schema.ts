@@ -1,15 +1,19 @@
 import { z } from 'zod';
 
 export const createAdminSchema = z.object({
-    password: z.string().min(1, 'Please enter a Password'),
+    password: z
+        .string({ required_error: 'Please enter a Password' })
+        .min(1, 'Please enter a Password'),
     admin: z.object({
-        name: z.string().min(1, 'Please enter your Name'),
+        name: z
+            .string({ required_error: 'Please enter your Name' })
+            .min(1, 'Please enter your Name'),
         email: z
-            .string()
+            .string({ required_error: 'Please enter your Email' })
             .min(1, 'Please enter your Email')
             .email('Invalid Email'),
         contactNumber: z
-            .string()
+            .string({ required_error: 'Please enter your Contact Number' })
             .min(1, 'Please enter your Contact Number')
             .regex(/^01\d{9}$/, {
                 message: 'Number must be 11 digits and start with 01',
