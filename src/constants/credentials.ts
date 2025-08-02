@@ -4,21 +4,21 @@ export const defaultLogin = {
 };
 
 export const superAdminLogin = {
-    email: 'super@apollo.com',
-    password: 'helth@pass',
+    email: process.env.NEXT_PUBLIC_SUPER_ADMIN_EMAIL as string,
+    password: process.env.NEXT_PUBLIC_SUPER_ADMIN_PASSWORD as string,
 };
 
 export const adminLogin = {
-    email: 'jhon@email.com',
-    password: '123456',
+    email: process.env.NEXT_PUBLIC_ADMIN_EMAIL as string,
+    password: process.env.NEXT_PUBLIC_ADMIN_PASSWORD as string,
 };
 
 export const doctorLogin = {
-    email: 'farhan.ahmed@example.com',
-    password: 'doc123',
+    email: process.env.NEXT_PUBLIC_DOCTOR_EMAIL as string,
+    password: process.env.NEXT_PUBLIC_DOCTOR_PASSWORD as string,
 };
 
 export const patientLogin = {
-    email: 'rifat.hossain@example.com',
-    password: 'patient123',
+    email: process.env.NEXT_PUBLIC_PATIENT_EMAIL as string,
+    password: process.env.NEXT_PUBLIC_PATIENT_PASSWORD as string,
 };
