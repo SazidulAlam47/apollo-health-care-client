@@ -23,9 +23,13 @@ export const createAdminSchema = z.object({
 });
 
 export const updateAdminSchema = z.object({
-    name: z.string().transform((val) => (val === '' ? undefined : val)),
+    name: z
+        .string()
+        .optional()
+        .transform((val) => (val === '' ? undefined : val)),
     contactNumber: z
         .string()
+        .optional()
         .transform((val) => (val === '' ? undefined : val))
         .refine((val) => val === undefined || /^01\d{9}$/.test(val), {
             message: 'Number must be 11 digits and start with 01',

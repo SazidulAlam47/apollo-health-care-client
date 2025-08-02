@@ -19,7 +19,10 @@ export const createDoctorSchema = z.object({
             .regex(/^01\d{9}$/, {
                 message: 'Number must be 11 digits and start with 01',
             }),
-        address: z.string().transform((val) => (val === '' ? undefined : val)),
+        address: z
+            .string()
+            .optional()
+            .transform((val) => (val === '' ? undefined : val)),
         registrationNumber: z
             .string({
                 required_error: "Please enter doctor's Registration Number",
@@ -57,9 +60,13 @@ export const createDoctorSchema = z.object({
 });
 
 export const updateDoctorSchema = z.object({
-    name: z.string().transform((val) => (val === '' ? undefined : val)),
+    name: z
+        .string()
+        .optional()
+        .transform((val) => (val === '' ? undefined : val)),
     contactNumber: z
         .string()
+        .optional()
         .transform((val) => (val === '' ? undefined : val))
         .refine((val) => val === undefined || /^01\d{9}$/.test(val), {
             message: 'Number must be 11 digits and start with 01',
@@ -67,10 +74,12 @@ export const updateDoctorSchema = z.object({
     address: z.string().transform((val) => (val === '' ? undefined : val)),
     registrationNumber: z
         .string()
+        .optional()
         .transform((val) => (val === '' ? undefined : val)),
 
     experience: z
         .string()
+        .optional()
         .transform((val) => (val === '' ? undefined : Number(val)))
         .refine((val) => val === undefined || !isNaN(val), {
             message: 'Experience must be a valid number',
@@ -80,15 +89,21 @@ export const updateDoctorSchema = z.object({
     }),
     appointmentFee: z
         .string()
+        .optional()
         .transform((val) => (val === '' ? undefined : Number(val)))
         .refine((val) => val === undefined || !isNaN(val), {
             message: 'Appointment Fee must be a valid number',
         }),
     qualification: z
         .string()
+        .optional()
         .transform((val) => (val === '' ? undefined : val)),
     currentWorkingPlace: z
         .string()
+        .optional()
         .transform((val) => (val === '' ? undefined : val)),
-    designation: z.string().transform((val) => (val === '' ? undefined : val)),
+    designation: z
+        .string()
+        .optional()
+        .transform((val) => (val === '' ? undefined : val)),
 });

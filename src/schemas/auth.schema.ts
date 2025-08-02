@@ -50,7 +50,10 @@ export const registerPatientSchema = z.object({
             .regex(/^01\d{9}$/, {
                 message: 'Number must be 11 digits and start with 01',
             }),
-        address: z.string().transform((val) => (val === '' ? undefined : val)),
+        address: z
+            .string()
+            .optional()
+            .transform((val) => (val === '' ? undefined : val)),
     }),
     image: z.any(),
 });
