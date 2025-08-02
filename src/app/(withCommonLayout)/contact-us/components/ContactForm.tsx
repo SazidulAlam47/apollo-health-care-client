@@ -9,7 +9,7 @@ import { useRef } from 'react';
 import { toast } from 'sonner';
 
 const ContactForm = () => {
-    const resetRef = useRef<TUFromFncRef>(undefined);
+    const resetRef = useRef<TUFromFncRef>(null);
 
     const onSubmit = () => {
         toast.success('Query Submitted successfully');

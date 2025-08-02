@@ -32,7 +32,8 @@ const VideoCall = ({ videoCallingId }: { videoCallingId: string }) => {
     }
 
     if (!appointment) {
-        return router.push('/');
+        router.push('/');
+        return null;
     }
 
     const callbacks = {
