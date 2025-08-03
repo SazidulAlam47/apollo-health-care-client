@@ -1,36 +1,187 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Apollo Health Care - Frontend
 
-## Getting Started
+A modern, comprehensive healthcare management system frontend built with Next.js 14, designed to streamline communication and appointment processes between patients, doctors, and administrators.
 
-First, run the development server:
+## 🌟 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Apollo Health Care is a robust telemedicine platform that enables seamless interaction between healthcare providers and patients. This frontend application provides an intuitive interface for appointment booking, patient management, doctor consultations, and administrative tasks.
+
+## 🚀 Features
+
+### For Patients
+
+- **Account Management**: User registration, login, and profile management
+- **Appointment Booking**: Schedule appointments with available doctors
+- **Medical Records**: Upload and manage diagnostic reports and medical history
+- **Prescription Access**: View and download prescriptions
+- **Payment Integration**: Secure payment processing for consultations
+- **Doctor Reviews**: Rate and review healthcare providers
+- **Video Consultations**: Real-time communication with doctors via Agora.io
+
+### For Doctors
+
+- **Appointment Management**: View and manage upcoming appointments
+- **Patient Profiles**: Access comprehensive patient information and history
+- **Prescription Management**: Generate and send prescriptions via email
+- **Schedule Management**: Set available time slots for appointments
+- **Video Consultations**: Conduct virtual consultations with patients
+
+### For Administrators
+
+- **Doctor Management**: Create and manage doctor accounts
+- **Appointment Oversight**: Monitor and manage all appointments
+- **Schedule Management**: Create and modify appointment slots
+- **Analytics Dashboard**: View system metrics and reports
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: SASS/SCSS, Material-UI (MUI)
+- **State Management**: Redux Toolkit with RTK Query
+- **Forms**: React Hook Form with Zod validation
+- **Video Calls**: Agora React UIKit
+- **HTTP Client**: Axios
+- **Date Handling**: Day.js
+- **Charts**: Recharts
+- **Notifications**: Sonner
+- **Package Manager**: PNPM
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                          # Next.js App Router
+│   ├── (withCommonLayout)/       # Public pages layout
+│   ├── (withDashboardLayout)/    # Dashboard layout
+│   ├── api/                      # API routes
+│   ├── globals.scss              # Global styles
+│   └── layout.tsx                # Root layout
+├── components/                   # Reusable components
+│   ├── Forms/                    # Form components
+│   ├── shared/                   # Shared components
+│   ├── Styled/                   # Styled components
+│   └── ui/                       # UI components
+├── constants/                    # Application constants
+├── helpers/                      # Helper functions
+├── hooks/                        # Custom React hooks
+├── lib/                          # Library configurations
+│   ├── Providers/                # Context providers
+│   └── theme/                    # Theme configuration
+├── redux/                        # Redux store setup
+│   └── api/                      # RTK Query API slices
+├── schemas/                      # Zod validation schemas
+├── services/                     # API services
+├── types/                        # TypeScript type definitions
+└── utils/                        # Utility functions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚦 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Node.js 18+
+- PNPM (recommended) or npm
+- Git
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    git clone https://github.com/SazidulAlam47/apollo-health-care-client.git
+    cd apollo-health-care-client
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Install dependencies**
 
-## Deploy on Vercel
+    ```bash
+    pnpm install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Environment Setup**
+   Create a `.env.local` file in the root directory:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```env
+    NEXT_PUBLIC_API_URL=your_backend_api_url
+    NEXT_PUBLIC_AGORA_APP_ID=your_agora_app_id
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+    # Add other environment variables as needed
+    ```
+
+4. **Run the development server**
+
+    ```bash
+    pnpm dev
+    ```
+
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+### Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build production bundle
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm format` - Format code with Prettier
+
+## 🔧 Configuration
+
+### Theme Configuration
+
+The application uses Material-UI with custom theming. Theme configurations can be found in `src/lib/theme/`.
+
+### Redux Store
+
+State management is handled by Redux Toolkit with RTK Query for API calls. Store configuration is in `src/redux/store.ts`.
+
+### Form Validation
+
+All forms use React Hook Form with Zod schemas for validation. Schemas are located in `src/schemas/`.
+
+## 🎨 UI Components
+
+The application features a comprehensive set of reusable UI components:
+
+- **HomePage Components**: Hero section, specialties, top-rated doctors, how it works
+- **Form Components**: Custom form inputs with validation
+- **Dashboard Components**: Admin and doctor dashboard interfaces
+- **Shared Components**: Headers, footers, navigation, modals
+
+## 📱 Responsive Design
+
+The application is fully responsive and optimized for:
+
+- Desktop (1200px+)
+- Tablet (768px - 1199px)
+- Mobile (320px - 767px)
+
+## 🔐 Authentication & Authorization
+
+- JWT-based authentication
+- Role-based access control (Admin, Doctor, Patient)
+- Protected routes and middleware
+- Secure token storage and management
+
+## 🎥 Video Consultation
+
+Integrated with Agora.io for real-time video consultations:
+
+- High-quality video and audio
+- Screen sharing capabilities
+- Chat functionality during calls
+- Recording options
+
+## 📊 State Management
+
+- **Redux Toolkit**: For global state management
+- **RTK Query**: For efficient API calls and caching
+- **React Hook Form**: For form state management
+
+## 🧪 Code Quality
+
+- **TypeScript**: Full type safety
+- **ESLint**: Code linting with custom rules
+- **Prettier**: Code formatting
+- **Zod**: Runtime type validation
