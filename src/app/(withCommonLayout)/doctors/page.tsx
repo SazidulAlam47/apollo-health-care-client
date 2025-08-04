@@ -57,6 +57,7 @@ const DoctorsPage = async ({
                     </Typography>
                 </Box>
                 <SpecialtiesTab specialties={specialties} />
+
                 {doctors.length ? (
                     <>
                         <Grid container spacing={2}>
