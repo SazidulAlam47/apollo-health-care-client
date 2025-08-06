@@ -15,6 +15,7 @@ const DoctorPagination = ({ meta }: { meta: TMeta }) => {
         router.push(
             `/doctors?page=${page}${specialties ? `&specialties=${specialties}` : ''}`,
         );
+        router.refresh();
     };
 
     return (

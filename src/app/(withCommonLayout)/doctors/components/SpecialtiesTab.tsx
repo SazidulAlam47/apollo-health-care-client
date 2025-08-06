@@ -16,8 +16,10 @@ const SpecialtiesTab = ({ specialties }: { specialties: TSpecialty[] }) => {
     const handleChange = (event: SyntheticEvent, newValue: string) => {
         if (newValue) {
             router.push(`/doctors?specialties=${newValue}`);
+            router.refresh();
         } else {
             router.push('/doctors');
+            router.refresh();
         }
     };
 

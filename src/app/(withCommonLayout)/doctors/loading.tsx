@@ -36,7 +36,7 @@ const DoctorsLoadingPage = () => {
                     spacing={3}
                     marginY={5}
                 >
-                    {Array(7)
+                    {Array(5)
                         .fill(null)
                         .map((_, index) => (
                             <Skeleton

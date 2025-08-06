@@ -13,7 +13,7 @@ const SingleDoctorSkeleton = () => {
         >
             <Stack
                 direction={{ xs: 'column', sm: 'row' }}
-                textAlign={{ xs: 'center', sm: 'left' }}
+                alignItems="center"
                 spacing={2}
             >
                 <Skeleton
@@ -25,7 +25,11 @@ const SingleDoctorSkeleton = () => {
                     }}
                 />
 
-                <Stack direction="column" flexGrow={1}>
+                <Stack
+                    direction="column"
+                    alignItems={{ xs: 'center', sm: 'flex-start' }}
+                    flexGrow={1}
+                >
                     <Skeleton
                         variant="text"
                         sx={{ fontSize: '1.7rem', width: 200 }}
@@ -55,8 +59,7 @@ const SingleDoctorSkeleton = () => {
                 <Stack
                     direction="column"
                     justifyContent="space-between"
-                    alignItems="flex-end"
-                    textAlign={{ xs: 'center', sm: 'right' }}
+                    alignItems={{ xs: 'center', sm: 'flex-end' }}
                 >
                     <Skeleton
                         variant="text"
