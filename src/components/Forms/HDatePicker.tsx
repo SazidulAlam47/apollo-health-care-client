@@ -13,6 +13,8 @@ type THDatePicker = {
     required?: boolean;
     fullWidth?: boolean;
     sx?: SxProps;
+    disablePast?: boolean;
+    disableFuture?: boolean;
 };
 
 const HDatePicker = ({
@@ -22,6 +24,8 @@ const HDatePicker = ({
     required,
     fullWidth = true,
     sx = {},
+    disablePast = true,
+    disableFuture = false,
 }: THDatePicker) => {
     const {
         control,
@@ -39,7 +43,8 @@ const HDatePicker = ({
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         timezone="system"
-                        disablePast
+                        disablePast={disablePast}
+                        disableFuture={disableFuture}
                         {...fields}
                         format="DD/MM/YYYY"
                         label={label}

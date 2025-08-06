@@ -1,4 +1,10 @@
-import { Gender, UserRole, UserStatus } from '@/constants/user.constant';
+import {
+    Gender,
+    UserRole,
+    UserStatus,
+    BloodGroup,
+    MaritalStatus,
+} from '@/constants/user.constant';
 import { TDoctorSpecialty } from './specialties.type';
 
 export type TUserRole = keyof typeof UserRole;
@@ -6,6 +12,34 @@ export type TUserRole = keyof typeof UserRole;
 export type TGender = keyof typeof Gender;
 
 export type TUserStatus = keyof typeof UserStatus;
+
+export type TBloodGroup = keyof typeof BloodGroup;
+
+export type TMaritalStatus = keyof typeof MaritalStatus;
+
+export interface IPatientHealthData {
+    dateOfBirth?: string | Date;
+    gender: TGender;
+    bloodGroup?: TBloodGroup;
+    hasAllergies: boolean;
+    hasDiabetes: boolean;
+    height?: string;
+    weight?: string;
+    smokingStatus?: boolean;
+    dietaryPreferences?: string;
+    pregnancyStatus?: boolean;
+    mentalHealthHistory?: string;
+    immunizationStatus?: string;
+    hasPastSurgeries?: boolean;
+    recentAnxiety?: boolean;
+    recentDepression?: boolean;
+    maritalStatus?: TMaritalStatus;
+}
+
+export interface IMedicalReport {
+    reportName: string;
+    reportLink: string;
+}
 
 export interface IUser {
     name?: string | undefined;
@@ -29,6 +63,8 @@ export interface IUser {
     needPasswordChange: boolean;
     status: TUserStatus;
     doctorSpecialties?: TDoctorSpecialty[];
+    patientHealthData?: IPatientHealthData;
+    medicalReport?: IMedicalReport | IMedicalReport[];
 }
 
 export interface TDoctor {

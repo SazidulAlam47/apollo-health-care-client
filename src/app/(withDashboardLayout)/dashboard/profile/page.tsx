@@ -96,56 +96,222 @@ const ProfilePage = () => {
                             value={user.contactNumber}
                         />
                         <ProfileField label="Address" value={user.address} />
-                        <ProfileField
-                            label="Gender"
-                            value={user.gender ? capitalize(user.gender) : null}
-                        />
+                        {user.role === 'DOCTOR' && (
+                            <>
+                                <ProfileField
+                                    label="Gender"
+                                    value={
+                                        user.gender
+                                            ? capitalize(user.gender)
+                                            : null
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Registration No."
+                                    value={user.registrationNumber}
+                                />
+                                <ProfileField
+                                    label="Qualification"
+                                    value={user.qualification}
+                                />
+                                <ProfileField
+                                    label="Current Workplace"
+                                    value={user.currentWorkingPlace}
+                                />
+                                <ProfileField
+                                    label="Experience"
+                                    value={
+                                        user.experience
+                                            ? `${user.experience} years`
+                                            : undefined
+                                    }
+                                />
+                                <ProfileField
+                                    label="Appointment Fee"
+                                    value={
+                                        user.appointmentFee
+                                            ? `${user.appointmentFee} tk`
+                                            : undefined
+                                    }
+                                />
+                                <ProfileField
+                                    label="Designation"
+                                    value={user.designation}
+                                />
+                                <ProfileField
+                                    label="Average Rating"
+                                    value={
+                                        user.averageRating !== undefined
+                                            ? user.averageRating
+                                            : undefined
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Specialties"
+                                    value={doctorSpecialtiesString}
+                                    fullWidth
+                                />
+                            </>
+                        )}
+
+                        {user.role === 'PATIENT' && user.patientHealthData && (
+                            <>
+                                <ProfileField
+                                    label="Date of Birth"
+                                    value={
+                                        user.patientHealthData.dateOfBirth
+                                            ? new Date(
+                                                  user.patientHealthData.dateOfBirth,
+                                              ).toLocaleDateString()
+                                            : undefined
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Gender"
+                                    value={
+                                        user.patientHealthData.gender
+                                            ? capitalize(
+                                                  user.patientHealthData.gender,
+                                              )
+                                            : undefined
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Blood Group"
+                                    value={
+                                        user.patientHealthData.bloodGroup
+                                            ? user.patientHealthData.bloodGroup.replace(
+                                                  '_',
+                                                  ' ',
+                                              )
+                                            : undefined
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Marital Status"
+                                    value={
+                                        user.patientHealthData.maritalStatus
+                                            ? capitalize(
+                                                  user.patientHealthData
+                                                      .maritalStatus,
+                                              )
+                                            : undefined
+                                    }
+                                />
+                                {user.patientHealthData.gender === 'FEMALE' &&
+                                    user.patientHealthData.maritalStatus ===
+                                        'MARRIED' && (
+                                        <ProfileField
+                                            label="Pregnancy Status"
+                                            fullWidth
+                                            value={
+                                                user.patientHealthData
+                                                    .pregnancyStatus
+                                                    ? 'Yes'
+                                                    : 'No'
+                                            }
+                                        />
+                                    )}
+                                <ProfileField
+                                    label="Height"
+                                    value={user.patientHealthData.height}
+                                />
+
+                                <ProfileField
+                                    label="Weight"
+                                    value={user.patientHealthData.weight}
+                                />
+
+                                <ProfileField
+                                    label="Dietary Preferences"
+                                    value={
+                                        user.patientHealthData
+                                            .dietaryPreferences
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Mental Health History"
+                                    value={
+                                        user.patientHealthData
+                                            .mentalHealthHistory
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Immunization Status"
+                                    value={
+                                        user.patientHealthData
+                                            .immunizationStatus
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Has Allergies"
+                                    value={
+                                        user.patientHealthData.hasAllergies
+                                            ? 'Yes'
+                                            : 'No'
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Has Diabetes"
+                                    value={
+                                        user.patientHealthData.hasDiabetes
+                                            ? 'Yes'
+                                            : 'No'
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Smoking Status"
+                                    value={
+                                        user.patientHealthData.smokingStatus
+                                            ? 'Yes'
+                                            : 'No'
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Has Past Surgeries"
+                                    value={
+                                        user.patientHealthData.hasPastSurgeries
+                                            ? 'Yes'
+                                            : 'No'
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Recent Anxiety"
+                                    value={
+                                        user.patientHealthData.recentAnxiety
+                                            ? 'Yes'
+                                            : 'No'
+                                    }
+                                />
+
+                                <ProfileField
+                                    label="Recent Depression"
+                                    value={
+                                        user.patientHealthData.recentDepression
+                                            ? 'Yes'
+                                            : 'No'
+                                    }
+                                />
+                            </>
+                        )}
                         <ProfileField
                             label="Role"
                             value={
                                 user.role === 'SUPER_ADMIN'
                                     ? 'Super Admin'
                                     : capitalize(user.role)
-                            }
-                        />
-                        <ProfileField
-                            label="Registration No."
-                            value={user.registrationNumber}
-                        />
-                        <ProfileField
-                            label="Qualification"
-                            value={user.qualification}
-                        />
-                        <ProfileField
-                            label="Experience"
-                            value={
-                                user.experience
-                                    ? `${user.experience} years`
-                                    : undefined
-                            }
-                        />
-                        <ProfileField
-                            label="Appointment Fee"
-                            value={
-                                user.appointmentFee
-                                    ? `${user.appointmentFee} tk`
-                                    : undefined
-                            }
-                        />
-                        <ProfileField
-                            label="Current Workplace"
-                            value={user.currentWorkingPlace}
-                        />
-                        <ProfileField
-                            label="Designation"
-                            value={user.designation}
-                        />
-                        <ProfileField
-                            label="Average Rating"
-                            value={
-                                user.averageRating !== undefined
-                                    ? user.averageRating
-                                    : undefined
                             }
                         />
                         <ProfileField
@@ -157,11 +323,6 @@ const ProfilePage = () => {
                                       ).toLocaleDateString()
                                     : undefined
                             }
-                        />
-                        <ProfileField
-                            label="Specialties"
-                            value={doctorSpecialtiesString}
-                            fullWidth
                         />
                     </Grid>
                 </CardContent>
