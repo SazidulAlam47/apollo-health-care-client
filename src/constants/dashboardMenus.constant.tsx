@@ -9,6 +9,7 @@ import {
 import { GiStethoscope } from 'react-icons/gi';
 import { RiAdminFill, RiBookOpenLine } from 'react-icons/ri';
 import { createMenusWithBaseRoute } from '@/utils/dashboardMenus.util';
+import { TbReportMedical } from 'react-icons/tb';
 
 const header: NavigationItem = {
     kind: 'header',
@@ -118,6 +119,11 @@ export const patientMenus: Navigation = [
             segment: 'appointments',
             title: 'Appointments',
             icon: <RiBookOpenLine />,
+        },
+        {
+            segment: 'medical-reports',
+            title: 'Past Medical Reports',
+            icon: <TbReportMedical />,
         },
     ]),
     ...accountMenu,

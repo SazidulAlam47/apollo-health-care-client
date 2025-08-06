@@ -60,14 +60,17 @@ export const patientHealthDataSchema = z
     })
     .optional();
 
-export const medicalReportSchema = z
-    .object({
-        reportName: z.string().min(1, { message: 'Report name is required' }),
+export const medicalReportSchema = z.object({
+    medicalReport: z.object({
+        reportName: z
+            .string({ required_error: 'Please Enter Report name' })
+            .min(1, { message: 'Please Enter Report name' }),
         reportLink: z
-            .string()
+            .string({ required_error: 'Please Enter Report Link' })
+            .min(1, 'Please Enter Report Link')
             .url({ message: 'Report link must be a valid URL' }),
-    })
-    .optional();
+    }),
+});
 
 export const updatePatientProfileSchema = z.object({
     name: z

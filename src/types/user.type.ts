@@ -18,6 +18,7 @@ export type TBloodGroup = keyof typeof BloodGroup;
 export type TMaritalStatus = keyof typeof MaritalStatus;
 
 export interface IPatientHealthData {
+    id: string;
     dateOfBirth?: string | Date;
     gender: TGender;
     bloodGroup?: TBloodGroup;
@@ -37,6 +38,7 @@ export interface IPatientHealthData {
 }
 
 export interface IMedicalReport {
+    id: string;
     reportName: string;
     reportLink: string;
 }

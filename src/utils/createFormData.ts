@@ -7,7 +7,7 @@ const createFormData = (values: FieldValues) => {
 
     formData.append('data', JSON.stringify(data));
 
-    if (image.length) {
+    if (image?.length) {
         formData.append('file', image[0]);
     }
 
