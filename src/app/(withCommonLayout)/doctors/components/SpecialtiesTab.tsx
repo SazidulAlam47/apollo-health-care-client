@@ -3,24 +3,27 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { TSpecialty } from '@/types';
 
 const SpecialtiesTab = ({ specialties }: { specialties: TSpecialty[] }) => {
     const searchParams = useSearchParams();
+    const [isPending, startTransition] = useTransition();
     const activeSpecialty = searchParams.get('specialties') || '';
 
     const router = useRouter();
 
     const handleChange = (event: SyntheticEvent, newValue: string) => {
-        if (newValue) {
-            router.push(`/doctors?specialties=${newValue}`);
-            router.refresh();
-        } else {
-            router.push('/doctors');
-            router.refresh();
-        }
+        startTransition(() => {
+            if (newValue) {
+                router.push(`/doctors?specialties=${newValue}`);
+                router.refresh();
+            } else {
+                router.push('/doctors');
+                router.refresh();
+            }
+        });
     };
 
     return (
@@ -30,6 +33,8 @@ const SpecialtiesTab = ({ specialties }: { specialties: TSpecialty[] }) => {
                     width: 'fit-content',
                     maxWidth: '100%',
                     margin: '0 auto',
+                    opacity: isPending ? 0.6 : 1,
+                    transition: '0.2s',
                 }}
             >
                 <Tabs
@@ -42,6 +47,7 @@ const SpecialtiesTab = ({ specialties }: { specialties: TSpecialty[] }) => {
                     <Tab
                         label="All"
                         value=""
+                        disabled={isPending}
                         sx={{
                             fontWeight: 600,
                         }}
@@ -51,6 +57,7 @@ const SpecialtiesTab = ({ specialties }: { specialties: TSpecialty[] }) => {
                             key={specialty.id}
                             label={specialty.title}
                             value={specialty.title}
+                            disabled={isPending}
                             sx={{
                                 fontWeight: 600,
                             }}
