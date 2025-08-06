@@ -42,7 +42,7 @@ const DoctorsLoadingPage = () => {
                             <Skeleton
                                 key={index}
                                 variant="text"
-                                sx={{ fontSize: '1.8rem', width: 80 }}
+                                sx={{ fontSize: '1.8rem', maxWidth: 80 }}
                             />
                         ))}
                 </Stack>

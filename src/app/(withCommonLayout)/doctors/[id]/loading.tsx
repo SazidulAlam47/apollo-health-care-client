@@ -17,15 +17,15 @@ const DoctorDetailsLoadingPage = () => {
                 <Stack direction="column" flexGrow={1} spacing={1}>
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.7rem', width: 200 }}
+                        sx={{ fontSize: '1.7rem', maxWidth: 200 }}
                     />
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.1rem', width: 350 }}
+                        sx={{ fontSize: '1.1rem', maxWidth: 350 }}
                     />
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.1rem', width: 300 }}
+                        sx={{ fontSize: '1.1rem', maxWidth: 300 }}
                     />
 
                     <Stack
@@ -40,7 +40,7 @@ const DoctorDetailsLoadingPage = () => {
                                 <Skeleton
                                     key={index}
                                     variant="text"
-                                    sx={{ fontSize: '1.5rem', width: 80 }}
+                                    sx={{ fontSize: '1.5rem', maxWidth: 80 }}
                                 />
                             ))}
                     </Stack>
@@ -62,11 +62,17 @@ const DoctorDetailsLoadingPage = () => {
                                 >
                                     <Skeleton
                                         variant="text"
-                                        sx={{ fontSize: '1.1rem', width: 100 }}
+                                        sx={{
+                                            fontSize: '1.1rem',
+                                            maxWidth: 100,
+                                        }}
                                     />
                                     <Skeleton
                                         variant="text"
-                                        sx={{ fontSize: '1.1rem', width: 60 }}
+                                        sx={{
+                                            fontSize: '1.1rem',
+                                            maxWidth: 60,
+                                        }}
                                     />
                                 </Stack>
                             ))}
@@ -74,12 +80,12 @@ const DoctorDetailsLoadingPage = () => {
 
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.1rem', width: 450 }}
+                        sx={{ fontSize: '1.1rem', maxWidth: 450 }}
                     />
 
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.1rem', width: 500 }}
+                        sx={{ fontSize: '1.1rem', maxWidth: 500 }}
                     />
                 </Stack>
                 <Stack
@@ -89,30 +95,30 @@ const DoctorDetailsLoadingPage = () => {
                 >
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.7rem', width: 200 }}
+                        sx={{ fontSize: '1.7rem', maxWidth: 200 }}
                     />
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '3.5rem', width: 200 }}
+                        sx={{ fontSize: '3.5rem', maxWidth: 200 }}
                     />
                 </Stack>
             </Stack>
             <Box>
                 <Skeleton
                     variant="text"
-                    sx={{ fontSize: '3.5rem', width: 220 }}
+                    sx={{ fontSize: '3.5rem', maxWidth: 220 }}
                 />
                 <Skeleton
                     variant="text"
-                    sx={{ fontSize: '1.1rem', width: 200 }}
+                    sx={{ fontSize: '1.1rem', maxWidth: 200 }}
                 />
                 <Skeleton
                     variant="text"
-                    sx={{ fontSize: '1.1rem', width: 250 }}
+                    sx={{ fontSize: '1.1rem', maxWidth: 250 }}
                 />
                 <Skeleton
                     variant="text"
-                    sx={{ fontSize: '3rem', width: 180 }}
+                    sx={{ fontSize: '3rem', maxWidth: 180 }}
                 />
             </Box>
         </Container>

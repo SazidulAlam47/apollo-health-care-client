@@ -32,11 +32,11 @@ const SingleDoctorSkeleton = () => {
                 >
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.7rem', width: 200 }}
+                        sx={{ fontSize: '1.7rem', maxWidth: 200 }}
                     />
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.1rem', width: 100 }}
+                        sx={{ fontSize: '1.1rem', maxWidth: 100 }}
                     />
 
                     <Stack
@@ -51,7 +51,7 @@ const SingleDoctorSkeleton = () => {
                                 <Skeleton
                                     key={index}
                                     variant="text"
-                                    sx={{ fontSize: '1.5rem', width: 80 }}
+                                    sx={{ fontSize: '1.5rem', maxWidth: 80 }}
                                 />
                             ))}
                     </Stack>
@@ -63,15 +63,15 @@ const SingleDoctorSkeleton = () => {
                 >
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.1rem', width: 50 }}
+                        sx={{ fontSize: '1.1rem', maxWidth: 50 }}
                     />
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.1rem', width: 70 }}
+                        sx={{ fontSize: '1.1rem', maxWidth: 70 }}
                     />
                     <Skeleton
                         variant="text"
-                        sx={{ fontSize: '1.2rem', width: 100 }}
+                        sx={{ fontSize: '1.2rem', maxWidth: 100 }}
                     />
                 </Stack>
             </Stack>
